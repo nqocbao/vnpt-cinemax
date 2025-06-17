@@ -11,17 +11,17 @@ import { Link } from "react-router-dom";
 export default function LoginPage() {
   return (
     <div className="flex w-screen h-screen items-center justify-center ">
-      <Tabs defaultValue="login" className="w-[550px] min-h-[400px]">
+      <Tabs defaultValue="login" className="w-full max-w-[560px] min-h-[400px] mx-auto px-2">
         {/* Navigate */}
         <TabsList className="grid grid-cols-2 w-full">
           <TabsTrigger
            value="login"
-           className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer">
+           className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base">
             ĐĂNG NHẬP
           </TabsTrigger>
           <TabsTrigger
            value="register"
-           className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer">
+           className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base">
             ĐĂNG KÝ
           </TabsTrigger>
         </TabsList>
@@ -38,21 +38,21 @@ export default function LoginPage() {
                 <Input
                   type="email"
                   placeholder="Email"
-                  className="pl-10"
+                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                 />
               </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="password">
-              <span className="text-red-600">*</span> Password
+              <span className="text-red-600">*</span> Mật khẩu
             </Label>
             <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                 <Input
                   type="password"
                   placeholder="Mật khẩu"
-                  className="pl-10"
+                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                 />
             </div>
           </div>
@@ -61,9 +61,9 @@ export default function LoginPage() {
             <Link to='#'>Quên mật khẩu?</Link>
           </div>
           <div className="flex flex-col items-center space-y-3 mt-6">
-            <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer">Đăng Nhập</Button>
+            <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base">Đăng Nhập</Button>
           </div>
-          <div className="items-center justify-center flex space-x-5 text-4xl">
+          <div className="items-center justify-center flex space-x-5 text-3xl md:text-4xl">
             <FontAwesomeIcon
               icon={faGoogle}
               className="text-red-600 hover:scale-110 transition duration-300 cursor-pointer"
@@ -82,9 +82,8 @@ export default function LoginPage() {
 
         {/* Register */} 
         <TabsContent value="register" className="p-6 rounded-lg shadow-md">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-6">
-
             <div>
               <Label htmlFor="name" className="my-2">
                 <span className="text-red-600">*</span> Họ tên
@@ -94,24 +93,24 @@ export default function LoginPage() {
                 <Input
                   type="text"
                   placeholder="Họ tên"
-                  className="pl-10"
+                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="email" className="my-2">
+                <span className="text-red-600">*</span> Email
+              </Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                 />
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="password" className="my-2">
-                <span className="text-red-600">*</span> Mật khẩu
-              </Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                <Input
-                  type="password"
-                  placeholder="Mật khẩu"
-                  className="pl-10"
-                />
-              </div>
-            </div>
             
             <div>
               <Label htmlFor="phone" className="my-2">
@@ -122,7 +121,7 @@ export default function LoginPage() {
                 <Input
                   type="phone"
                   placeholder="Số điện thoại"
-                  className="pl-10"
+                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                 />
               </div>
             </div>
@@ -130,15 +129,15 @@ export default function LoginPage() {
 
           <div className="space-y-6">
               <div>
-                <Label htmlFor="email" className="my-2">
-                  <span className="text-red-600">*</span> Email
+                <Label htmlFor="password" className="my-2">
+                  <span className="text-red-600">*</span> Mật khẩu
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                   <Input
-                    type="email"
-                    placeholder="Email"
-                    className="pl-10"
+                    type="password"
+                    placeholder="Mật khẩu"
+                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                   />
                 </div>
               </div>
@@ -152,7 +151,7 @@ export default function LoginPage() {
                   <Input
                     type="password"
                     placeholder="Xác nhận mật khẩu"
-                    className="pl-10"
+                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
                   />
                 </div>
               </div>
@@ -179,7 +178,7 @@ export default function LoginPage() {
           </div>
         </div>
           <div className="flex flex-col items-center space-y-3 mt-6">
-            <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer">Đăng Ký</Button>
+            <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base">Đăng Ký</Button>
           </div>
         </TabsContent>
         {/* End Register */}
