@@ -1,4 +1,6 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -7,25 +9,33 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger
 } from "@/components/ui/navigation-menu"
-import { Star } from "lucide-react"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Menu, Search, Star } from "lucide-react"
 import { Link } from "react-router-dom"
 const Navbar = () => {
   return (
     <div>
         {/* Navbar */}
-        <nav className="flex items-center justify-between px-8 py-4  max-w-screen-xl mx-auto">
+        <nav className="flex items-center justify-between py-2 px-2 md:px-4 xl:px-8 max-w-screen-xl mx-auto">
             {/* Logo */}
-            <div>
-                <img src="/logo.png" alt="Logo" className="flex items-center h-24"/>
+            <div className="flex items-center">
+                <img src="/logo.png" alt="Logo" className="flex items-center h-8 sm:h-10 md:h-14 lg:h-20"/>
+                 <Button className="bg-[#8B008B] text-white hover:bg-[#6A006A] px-1 py-0.5 h-6 md:h-8 lg:h-9 lg:px-4 lg:py-2">
+                        <Star className="w-4 h-4 mr-1 hidden sm:flex"/>
+                        <Link to='#' className="sm:text-xs md:text-sm lg:text-base">Mua Vé</Link>
+                </Button>
             </div>
             {/* End Logo */}
 
             {/* Menu */}
-            <div className="flex items-center space-x-4">
-                <Button className="bg-[#8B008B] text-white hover:bg-[#6A006A]">
-                    <Star/>
-                    <Link to='#'>Mua Vé</Link>
-                </Button>
+            <div className="hidden lg:flex items-center space-x-4">
                 <NavigationMenu viewport={false}>
                     <NavigationMenuList>
                         <NavigationMenuItem>
@@ -99,7 +109,7 @@ const Navbar = () => {
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Rạp/Giá Vé</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                    <ul className="grid w-[200px] gap-4 max-h-50 overflow-y-auto">
+                                    <ul className="grid w-[200px] gap-4 max-h-48 overflow-y-auto">
                                         <li>
                                             <NavigationMenuLink asChild>
                                                 <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Cinemax Rice City</Link>
@@ -121,13 +131,75 @@ const Navbar = () => {
 
             {/* Login */}
             <div className="flex items-center space-x-4">
-                {/* <div className="relative flex items-center">
-                    <Input type="text" className="pl-10 h-9 w-48 focus-visible:shadow-none focus-visible:ring-0"/>
-                    <Search className="absolute left-3 h-5 w-5 text-[#8B008B] cursor-pointer"/>
-                </div> */}
-                <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#F0F0F0] hover:bg-[#8B008B] hover:text-white">
-                    <Link to='#'>Đăng Nhập</Link>
+                <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
+                    <Link to='#' className="sm:text-xs md:text-sm lg:text-base">Đăng Nhập</Link>
                 </Button>
+                <Sheet>
+                    <SheetTrigger><Menu className="flex lg:hidden"/></SheetTrigger>
+                    <SheetContent className="bg-white pl-3 w-2/3 md:1/3">
+                        <SheetHeader>
+                        {/* Input Mobile & Tablet */}
+                        <SheetTitle> 
+                            <div className="relative flex items-center">
+                                <Input type="text" className="pl-10 h-6 text-xs md:h-8 w-32 sm:w-40 md:w-48 focus-visible:shadow-none focus-visible:ring-0 border-[#8B008B]"/>
+                                <Search className="absolute left-3 h-4 md:h-5 w-4 md:w-5 text-[#8B008B] cursor-pointer"/>
+                            </div>
+                        </SheetTitle>
+                        {/* End Input Mobile & Tablet */}
+                        
+                        {/* Menu Mobile & Tablet */}
+                        <SheetDescription>
+                            <div className="block lg:hidden">
+                                <Accordion type="single" collapsible className="w-full">
+                                    <AccordionItem value="movie" className="border-none">
+                                    <AccordionTrigger className="focus:text-[#8B008B]">Phim</AccordionTrigger>
+                                        <AccordionContent className="pl-4 space-y-2">
+                                            <Link to="#" className="block hover:text-[#CC9999]">Phim Đang Chiếu</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Phim Sắp Chiếu</Link>
+                                        </AccordionContent>
+                                    </AccordionItem>
+
+                                    <AccordionItem value="product" className="border-none">
+                                    <AccordionTrigger className="focus:text-[#8B008B]">Sản Phẩm</AccordionTrigger>
+                                        <AccordionContent className="pl-4 space-y-2">
+                                            <Link to="#" className="block hover:text-[#CC9999]">Concert G-Dragon</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Cinemax</Link>
+                                        </AccordionContent>
+                                    </AccordionItem>
+
+                                    <AccordionItem value="movie-corner" className="border-none">
+                                    <AccordionTrigger className="focus:text-[#8B008B]">Góc Điện Ảnh</AccordionTrigger>
+                                        <AccordionContent className="pl-4 space-y-2">
+                                            <Link to="#" className="block hover:text-[#CC9999]">Thể Loại Phim</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Diễn Viên</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Đạo Diễn</Link>
+                                        </AccordionContent>
+                                    </AccordionItem>
+
+                                    <AccordionItem value="event" className="border-none">
+                                    <AccordionTrigger className="focus:text-[#8B008B]">Sự Kiện</AccordionTrigger>
+                                        <AccordionContent className="pl-4 space-y-2">
+                                            <Link to="#" className="block hover:text-[#CC9999]">Ưu đãi</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Phim hay tháng</Link>
+                                        </AccordionContent>
+                                    </AccordionItem>
+
+                                    <AccordionItem value="tent" className="border-none">
+                                    <AccordionTrigger className="focus:text-[#8B008B]">Rạp/Giá Vé</AccordionTrigger>
+                                        <AccordionContent className="pl-4 space-y-2 max-h-48 overflow-y-auto">
+                                            <Link to="#" className="block hover:text-[#CC9999]">Cinemax Rice City</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Cinemax Phạm Ngọc Thạch</Link>
+                                            <Link to="#" className="block hover:text-[#CC9999]">Cinemax Vincom Bà Triệu</Link>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </div>
+                        </SheetDescription>
+                        {/* End Menu Mobile & Tablet*/}
+                        </SheetHeader>
+                    </SheetContent>
+                </Sheet>
+                    
             </div>
             {/* End Login */}
         </nav>
