@@ -23,9 +23,9 @@ import Footer from "../components/Footer";
 
 export default function LoginPage() {
   return (
-    <div className="">
+    <div>
       <Navbar />
-      <div className="flex h-screen items-center justify-center ">
+      <div className="flex min-h-screen items-center justify-center my-6">
         <Tabs
           defaultValue="login"
           className="w-full max-w-[560px] min-h-[400px] mx-auto px-2"
