@@ -342,6 +342,8 @@ const MovieList = () => {
             </Button>
         </div>
       </div>
+      <div className="border-b-[6px] border-b-[#f4f4f4]"></div>
+
     </div>
   )
 }
