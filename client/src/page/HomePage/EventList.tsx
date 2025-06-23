@@ -27,8 +27,8 @@ const EventList = () => {
     })
   }, [api])
   return (
-    <div className='max-w-screen-xl mx-auto'>
-      <div className="my-8 md:my-14">
+    <div className='max-w-screen-xl mx-auto my-8 md:my-14'>
+      <div className="my-8 md:my-14 px-4">
         <h1 className='text-2xl font-semibold border-l-[4px] border-l-[#8B008B] pl-3 hidden md:flex'>TIN KHUYẾN MÃI</h1>
       </div>
       <div className="px-4">

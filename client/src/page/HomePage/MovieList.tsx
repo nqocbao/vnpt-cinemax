@@ -5,8 +5,8 @@ import { Star, Video } from 'lucide-react'
 const MovieList = () => {
   return (
     <div>
-      <div className="max-w-screen-xl mx-auto">
-        <div className="my-8 md:my-14">
+      <div className="max-w-screen-xl mx-auto my-8 md:my-14">
+        <div className='my-8 md:my-14'>
             <div className="lg:ml-3 px-4">
                 <Tabs defaultValue="nowPlaying" className='w-full space-y-6'> 
                 <TabsList className='md:gap-x-8 gap-x-6 flex flex-wrap justify-start'>

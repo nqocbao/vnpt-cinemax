@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import MovieList from './MovieList'
 import Blog from './Blog'
 import EventList from './EventList'
+import Advertise from './Advertise'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <MovieList />
       <Blog />
       <EventList />
+      <Advertise />
     </div>
   )
 }
