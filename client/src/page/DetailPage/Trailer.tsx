@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dialog"; 
 import { PlayCircle } from "lucide-react";
 
-const TrailerWithThumbnail = () => {
+const Trailer = () => {
  const thumbnailUrl = 'https://cdn.galaxycine.vn/media/2025/6/6/bi-kip-luyen-rong-2048_1749195168873.jpg';
   const youtubeVideoId = '6tiAgkCFM-0?si=9fvu5vnSHk9RMjT9" title="YouTube video player" frameborder="0" allow="accelerometer;';
 
@@ -42,4 +42,4 @@ const TrailerWithThumbnail = () => {
   );
 };
 
-export default TrailerWithThumbnail;
+export default Trailer;
