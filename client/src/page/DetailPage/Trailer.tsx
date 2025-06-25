@@ -10,10 +10,10 @@ const Trailer = () => {
   const youtubeVideoId = '6tiAgkCFM-0?si=9fvu5vnSHk9RMjT9" title="YouTube video player" frameborder="0" allow="accelerometer;';
 
   return (
-    <div className='w-full my-4 h-[70vh] bg-black flex flex-col justify-center items-center'>
+    <div className='w-full my-4 md:h-[70vh] bg-black flex flex-col justify-center items-center'>
       <Dialog>
         <DialogTrigger asChild>
-          <div className='relative w-full lg:max-w-2xl h-full'>
+          <div className='relative w-full lg:max-w-4xl h-full'>
             <img
               src={thumbnailUrl}
               alt=""

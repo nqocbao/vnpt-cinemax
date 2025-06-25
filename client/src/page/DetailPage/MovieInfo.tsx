@@ -23,10 +23,10 @@ const [api, setApi] = useState<CarouselApi | null>(null)
     <div className='max-w-screen-xl mx-auto py-2 px-2 md:px-4 xl:px-8'>
         <div className="flex justify-between gap-8">
             {/* Thông Tin */}
-            <div className="w-2/3 space-y-12">
+            <div className="w-full lg:w-2/3 space-y-12">
                 {/* Thông Tin Phim */}
-                <div className="flex gap-8">
-                    <div className="w-1/3">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                    <div className="w-2/3 mx-auto md:mx-0 md:w-1/3">
                         <img 
                         src="https://cdn.galaxycine.vn/media/2025/6/24/ma-khong-dau-1_1750721724248.jpg" alt="" 
                         className='w-full object-cover h-auto rounded'
@@ -37,7 +37,7 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                             <h1 className='text-xl md:text-2xl lg:text-3xl font-bold text-black-10 mr-4'>Ma Không Đầu</h1>
                             <span className='bg-red-700 text-white p-1 md:p-2 rounded-md'>C18</span>
                         </div>
-                        <div className="flex space-x-6">
+                        <div className="flex flex-wrap space-x-6">
                             <div className="flex items-center space-x-1 text-sm">
                                 <Clock className='text-yellow-500'/>
                                 <span className='text-gray-700'>115 Phút</span>
@@ -111,69 +111,69 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                             <Carousel setApi={setApi}>
                             <TabsList className="flex w-full px-2">
                                 <CarouselContent>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="monday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="monday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                         <p>Thứ Hai</p>
                                         <span>23/06</span>
                                     </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="tuesday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="tuesday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Thứ Ba</p>
                                             <span>24/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="wednesday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="wednesday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Thứ Tư</p>
                                             <span>25/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="thurday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="thurday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Thứ Năm</p>
                                             <span>26/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="friday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="friday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Thứ Sáu</p>
                                             <span>27/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="saturday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="saturday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Thứ Bảy</p>
                                             <span>28/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
-                                    <CarouselItem className='basis-1/5'>
-                                        <TabsTrigger value="sunday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[90px] h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
+                                    <CarouselItem className='basis-1/3 md:basis-1/4 lg:basis-1/5'>
+                                        <TabsTrigger value="sunday" className='text-gray-500 data-[state=active]:bg-[#8B008B] w-[70px] h-[50x] md:w-[90px] md:h-[65px] data-[state=active]:text-white text-sm md:text-base !shadow-none cursor-pointer flex flex-wrap'>
                                             <p>Chủ Nhật</p>
                                             <span>29/06</span>
                                         </TabsTrigger>
                                     </CarouselItem>
                                 </CarouselContent>
                             </TabsList>
-                             <ChevronLeft onClick={scrollLeft} className="absolute w-6 h-6 left-2 top-1/2 -translate-y-1/2 z-30 hidden md:flex" />
-                            <ChevronRight onClick={scrollRight} className="absolute w-6 h-6 right-2 top-1/2 -translate-y-1/2 z-30 hidden md:flex" />
+                             <ChevronLeft onClick={scrollLeft} className="absolute w-6 md:bg-transparenth-6 left-0 top-1/2 -translate-y-1/2 z-30 flex" />
+                            <ChevronRight onClick={scrollRight} className="absolute w-6 md:bg-transparenth-6 right-0 top-1/2 -translate-y-1/2 z-30 flex" />
                             </Carousel>
                             <div className='border-b-[3px] border-b-[#8B008B]'></div>
                             <TabsContent value="monday" className='space-y-8'>
                                 <div>
                                     <h1 className='text-base font-semibold mb-4'>Cinemax Rice City</h1>
                                     <div className='space-y-2'>
-                                            <div className="flex md:flex-row flex-col gap-2 items-center">
+                                            <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>2D Phụ Đề:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>16:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>22:45</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>23:45</a></li>
                                                 </ul>
                                             </div>
-                                             <div className="flex md:flex-row flex-col gap-2 items-center">
+                                             <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>3D:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>10:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>13:45</a></li>
                                                 </ul>
@@ -184,16 +184,16 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                                 <div>
                                     <h1 className='text-base font-semibold mb-4'>Cinemax Phạm Ngọc Thạch</h1>
                                     <div className='space-y-2'>
-                                            <div className="flex md:flex-row flex-col gap-2 items-center">
+                                            <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>2D Phụ Đề:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2'>16:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2'>22:45</a></li>
                                                 </ul>
                                             </div>
-                                             <div className="flex md:flex-row flex-col gap-2 items-center">
+                                             <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>3D:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2'>10:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2'>13:45</a></li>
                                                 </ul>
@@ -205,17 +205,17 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                                  <div>
                                     <h1 className='text-base font-semibold mb-4'>Cinemax Rice City</h1>
                                     <div className='space-y-2'>
-                                            <div className="flex md:flex-row flex-col gap-2 items-center">
+                                            <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>2D Phụ Đề:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>10:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>11:45</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>20:45</a></li>
                                                 </ul>
                                             </div>
-                                             <div className="flex md:flex-row flex-col gap-2 items-center">
+                                             <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>3D:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>13:45</a></li>
                                                 </ul>
                                             </div>
@@ -225,17 +225,17 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                                 <div>
                                     <h1 className='text-base font-semibold mb-4'>Cinemax Phạm Ngọc Thạch</h1>
                                     <div className='space-y-2'>
-                                            <div className="flex md:flex-row flex-col gap-2 items-center">
+                                            <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>2D Phụ Đề:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>10:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>11:45</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>20:45</a></li>
                                                 </ul>
                                             </div>
-                                             <div className="flex md:flex-row flex-col gap-2 items-center">
+                                             <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>3D:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>13:45</a></li>
                                                 </ul>
                                             </div>
@@ -245,17 +245,17 @@ const [api, setApi] = useState<CarouselApi | null>(null)
                                 <div>
                                     <h1 className='text-base font-semibold mb-4'>Cinemax Bà Triệu</h1>
                                     <div className='space-y-2'>
-                                            <div className="flex md:flex-row flex-col gap-2 items-center">
+                                            <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>2D Phụ Đề:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>10:30</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>11:45</a></li>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>20:45</a></li>
                                                 </ul>
                                             </div>
-                                             <div className="flex md:flex-row flex-col gap-2 items-center">
+                                             <div className="flex md:flex-row flex-col gap-2 md:items-center">
                                                 <span className='text-gray-500'>3D:</span>
-                                                <ul className='ml-2 flex flex-wrap gap-1 flex-1'>
+                                                <ul className='md:ml-2 flex flex-wrap gap-1 flex-1'>
                                                     <li className='inline-block'><a href="#" className='text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2'>13:45</a></li>
                                                 </ul>
                                             </div>
@@ -271,7 +271,7 @@ const [api, setApi] = useState<CarouselApi | null>(null)
             {/* End */}
             
             {/* Phim Đang Chiếu*/}
-            <div className="space-y-4 lg:w-1/3">
+            <div className="space-y-4 hidden lg:block lg:w-1/3">
                 <div className="">
                     <span className='border-l-4 border-solid border-l-[#8B008B] mr-2'></span>
                     <h1 className="text-xl inline-block font-semibold">PHIM ĐANG CHIẾU</h1>    
