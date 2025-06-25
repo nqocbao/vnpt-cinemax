@@ -36,18 +36,18 @@ const Navbar = () => {
 
             {/* Menu */}
             <div className="hidden lg:flex items-center space-x-4">
-                <NavigationMenu viewport={false}>
+                <NavigationMenu viewport={false} className="relative z-50">
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Phim</NavigationMenuTrigger>
-                            <NavigationMenuContent>
+                            <NavigationMenuContent className="bg-white">
                                 <ul className="grid w-[200px] gap-4">
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Phim Đang Chiếu</Link>
+                                            <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Đang Chiếu</Link>
                                         </NavigationMenuLink>
                                         <NavigationMenuLink asChild>
-                                            <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Phim Sắp Chiếu</Link>
+                                            <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Sắp Chiếu</Link>
                                         </NavigationMenuLink>
                                     </li>
                                 </ul>
@@ -57,14 +57,14 @@ const Navbar = () => {
 
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Sản Phẩm</NavigationMenuTrigger>
-                            <NavigationMenuContent>
+                            <NavigationMenuContent className="bg-white">
                                     <ul className="grid w-[200px] gap-4">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Concert G-Dragon</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Concert G-Dragon</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Cinemax</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Cinemax</Link>
                                             </NavigationMenuLink>
                                         </li>
                                     </ul>
@@ -73,17 +73,17 @@ const Navbar = () => {
 
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Góc Điện Ảnh</NavigationMenuTrigger>
-                            <NavigationMenuContent>
+                            <NavigationMenuContent className="bg-white">
                                     <ul className="grid w-[200px] gap-4">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Thể Loại Phim</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Thể Loại Phim</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Diễn Viên</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Diễn Viên</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Đạo Diễn</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Đạo Diễn</Link>
                                             </NavigationMenuLink>
                                         </li>
                                     </ul>
@@ -92,14 +92,14 @@ const Navbar = () => {
 
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Sự Kiện</NavigationMenuTrigger>
-                            <NavigationMenuContent>
+                            <NavigationMenuContent className="bg-white">
                                     <ul className="grid w-[200px] gap-4">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Ưu đãi</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Ưu đãi</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Phim hay tháng</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Phim hay tháng</Link>
                                             </NavigationMenuLink>
                                         </li>
                                     </ul>
@@ -108,17 +108,17 @@ const Navbar = () => {
 
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Rạp/Giá Vé</NavigationMenuTrigger>
-                            <NavigationMenuContent>
+                            <NavigationMenuContent className="bg-white">
                                     <ul className="grid w-[200px] gap-4 max-h-48 overflow-y-auto">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Cinemax Rice City</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Cinemax Rice City</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Cinemax Phạm Ngọc Thạch</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Cinemax Phạm Ngọc Thạch</Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="hover:bg-[#CC9999] hover:text-white">Cinemax Vimcom Bà Triệu</Link>
+                                                <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Cinemax Vimcom Bà Triệu</Link>
                                             </NavigationMenuLink>
                                         </li>
                                     </ul>
