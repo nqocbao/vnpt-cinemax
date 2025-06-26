@@ -44,10 +44,10 @@ const Navbar = () => {
                                 <ul className="grid w-[200px] gap-4">
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Đang Chiếu</Link>
+                                            <Link to='/now-movies' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Đang Chiếu</Link>
                                         </NavigationMenuLink>
                                         <NavigationMenuLink asChild>
-                                            <Link to='#' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Sắp Chiếu</Link>
+                                            <Link to='/coming-movies' className="hover:bg-[#CC9999] text-black hover:text-white">Phim Sắp Chiếu</Link>
                                         </NavigationMenuLink>
                                     </li>
                                 </ul>

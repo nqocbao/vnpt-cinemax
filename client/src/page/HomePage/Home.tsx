@@ -6,6 +6,7 @@ import Blog from './Blog'
 import EventList from './EventList'
 import Advertise from './Advertise'
 import About from './About'
+import Footer from '../components/Footer'
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <EventList />
       <Advertise />
       <About />
+      <Footer />
     </div>
   )
 }
