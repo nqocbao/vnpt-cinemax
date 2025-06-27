@@ -4,21 +4,33 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import MovieTabs from './MovieTabs'
 
+const movies = [
+    {id: 1, name: 'Bí Kíp Luyện Rồng', age: 'C18', image: 'https://cdn.galaxycine.vn/media/2025/2/17/bi-kip-luyen-rong-500_1739776695143.jpg'},
+    {id: 2, name: 'ÚT Lan: Oán Linh Giữ Của', age: 'C18', image: 'https://cdn.galaxycine.vn/media/2025/6/16/ut-lan-500_1750048341370.jpg'},
+    {id: 3, name: '28 Năm Sau Tận Thế', age: 'C18', image: 'https://cdn.galaxycine.vn/media/2025/6/20/28-year-later-500_1750407074215.jpg'},
+    {id: 4, name: 'Halabala: Rừng Ma Tế Xác', age: 'C18', image: 'https://cdn.galaxycine.vn/media/2025/6/10/halaba-500_1749539454772.jpg'},
+    {id: 5, name: 'M3GAN 2.0', age: 'C16', image: 'https://cdn.galaxycine.vn/media/2025/4/11/megan-500_1744365069100.jpg'},
+    {id: 6, name: 'Mượn Rượu Đẩy Kèo', age: 'C18', image: 'https://cdn.galaxycine.vn/media/2025/6/25/muon-ruou-day-keo-500_1750822575984.jpg'},
+    {id: 7, name: 'F1', age: 'C16', image: 'https://cdn.galaxycine.vn/media/2025/4/28/f1-500_1745833699523.jpg'},
+    {id: 8, name: 'Bộ 5 Siêu Đẳng Cấp', age: 'C16', image: 'https://cdn.galaxycine.vn/media/2025/5/27/hi5-500_1748319635634.jpg'},
+    {id: 8, name: 'Phim Điện Ảnh Doraemon: Nobita Và Cuộc Phiêu Lưu', age: 'K', image: 'https://cdn.galaxycine.vn/media/2025/5/23/doraemon-movie-44-2_1748017492103.jpg'},
+]
 const NowMovies = () => {
   return (
     <div>
       <Navbar />
       <div className="max-w-screen-xl mx-auto my-8 md:my-14">
         <div className='my-8 md:my-14 '>
-            <div className="lg:ml-3 px-4 md:px-8 lg:px-12">
+            <div className="lg:ml-3 px-4 md:px-8 ">
                 <MovieTabs />
                   {/* Phim Đang Chiếu */}
                 <div className='grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6'>
-                    <div className="space-y-2 group relative">
+                  {movies.map((movie) => (
+                      <div className="space-y-2 group relative" key={movie.id}>
                         <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
+                            {movie.age}
                         </div>
-                        <img src="/movie2.jpg" alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
+                        <img src={movie.image} alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
                          <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                             <Button
                                 className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
@@ -33,103 +45,16 @@ const NowMovies = () => {
                                 Trailer
                             </Button>
                         </div>
-                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>Trạng Quỳnh Nhí: Truyền Thuyết Kim Ngưu</p>
+                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>{movie.name}</p>
                     </div>
-
-                    <div className="space-y-2 group relative">
-                        <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
-                        </div>
-                        <img src="/movie2.jpg" alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
-                         <div className="absolute inset-0  rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 ">
-                            <Button
-                                className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
-                            >
-                                <Star className="w-4 h-4 mr-1 hidden sm:flex"/>
-                                Mua vé
-                            </Button>
-                            <Button 
-                                className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
-                            >
-                                <Video />
-                                Trailer
-                            </Button>
-                        </div>
-                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>Bí Kíp Luyện Rồng</p>
-                    </div>
-
-                    <div className="space-y-2 group relative">
-                        <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
-                        </div>
-                        <img src="/movie2.jpg" alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
-                         <div className="absolute inset-0  rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 ">
-                            <Button
-                                className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
-                            >
-                                <Star className="w-4 h-4 mr-1 hidden sm:flex"/>
-                                Mua vé
-                            </Button>
-                            <Button 
-                                className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
-                            >
-                                <Video />
-                                Trailer
-                            </Button>
-                        </div>
-                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>Bí Kíp Luyện Rồng</p>
-                    </div>
-
-                    <div className="space-y-2 group relative">
-                        <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
-                        </div>
-                        <img src="/movie2.jpg" alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
-                         <div className="absolute inset-0  rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 ">
-                            <Button
-                                className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
-                            >
-                                <Star className="w-4 h-4 mr-1 hidden sm:flex"/>
-                                Mua vé
-                            </Button>
-                            <Button 
-                                className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
-                            >
-                                <Video />
-                                Trailer
-                            </Button>
-                        </div>
-                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>Bí Kíp Luyện Rồng </p>
-                    </div>
-                    
-                    <div className="space-y-2 group relative">
-                        <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
-                        </div>
-                        <img src="/movie2.jpg" alt="" className='rounded-2xl group-hover:blur-xs duration-300 '/>
-                         <div className="absolute inset-0  rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 ">
-                            <Button
-                                className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
-                            >
-                                <Star className="w-4 h-4 mr-1 hidden sm:flex"/>
-                                Mua vé
-                            </Button>
-                            <Button 
-                                className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
-                            >
-                                <Video />
-                                Trailer
-                            </Button>
-                        </div>
-                        <p className='font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer'>Bí Kíp Luyện Rồng </p>
-                    </div>
-
+                  ))}
+                 
                 </div>
                 {/* End */}
            
             </div>
 
-            <div className="lg:ml-3 px-4 md:px-8 lg:px-12 my-20">
+            <div className="lg:ml-3 px-4 md:px-8 my-20">
                 <div className=''>
                   <h1 className='text-2xl  border-l-[4px] border-l-[#8B008B] pl-3 text-xl'>PHIM ĐANG CHIẾU</h1>
                 </div>
