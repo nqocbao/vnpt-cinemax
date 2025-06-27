@@ -17,9 +17,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { Menu, Search, Star } from "lucide-react"
+import { CircleUser, LogOut, Menu, Search, Star, User2 } from "lucide-react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 const Navbar = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  
   return (
     <div>
         {/* Navbar */}
@@ -131,12 +135,43 @@ const Navbar = () => {
 
             {/* Login */}
             <div className="flex items-center space-x-4">
-                <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
+              {/* {isLoggedIn && (
+                  <div className="md:flex items-center hidden">
+                    <NavigationMenu viewport={false} className="relative z-50">
+                        <NavigationMenuList>
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger><CircleUser /></NavigationMenuTrigger>
+                                <NavigationMenuContent className="bg-white">
+                                    <ul className="grid w-[200px] gap-4">
+                                        <li>
+                                            <NavigationMenuLink asChild>
+                                                <Link to='#' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><User2 /> Tài Khoản</Link>
+                                            </NavigationMenuLink>
+                                        
+                                        </li>
+                                        <li>
+                                            <NavigationMenuLink asChild>
+                                                <Link to='#' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><LogOut /> Đăng Xuất</Link>
+                                            </NavigationMenuLink>
+                                        </li>
+                                    </ul>
+                                
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                    <span className="font-semibold">Trương Quân</span>
+                  </div>
+              )} */}
+              
+               {!isLoggedIn && (
+                 <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
                     <Link to='#' className="sm:text-xs md:text-sm lg:text-base">Đăng Nhập</Link>
                 </Button>
+               )}
                 <Sheet>
                     <SheetTrigger><Menu className="flex lg:hidden"/></SheetTrigger>
-                    <SheetContent className="bg-white pl-3 w-2/3 md:1/3">
+                    <SheetContent className="bg-white pl-3 w-2/3 md:1/3 ">
                         <SheetHeader>
                         {/* Input Mobile & Tablet */}
                         <SheetTitle> 
@@ -146,7 +181,18 @@ const Navbar = () => {
                             </div>
                         </SheetTitle>
                         {/* End Input Mobile & Tablet */}
-                        
+
+                        {/* Infor User Loggin */}
+                         {isLoggedIn && (
+                            <div className="flex justify-center py-4">
+                                <Link to='#' className="flex items-center gap-2">
+                                    <CircleUser className="text-gray-500 hover:text-[#CC9999]"/>
+                                    <span className="font-medium text-gray-700 hover:text-[#CC9999]">Trương Quân</span>
+                                </Link>
+                            </div>
+                        )}
+                        {/* End Infor User Loggin */}
+
                         {/* Menu Mobile & Tablet */}
                         <SheetDescription>
                             <div className="block lg:hidden">
@@ -196,7 +242,19 @@ const Navbar = () => {
                             </div>
                         </SheetDescription>
                         {/* End Menu Mobile & Tablet*/}
+                      
                         </SheetHeader>
+                        {/* Logout */}
+                        {/* <div className="mt-auto flex justify-center pb-4">
+                            <Link
+                            to="#"
+                            className="flex items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white px-4 py-2 rounded"
+                            >
+                            <LogOut className="text-gray-500"/>
+                            <span className="text-sm font-medium">Đăng Xuất</span>
+                            </Link>
+                        </div> */}
+                        {/* End Logout */}
                     </SheetContent>
                 </Sheet>
                     
