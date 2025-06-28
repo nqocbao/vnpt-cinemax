@@ -1,5 +1,7 @@
 package com.cinemax.server.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,12 +20,12 @@ public class Customer {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    @JoinColumn(name = "user_id")
+    private Users user_id;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "tickets_id")
-    private Ticket ticket;
+    private List<Ticket> tickets_id;
 
     @Column(name = "city", nullable = false)
     private String city;

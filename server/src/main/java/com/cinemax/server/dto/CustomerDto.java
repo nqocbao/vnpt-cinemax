@@ -2,6 +2,9 @@ package com.cinemax.server.dto;
 
 import com.cinemax.server.entity.Ticket;
 import com.cinemax.server.entity.Users;
+
+import java.util.List;
+
 import com.cinemax.server.entity.Customer.Gender;
 
 import lombok.AllArgsConstructor;
@@ -16,8 +19,8 @@ import lombok.Setter;
 public class CustomerDto {
     
     private int id;
-    private Users user_id;
-    private Ticket tickets_id;
+    private int user_id;
+    private List<Integer> tickets_id;
     private String city;
     private String address;
     private String region;

@@ -11,7 +11,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   faGoogle,
-  faInstagram,
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
@@ -25,7 +24,7 @@ export default function LoginPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex min-h-screen items-center justify-center my-6">
+      <div className="flex min-h-screen items-center justify-center mb-6 -mt-10 mx-5 md:mx-0">
         <Tabs
           defaultValue="login"
           className="w-full max-w-[560px] min-h-[400px] mx-auto px-2"
