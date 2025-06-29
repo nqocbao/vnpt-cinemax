@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +23,87 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+    try {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 200) {
+        setSuccess(data.message || "Đăng nhập thành công");
+        setTimeout(() => navigate("/"), 1000);
+      } else {
+        setError(data.error || data.message || "Đăng nhập thất bại");
+      }
+    } catch (err) {
+      setError("Lỗi kết nối server: " + err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // State cho đăng ký
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerPhone, setRegisterPhone] = useState("");
+  const [registerGender, setRegisterGender] = useState("");
+  const [registerError, setRegisterError] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState("");
+  const [registerLoading, setRegisterLoading] = useState(false);
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setRegisterLoading(true);
+    setRegisterError("");
+    setRegisterSuccess("");
+    try {
+      const payload = {
+        name: registerName,
+        email: registerEmail,
+        password: registerPassword,
+        phone: registerPhone,
+        gender: registerGender,
+      };
+      console.log("Register payload:", payload);
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log("Register response:", data);
+      if (res.ok && data.id) {
+        setRegisterSuccess("Đăng ký thành công");
+        setRegisterName("");
+        setRegisterEmail("");
+        setRegisterPassword("");
+        setRegisterPhone("");
+        setRegisterGender("");
+        setTimeout(() => navigate("/"), 1000);
+      } else {
+        setRegisterError(data.error || data.message || "Đăng ký thất bại");
+      }
+    } catch (err) {
+      setRegisterError("Lỗi kết nối server");
+    } finally {
+      setRegisterLoading(false);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -51,42 +134,54 @@ export default function LoginPage() {
             value="login"
             className="space-y-6 px-6 rounded-lg shadow-md py-12"
           >
-            <div className="space-y-2">
-              <Label htmlFor="email">
-                <span className="text-red-600">*</span> Email
-              </Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                />
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="email">
+                  <span className="text-red-600">*</span> Email
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                  <Input
+                    type="email"
+                    placeholder="Email"
+                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">
-                <span className="text-red-600">*</span> Mật khẩu
-              </Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                <Input
-                  type="password"
-                  placeholder="Mật khẩu"
-                  className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                />
+              <div className="space-y-2">
+                <Label htmlFor="password">
+                  <span className="text-red-600">*</span> Mật khẩu
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                  <Input
+                    type="password"
+                    placeholder="Mật khẩu"
+                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
-            </div>
-
-            <div className="text-blue-600 text-sm hover:underline block text-left">
-              <Link to="#">Quên mật khẩu?</Link>
-            </div>
-            <div className="flex flex-col items-center space-y-3 mt-6">
-              <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base">
-                Đăng Nhập
-              </Button>
-            </div>
+              {error && <div className="text-red-600 text-sm">{error}</div>}
+              {success && (
+                <div className="text-green-600 text-sm">{success}</div>
+              )}
+              <div className="flex flex-col items-center space-y-3 mt-6">
+                <Button
+                  className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Đang đăng nhập..." : "Đăng Nhập"}
+                </Button>
+              </div>
+            </form>
             <div className="flex items-center justify-center">
               <a>Hoặc</a>
             </div>
@@ -112,7 +207,10 @@ export default function LoginPage() {
             value="register"
             className="px-6 py-12 rounded-lg shadow-md"
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <form
+              onSubmit={handleRegister}
+              className="grid grid-cols-1 gap-4 md:grid-cols-2"
+            >
               <div className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="my-2">
@@ -124,6 +222,9 @@ export default function LoginPage() {
                       type="text"
                       placeholder="Họ tên"
                       className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                      value={registerName}
+                      onChange={(e) => setRegisterName(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -137,10 +238,12 @@ export default function LoginPage() {
                       type="email"
                       placeholder="Email"
                       className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                      value={registerEmail}
+                      onChange={(e) => setRegisterEmail(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
-
                 <div>
                   <Label htmlFor="phone" className="my-2">
                     <span className="text-red-600">*</span> Số điện thoại
@@ -151,11 +254,13 @@ export default function LoginPage() {
                       type="phone"
                       placeholder="Số điện thoại"
                       className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                      value={registerPhone}
+                      onChange={(e) => setRegisterPhone(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
               </div>
-
               <div className="space-y-6">
                 <div>
                   <Label htmlFor="password" className="my-2">
@@ -167,6 +272,9 @@ export default function LoginPage() {
                       type="password"
                       placeholder="Mật khẩu"
                       className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                      value={registerPassword}
+                      onChange={(e) => setRegisterPassword(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -181,29 +289,34 @@ export default function LoginPage() {
                       type="password"
                       placeholder="Xác nhận mật khẩu"
                       className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                      // Không cần state riêng, chỉ kiểm tra khi submit
+                      required
                     />
                   </div>
                 </div>
-
                 <div className="space-y-2 mb-8">
                   <Label htmlFor="sex" className="my-2">
                     <span className="text-red-600">*</span> Giới tính
                   </Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
-                    <Select>
+                    <Select
+                      value={registerGender}
+                      onValueChange={setRegisterGender}
+                      required
+                    >
                       <SelectTrigger className="w-full pl-10">
                         <SelectValue placeholder="Giới tính" />
                       </SelectTrigger>
                       <SelectContent className="z-50 max-h-[100px] overflow-y-auto bg-white shadow-md">
                         <SelectItem
-                          value="boy"
+                          value="male"
                           className="hover:bg-blue-600 hover:text-white"
                         >
                           Nam
                         </SelectItem>
                         <SelectItem
-                          value="girl"
+                          value="female"
                           className="hover:bg-blue-600 hover:text-white"
                         >
                           Nữ
@@ -219,12 +332,24 @@ export default function LoginPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col items-center space-y-3 mt-6">
-              <Button className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base">
-                Đăng Ký
-              </Button>
-            </div>
+              <div className="flex flex-col items-center space-y-3 mt-6 col-span-2">
+                {registerError && (
+                  <div className="text-red-600 text-sm">{registerError}</div>
+                )}
+                {registerSuccess && (
+                  <div className="text-green-600 text-sm">
+                    {registerSuccess}
+                  </div>
+                )}
+                <Button
+                  className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
+                  type="submit"
+                  disabled={registerLoading}
+                >
+                  {registerLoading ? "Đang đăng ký..." : "Đăng Ký"}
+                </Button>
+              </div>
+            </form>
           </TabsContent>
           {/* End Register */}
         </Tabs>
