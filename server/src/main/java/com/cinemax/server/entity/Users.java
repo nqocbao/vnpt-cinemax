@@ -37,9 +37,18 @@ public class Users {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public enum Gender {
+        male,
+        female
+    }
 
     public enum Role {
         customer,

@@ -23,8 +23,7 @@ public class CustomerMapper {
                 customer.getAddress(),
                 customer.getRegion(),
                 customer.getFirstName(),
-                customer.getLastName(),
-                customer.getGender());
+                customer.getLastName());
     }
 
     public static Customer mapToCustomer(CustomerDto customerDto) {
@@ -48,7 +47,6 @@ public class CustomerMapper {
                 customerDto.getAddress(),
                 customerDto.getRegion(),
                 customerDto.getFirstName(),
-                customerDto.getLastName(),
-                customerDto.getGender());
+                customerDto.getLastName());
     }
 }

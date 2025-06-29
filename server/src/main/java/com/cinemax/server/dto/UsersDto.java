@@ -1,5 +1,6 @@
 package com.cinemax.server.dto;
 
+import com.cinemax.server.entity.Users.Gender;
 import com.cinemax.server.entity.Users.Role;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class UsersDto {
     private String email;
     private String phone;
     private String password;
+    private Gender gender;
     private Role role;
 
 }

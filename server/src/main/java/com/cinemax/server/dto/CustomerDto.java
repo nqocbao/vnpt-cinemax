@@ -1,11 +1,6 @@
 package com.cinemax.server.dto;
 
-import com.cinemax.server.entity.Ticket;
-import com.cinemax.server.entity.Users;
-
 import java.util.List;
-
-import com.cinemax.server.entity.Customer.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +21,4 @@ public class CustomerDto {
     private String region;
     private String firstName;
     private String lastName;
-    private Gender gender;
 }

@@ -19,25 +19,34 @@ public class CustomerServiceImpl implements CustomerService {
     private UsersRepository usersRepository;
 
     @Override
+    public CustomerDto updateCustomer(Integer id, CustomerDto customerDto) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+        // Cập nhật các trường từ DTO
+        customer.setCity(customerDto.getCity());
+        customer.setAddress(customerDto.getAddress());
+        customer.setRegion(customerDto.getRegion());
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        // Có thể cập nhật thêm các trường khác nếu cần
+        Customer updatedCustomer = customerRepository.save(customer);
+        return CustomerMapper.mapToCustomerDto(updatedCustomer);
+    }
+
+    @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
-        // Lấy user từ DB, nếu chưa có thì tạo mới
-        Users user = usersRepository.findById(customerDto.getUserId()).orElse(null);
-        if (user == null) {
-            // Tạo user mới với quyền customer
-            user = new Users();
-            user.setName(customerDto.getFirstName() + " " + customerDto.getLastName());
-            user.setEmail(customerDto.getEmail()); // cần bổ sung trường email vào DTO nếu muốn
-            user.setPhone(customerDto.getPhone()); // cần bổ sung trường phone vào DTO nếu muốn
-            user.setPassword(customerDto.getPassword()); // cần bổ sung trường password vào DTO nếu muốn
-            user.setRole(Users.Role.customer);
-            user = usersRepository.save(user);
-        }
-        // Tạo customer, tickets có thể null hoặc rỗng
-        Customer customer = CustomerMapper.mapToCustomer(customerDto);
-        customer.setUser(user);
-        // Không set tickets nếu chưa có
+        // Lấy user từ DB
+        Users user = usersRepository.findById(customerDto.getUser_id())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + customerDto.getUser_id()));
+        Customer customer = new Customer();
+        customer.setUser_id(user);
+        customer.setCity(customerDto.getCity());
+        customer.setAddress(customerDto.getAddress());
+        customer.setRegion(customerDto.getRegion());
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
         Customer savedCustomer = customerRepository.save(customer);
         return CustomerMapper.mapToCustomerDto(savedCustomer);
     }
-    
+
 }

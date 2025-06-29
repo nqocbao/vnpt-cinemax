@@ -10,4 +10,7 @@ public interface UsersService {
     UsersDto getUsersById(Integer id);
 
     List<UsersDto> getAllUsers();
+
+    // Đăng nhập, dùng luôn UsersDto làm request
+    UsersDto login(UsersDto usersDto);
 }
