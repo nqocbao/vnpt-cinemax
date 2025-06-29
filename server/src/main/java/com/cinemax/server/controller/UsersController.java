@@ -9,13 +9,11 @@ import com.cinemax.server.dto.UsersDto;
 import com.cinemax.server.entity.Users;
 import com.cinemax.server.service.UsersService;
 
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import static java.util.Map.of;
 
@@ -26,12 +24,10 @@ public class UsersController {
 
     private UsersService usersService;
 
-    @PostMapping
-    public ResponseEntity<UsersDto> createUsers(@RequestBody UsersDto usersDto) {
-        // UsersDto createdUsers = usersService.createUsers(usersDto);
-        // return ResponseEntity.ok(createdUsers);
-        UsersDto savedUsers = usersService.createUsers(usersDto);
-        return new ResponseEntity<>(savedUsers, HttpStatus.CREATED);
+    @PostMapping("/register")
+    public ResponseEntity<?> createUsers(@RequestBody UsersDto usersDto) {
+        usersService.createUsers(usersDto);
+        return ResponseEntity.ok(of("status:", 200, "message", "Tạo tài khoản thành công"));
     }
 
     @GetMapping("{id}")
