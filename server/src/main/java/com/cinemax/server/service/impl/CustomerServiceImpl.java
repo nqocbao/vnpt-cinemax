@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setRegion(customerDto.getRegion());
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
-        // Có thể cập nhật thêm các trường khác nếu cần
+
         Customer updatedCustomer = customerRepository.save(customer);
         return CustomerMapper.mapToCustomerDto(updatedCustomer);
     }

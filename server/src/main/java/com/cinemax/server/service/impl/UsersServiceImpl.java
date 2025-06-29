@@ -1,6 +1,8 @@
 package com.cinemax.server.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.cinemax.server.mapper.UsersMapper;
 import com.cinemax.server.repository.UsersRepository;
 import com.cinemax.server.service.UsersService;
 import com.cinemax.server.service.CustomerService;
+import com.cinemax.server.security.JwtUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -24,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
     private CustomerService customerService;
 
     @Override
-    public UsersDto createUsers(UsersDto usersDto) {
+    public Map<String, Object> createUsers(UsersDto usersDto) {
         // Kiểm tra email đã tồn tại
         if (usersRepository.existsByEmail(usersDto.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email đã tồn tại!");
@@ -45,7 +48,13 @@ public class UsersServiceImpl implements UsersService {
         customerDto.setAddress("");
         customerDto.setRegion("");
         customerService.createCustomer(customerDto);
-        return UsersMapper.mapToUsersDto(savedUsers);
+        // Sinh token cho user mới đăng ký
+        String token = JwtUtil.generateToken(savedUsers.getEmail());
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", UsersMapper.mapToUsersDto(savedUsers));
+        result.put("token", token);
+        return result;
     }
 
     @Override
@@ -64,7 +73,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UsersDto login(UsersDto usersDto) {
+    public Map<String, Object> login(UsersDto usersDto) {
         Users user = usersRepository.findByEmail(usersDto.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED,
                         "Email hoặc mật khẩu không đúng!"));
@@ -72,7 +81,11 @@ public class UsersServiceImpl implements UsersService {
             throw new ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED,
                     "Email hoặc mật khẩu không đúng!");
         }
-        return UsersMapper.mapToUsersDto(user);
+        String token = JwtUtil.generateToken(user.getEmail());
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", UsersMapper.mapToUsersDto(user));
+        result.put("token", token);
+        return result;
     }
 
 }
