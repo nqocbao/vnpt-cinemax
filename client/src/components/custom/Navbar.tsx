@@ -23,8 +23,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu, Search, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 const Navbar = () => {
+  const { isLoggedIn, user, logout } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <div>
       {/* Navbar */}
@@ -201,13 +214,37 @@ const Navbar = () => {
         </div>
         {/* End Menu */}
 
-        {/* Login */}
+        {/* Login/Profile */}
         <div className="flex items-center space-x-4">
-          <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
-            <Link to="/login" className="sm:text-xs md:text-sm lg:text-base">
-              Đăng Nhập
-            </Link>
-          </Button>
+          {isLoggedIn ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src="https://api.dicebear.com/9.x/adventurer/svg?seed=Aneka" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="relative z-[50] w-48 bg-white">
+                <DropdownMenuLabel>
+                  Tên (chưa lấy thông tin nên để tạm là id) là: {user.userId}
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() => {
+                    logout();
+                    navigate("/auth");
+                  }}
+                >
+                  Đăng xuất
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
+              <Link to="/auth" className="sm:text-xs md:text-sm lg:text-base">
+                Đăng Nhập
+              </Link>
+            </Button>
+          )}
           <Sheet>
             <SheetTrigger>
               <Menu className="flex lg:hidden" />
@@ -316,7 +353,7 @@ const Navbar = () => {
             </SheetContent>
           </Sheet>
         </div>
-        {/* End Login */}
+        {/* End Login/Profile */}
       </nav>
       {/* End Navbar */}
     </div>

@@ -1,18 +1,15 @@
-import React from 'react'
-import Trailer from './Trailer'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import MovieInfo from './MovieInfo'
+import React from "react";
+import Trailer from "./Trailer";
+import MovieInfo from "./MovieInfo";
+import MainLayout from "@/layouts/MainLayout";
 
 const Detail = () => {
   return (
-    <div>
-        <Navbar />
+    <MainLayout>
       <Trailer />
       <MovieInfo />
-      <Footer />
-    </div>
-  )
-}
+    </MainLayout>
+  );
+};
 
-export default Detail
+export default Detail;

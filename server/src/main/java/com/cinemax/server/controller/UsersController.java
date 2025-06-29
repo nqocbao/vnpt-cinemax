@@ -26,8 +26,13 @@ public class UsersController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUsers(@RequestBody UsersDto usersDto) {
-        usersService.createUsers(usersDto);
-        return ResponseEntity.ok(of("status:", 200, "message", "Tạo tài khoản thành công"));
+        var result = usersService.createUsers(usersDto);
+        UsersDto userDto = (UsersDto) result.get("user");
+        return ResponseEntity.ok(of(
+                "status", 200,
+                "message", "Tạo tài khoản thành công",
+                "token", result.get("token"),
+                "userId", userDto.getId()));
     }
 
     @GetMapping("{id}")
@@ -38,9 +43,12 @@ public class UsersController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsersDto usersDto) {
-        usersService.login(usersDto);
+        var result = usersService.login(usersDto);
+        UsersDto userDto = (UsersDto) result.get("user");
         return ResponseEntity.ok(of(
                 "status", 200,
-                "message", "Đăng nhập thành công"));
+                "message", "Đăng nhập thành công",
+                "token", result.get("token"),
+                "userId", userDto.getId()));
     }
 }

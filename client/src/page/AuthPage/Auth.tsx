@@ -18,23 +18,28 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Lock, Mail, Phone, User } from "lucide-react";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { useAuth } from "@/context/AuthContext";
+import MainLayout from "@/layouts/MainLayout";
+import AuthDialog from "@/components/custom/AuthDialog";
 
-export default function LoginPage() {
+export default function Auth() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+
+  // Dialog states
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogType, setDialogType] = useState<"success" | "error">("success");
+  const [dialogAction, setDialogAction] = useState<"login" | "register">(
+    "login"
+  );
+  const [dialogMessage, setDialogMessage] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess("");
     try {
       const res = await fetch("/api/users/login", {
         method: "POST",
@@ -43,13 +48,25 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (res.ok && data.status === 200) {
-        setSuccess(data.message || "Đăng nhập thành công");
-        setTimeout(() => navigate("/"), 1000);
+        // Lưu token và userId vào localStorage và context
+        if (data.token && data.userId) {
+          login(data.userId.toString(), data.token);
+        }
+        setDialogType("success");
+        setDialogAction("login");
+        setDialogMessage(data.message || "Đăng nhập thành công");
+        setDialogOpen(true);
       } else {
-        setError(data.error || data.message || "Đăng nhập thất bại");
+        setDialogType("error");
+        setDialogAction("login");
+        setDialogMessage(data.error || data.message || "Đăng nhập thất bại");
+        setDialogOpen(true);
       }
     } catch (err) {
-      setError("Lỗi kết nối server: " + err);
+      setDialogType("error");
+      setDialogAction("login");
+      setDialogMessage("Lỗi kết nối server: " + err);
+      setDialogOpen(true);
     } finally {
       setLoading(false);
     }
@@ -61,15 +78,11 @@ export default function LoginPage() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerPhone, setRegisterPhone] = useState("");
   const [registerGender, setRegisterGender] = useState("");
-  const [registerError, setRegisterError] = useState("");
-  const [registerSuccess, setRegisterSuccess] = useState("");
   const [registerLoading, setRegisterLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterLoading(true);
-    setRegisterError("");
-    setRegisterSuccess("");
     try {
       const payload = {
         name: registerName,
@@ -87,26 +100,41 @@ export default function LoginPage() {
       const data = await res.json();
       console.log("Register response:", data);
       if (res.ok && data.id) {
-        setRegisterSuccess("Đăng ký thành công");
+        // Lưu token và userId vào localStorage và context
+        if (data.token && data.user && data.user.id) {
+          login(data.user.id.toString(), data.token);
+        }
         setRegisterName("");
         setRegisterEmail("");
         setRegisterPassword("");
         setRegisterPhone("");
         setRegisterGender("");
-        setTimeout(() => navigate("/"), 1000);
+        setDialogType("success");
+        setDialogAction("register");
+        setDialogMessage("Đăng ký thành công");
+        setDialogOpen(true);
       } else {
-        setRegisterError(data.error || data.message || "Đăng ký thất bại");
+        setDialogType("error");
+        setDialogAction("register");
+        setDialogMessage(data.error || data.message || "Đăng ký thất bại");
+        setDialogOpen(true);
       }
-    } catch (err) {
-      setRegisterError("Lỗi kết nối server");
+    } catch {
+      setDialogType("error");
+      setDialogAction("register");
+      setDialogMessage("Lỗi kết nối server");
+      setDialogOpen(true);
     } finally {
       setRegisterLoading(false);
     }
   };
 
+  const handleRedirect = () => {
+    navigate("/");
+  };
+
   return (
-    <div>
-      <Navbar />
+    <MainLayout>
       <div className="flex min-h-screen items-center justify-center mb-6 -mt-10 mx-5 md:mx-0">
         <Tabs
           defaultValue="login"
@@ -168,10 +196,6 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
-              {error && <div className="text-red-600 text-sm">{error}</div>}
-              {success && (
-                <div className="text-green-600 text-sm">{success}</div>
-              )}
               <div className="flex flex-col items-center space-y-3 mt-6">
                 <Button
                   className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
@@ -333,14 +357,6 @@ export default function LoginPage() {
                 </div>
               </div>
               <div className="flex flex-col items-center space-y-3 mt-6 col-span-2">
-                {registerError && (
-                  <div className="text-red-600 text-sm">{registerError}</div>
-                )}
-                {registerSuccess && (
-                  <div className="text-green-600 text-sm">
-                    {registerSuccess}
-                  </div>
-                )}
                 <Button
                   className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
                   type="submit"
@@ -354,7 +370,16 @@ export default function LoginPage() {
           {/* End Register */}
         </Tabs>
       </div>
-      <Footer />
-    </div>
+
+      {/* Auth Dialog */}
+      <AuthDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type={dialogType}
+        action={dialogAction}
+        message={dialogMessage}
+        onRedirect={handleRedirect}
+      />
+    </MainLayout>
   );
 }
