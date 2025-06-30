@@ -17,7 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { CircleUser, LogOut, Menu, Search, Star, User2 } from "lucide-react"
+import { Award, CircleUser, LogOut, Medal, Menu, Search, Star, User2 } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 const Navbar = () => {
@@ -183,12 +183,27 @@ const Navbar = () => {
                         {/* End Input Mobile & Tablet */}
 
                         {/* Infor User Loggin */}
-                         {isLoggedIn && (
-                            <div className="flex justify-center py-4">
-                                <Link to='#' className="flex items-center gap-2">
-                                    <CircleUser className="text-gray-500 hover:text-[#CC9999]"/>
-                                    <span className="font-medium text-gray-700 hover:text-[#CC9999]">Trương Quân</span>
-                                </Link>
+                         {!isLoggedIn && (
+                            <div className="b">
+                                <div className="flex justify-center py-4">
+                                    <Link to='#' className="flex items-center gap-2">
+                                        <div><CircleUser className="text-gray-500 hover:text-[#CC9999]"/></div>
+                                        <div>
+                                            <div className="flex items-center space-x-1">
+                                                <Medal className="text-orange-700 h-4 w-4"/>
+                                                <span className="font-medium  hover:text-[#CC9999]">Trương Quân</span>
+                                            </div>
+                                            <div className="flex items-center space-x-1">
+                                                <Award className="text-orange-700 h-4 w-4"/>
+                                                <span>0 Starts</span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                                {/* <div className="flex items-center">
+                                    <Award className="text-yellow-400 h-4 w-4"/>
+                                    <span>0 Starts</span>
+                                </div> */}
                             </div>
                         )}
                         {/* End Infor User Loggin */}

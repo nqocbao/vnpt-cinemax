@@ -22,7 +22,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Award, Camera, ChevronRight, Lock, Mail, Medal, Phone, Recycle, User, X } from 'lucide-react'
+import { Award, Camera, ChevronRight, Lock, Mail, Medal, Phone, Recycle, User } from 'lucide-react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 const Profile = () => {
@@ -67,7 +67,7 @@ const Profile = () => {
                         </div>
                         <div className="relative">
                             <div className="bg-orange-400 p-2 rounded-full border border-orange-500">
-                            <X className="w-5 h-5 text-white" />
+                            <Medal className="w-5 h-5 text-white" />
                             </div>
                         </div>
                        </div>
@@ -105,7 +105,7 @@ const Profile = () => {
                 </div>  
             </div>
             <div className="bg-white col-span-8 lg:shadow-2xl rounded px-3 md:px-8 p-10">
-                <Tabs defaultValue="transaction" className="w-full">
+                <Tabs defaultValue="profile" className="w-full">
                     <TabsList className='flex flex-wrap flex-row justify-between w-full my-6'>
                         <TabsTrigger value="profile" className='!shadow-none text-base text-lg text-gray-500 data-[state=active]:text-[#8B008B] cursor-pointer'>Thông Tin Cá Nhân</TabsTrigger>
                         <TabsTrigger value="transaction" className='!shadow-none text-base text-lg text-gray-500 data-[state=active]:text-[#8B008B] cursor-pointer'>Lịch Sử Giao Dịch</TabsTrigger>
