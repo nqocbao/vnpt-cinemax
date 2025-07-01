@@ -135,7 +135,7 @@ const Navbar = () => {
 
             {/* Login */}
             <div className="flex items-center space-x-4">
-              {/* {isLoggedIn && (
+              {!isLoggedIn ? (
                   <div className="md:flex items-center hidden">
                     <NavigationMenu viewport={false} className="relative z-50">
                         <NavigationMenuList>
@@ -145,7 +145,7 @@ const Navbar = () => {
                                     <ul className="grid w-[200px] gap-4">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link to='#' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><User2 /> Tài Khoản</Link>
+                                                <Link to='/profile' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><User2 /> Tài Khoản</Link>
                                             </NavigationMenuLink>
                                         
                                         </li>
@@ -162,13 +162,13 @@ const Navbar = () => {
                     </NavigationMenu>
                     <span className="font-semibold">Trương Quân</span>
                   </div>
-              )} */}
-              
-               {!isLoggedIn && (
-                 <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
+              ): (
+                <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
                     <Link to='#' className="sm:text-xs md:text-sm lg:text-base">Đăng Nhập</Link>
                 </Button>
-               )}
+              )}
+              
+           
                 <Sheet>
                     <SheetTrigger><Menu className="flex lg:hidden"/></SheetTrigger>
                     <SheetContent className="bg-white pl-3 w-2/3 md:1/3 ">
@@ -260,15 +260,15 @@ const Navbar = () => {
                       
                         </SheetHeader>
                         {/* Logout */}
-                        {/* <div className="mt-auto flex justify-center pb-4">
+                        <div className="mt-auto flex justify-center pb-4">
                             <Link
                             to="#"
-                            className="flex items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white px-4 py-2 rounded"
+                            className="flex items-center gap-2 bg-[#CC9999] text-black hover:opacity-80 px-4 py-2 rounded"
                             >
                             <LogOut className="text-gray-500"/>
                             <span className="text-sm font-medium">Đăng Xuất</span>
                             </Link>
-                        </div> */}
+                        </div>
                         {/* End Logout */}
                     </SheetContent>
                 </Sheet>
