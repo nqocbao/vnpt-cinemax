@@ -49,9 +49,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
 
   const getTitle = () => {
     if (type === "success") {
-      return action === "login"
-        ? "Đăng nhập thành công!"
-        : "Đăng ký thành công!";
+      return "Success!";
     }
     return "Có lỗi xảy ra!";
   };

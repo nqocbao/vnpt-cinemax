@@ -52,7 +52,10 @@ const Navbar = () => {
             />
             <Button className="bg-[#8B008B] text-white hover:bg-[#6A006A] px-1 py-0.5 h-6 md:h-8 lg:h-9 lg:px-4 lg:py-2">
               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
-              <Link to="#" className="sm:text-xs md:text-sm lg:text-base">
+              <Link
+                to="/booking"
+                className="sm:text-xs md:text-sm lg:text-base"
+              >
                 Mua Vé
               </Link>
             </Button>

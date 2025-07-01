@@ -6,6 +6,7 @@ import Home from "./page/HomePage/Home.tsx";
 import Detail from "./page/DetailPage/Detail.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import Auth from "./page/AuthPage/Auth.tsx";
+import Booking from "./page/BookingPage/Booking.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/detail" element={<Detail />} />
+          <Route path="/booking" element={<Booking />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -89,20 +89,23 @@ export default function Auth() {
         email: registerEmail,
         password: registerPassword,
         phone: registerPhone,
+        role: "customer",
         gender: registerGender,
       };
       console.log("Register payload:", payload);
-      const res = await fetch("/api/users", {
+      const res = await fetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
       console.log("Register response:", data);
-      if (res.ok && data.id) {
+      if (res.ok && data.userId) {
         // Lưu token và userId vào localStorage và context
-        if (data.token && data.user && data.user.id) {
-          login(data.user.id.toString(), data.token);
+        if (data.token && data.userId) {
+          setTimeout(() => {
+            login(data.userId.toString(), data.token);
+          }, 4000);
         }
         setRegisterName("");
         setRegisterEmail("");
