@@ -21,7 +21,7 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/now-movies" element={<NowMovies />} />

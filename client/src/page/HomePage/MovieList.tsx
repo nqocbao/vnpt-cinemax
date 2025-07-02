@@ -1,14 +1,15 @@
 import AuthDialog from "@/components/custom/AuthDialog";
-import type { Movies } from "@/components/interface/Movies";
+import type { Movies } from "@/components/interface/movies";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Star, Video } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const MovieList = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
-
+    const navigate = useNavigate()
   const {
     data: movies,
     isLoading,
@@ -86,13 +87,13 @@ const MovieList = () => {
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                               Mua vé
                             </Button>
-                            <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent">
+                            <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent" onClick={() => navigate(`/detail/${movie.id}`)}>
                               <Video />
                               Trailer
                             </Button>
                           </div>
                           <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer">
-                            T{movie.title}
+                            {movie.title}
                           </p>
                         </div>
                       )
