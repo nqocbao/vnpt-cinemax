@@ -13,12 +13,22 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController {
     private MovieService movieService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieDto> getMovieById(@PathVariable("id") int id) {
+        MovieDto movieDto = movieService.getMovieById(id);
+        if (movieDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(movieDto);
+    }
 
     @GetMapping
     public ResponseEntity<List<MovieDto>> getAllMovie() {

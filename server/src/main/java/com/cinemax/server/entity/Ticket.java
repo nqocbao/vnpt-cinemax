@@ -24,7 +24,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
-    private Theater theater;
+    private Theaters theater;
 
     @ManyToOne
     @JoinColumn(name = "seat_id")
