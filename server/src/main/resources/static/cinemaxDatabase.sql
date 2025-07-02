@@ -1,1 +1,22 @@
-SELECT * FROM cinemax.movies;
+use cinemax;
+INSERT INTO movies (id, title, running_time, genre, movie_time, director, cast, language, release_date, poster_url, create_at) VALUES
+(1, 'The Shawshank Redemption', 142, 'Drama', '1994-10-14 00:00:00', 'Frank Darabont', 'Tim Robbins, Morgan Freeman', 'English', '1994-09-23', 'https://example.com/shawshank.jpg', '2023-01-15 10:00:00'),
+(2, 'The Godfather', 175, 'Crime', '1972-03-24 00:00:00', 'Francis Ford Coppola', 'Marlon Brando, Al Pacino', 'English', '1972-03-15', 'https://example.com/godfather.jpg', '2023-01-15 10:01:00'),
+(3, 'Pulp Fiction', 154, 'Crime', '1994-10-14 00:00:00', 'Quentin Tarantino', 'John Travolta, Samuel L. Jackson', 'English', '1994-10-14', 'https://example.com/pulp.jpg', '2023-01-15 10:02:00'),
+(4, 'The Dark Knight', 152, 'Action', '2008-07-18 00:00:00', 'Christopher Nolan', 'Christian Bale, Heath Ledger', 'English', '2008-07-18', 'https://example.com/darkknight.jpg', '2023-01-15 10:03:00'),
+(5, 'Inception', 148, 'Sci-Fi', '2010-07-16 00:00:00', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'https://example.com/inception.jpg', '2023-01-15 10:04:00'),
+(6, 'Fight Club', 139, 'Drama', '1999-10-15 00:00:00', 'David Fincher', 'Brad Pitt, Edward Norton', 'English', '1999-10-15', 'https://example.com/fightclub.jpg', '2023-01-15 10:05:00'),
+(7, 'Forrest Gump', 142, 'Drama', '1994-07-06 00:00:00', 'Robert Zemeckis', 'Tom Hanks, Robin Wright', 'English', '1994-07-06', 'https://example.com/forrest.jpg', '2023-01-15 10:06:00'),
+(8, 'The Matrix', 136, 'Sci-Fi', '1999-03-31 00:00:00', 'Wachowski Sisters', 'Keanu Reeves, Laurence Fishburne', 'English', '1999-03-31', 'https://example.com/matrix.jpg', '2023-01-15 10:07:00'),
+(9, 'Goodfellas', 146, 'Crime', '1990-09-19 00:00:00', 'Martin Scorsese', 'Robert De Niro, Ray Liotta', 'English', '1990-09-19', 'https://example.com/goodfellas.jpg', '2023-01-15 10:08:00'),
+(10, 'The Lord of the Rings: The Fellowship of the Ring', 178, 'Fantasy', '2001-12-19 00:00:00', 'Peter Jackson', 'Elijah Wood, Ian McKellen', 'English', '2001-12-19', 'https://example.com/lotr.jpg', '2023-01-15 10:09:00'),
+(11, 'Titanic', 195, 'Romance', '1997-12-19 00:00:00', 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'English', '1997-12-19', 'https://example.com/titanic.jpg', '2023-01-15 10:10:00'),
+(12, 'The Silence of the Lambs', 118, 'Thriller', '1991-02-14 00:00:00', 'Jonathan Demme', 'Jodie Foster, Anthony Hopkins', 'English', '1991-02-14', 'https://example.com/silence.jpg', '2023-01-15 10:11:00'),
+(13, 'Star Wars: Episode IV - A New Hope', 121, 'Sci-Fi', '1977-05-25 00:00:00', 'George Lucas', 'Mark Hamill, Harrison Ford', 'English', '1977-05-25', 'https://example.com/starwars.jpg', '2023-01-15 10:12:00'),
+(14, 'Schindler\'s List', 195, 'Drama', '1993-12-15 00:00:00', 'Steven Spielberg', 'Liam Neeson, Ben Kingsley', 'English', '1993-12-15', 'https://example.com/schindlers.jpg', '2023-01-15 10:13:00'),
+(15, 'The Lion King', 88, 'Animation', '1994-06-15 00:00:00', 'Roger Allers, Rob Minkoff', 'Matthew Broderick, Jeremy Irons', 'English', '1994-06-15', 'https://example.com/lionking.jpg', '2023-01-15 10:14:00'),
+(16, 'Gladiator', 155, 'Action', '2000-05-05 00:00:00', 'Ridley Scott', 'Russell Crowe, Joaquin Phoenix', 'English', '2000-05-05', 'https://example.com/gladiator.jpg', '2023-01-15 10:15:00'),
+(17, 'The Departed', 151, 'Crime', '2006-10-06 00:00:00', 'Martin Scorsese', 'Leonardo DiCaprio, Matt Damon', 'English', '2006-10-06', 'https://example.com/departed.jpg', '2023-01-15 10:16:00'),
+(18, 'Avatar', 162, 'Sci-Fi', '2009-12-18 00:00:00', 'James Cameron', 'Sam Worthington, Zoe Saldana', 'English', '2009-12-18', 'https://example.com/avatar.jpg', '2023-01-15 10:17:00'),
+(19, 'The Avengers', 143, 'Action', '2012-05-04 00:00:00', 'Joss Whedon', 'Robert Downey Jr., Chris Evans', 'English', '2012-05-04', 'https://example.com/avengers.jpg', '2023-01-15 10:18:00'),
+(20, 'Parasite', 132, 'Thriller', '2019-10-11 00:00:00', 'Bong Joon-ho', 'Song Kang-ho, Choi Woo-shik', 'Korean', '2019-10-11', 'https://example.com/parasite.jpg', '2023-01-15 10:19:00');
