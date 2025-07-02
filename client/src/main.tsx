@@ -9,6 +9,7 @@ import ComingSoonMovies from "./page/Movies/ComingSoonMovies.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import Auth from "./page/AuthPage/Auth.tsx";
 import Booking from "./page/BookingPage/Booking.tsx";
+import Profile from "./page/User/Profile.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/detail" element={<Detail />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/now-movies" element={<NowMovies />} />
           <Route path="/coming-movies" element={<ComingSoonMovies />} />
