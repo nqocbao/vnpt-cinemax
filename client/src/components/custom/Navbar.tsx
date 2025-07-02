@@ -22,7 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Search, Star } from "lucide-react";
+import { Award, CircleUser, LogOut, Medal, Menu, Search, Star, User2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -215,39 +215,43 @@ const Navbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        {/* End Menu */}
 
-        {/* Login/Profile */}
         <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="https://api.dicebear.com/9.x/adventurer/svg?seed=Aneka" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="relative z-[50] w-48 bg-white">
-                <DropdownMenuLabel>
-                  Tên (chưa lấy thông tin nên để tạm là id) là: {user.userId}
-                </DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() => {
-                    logout();
-                    navigate("/auth");
-                  }}
-                >
-                  Đăng xuất
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
-              <Link to="/auth" className="sm:text-xs md:text-sm lg:text-base">
-                Đăng Nhập
-              </Link>
-            </Button>
-          )}
+           {isLoggedIn ? (
+                  <div className="md:flex items-center hidden">
+                    <NavigationMenu viewport={false} className="relative z-50">
+                        <NavigationMenuList>
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger><CircleUser /></NavigationMenuTrigger>
+                                <NavigationMenuContent className="bg-white">
+                                    <ul className="grid w-[200px] gap-4">
+                                        <li>
+                                            <NavigationMenuLink asChild>
+                                                <Link to='/' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><User2 /> Tài Khoản</Link>
+                                            </NavigationMenuLink>
+                                        
+                                        </li>
+                                        <li>
+                                            <NavigationMenuLink asChild onClick={() => {
+                                              logout();
+                                              navigate('/auth')
+                                            }}>
+                                                <Link to='/auth' className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"><LogOut /> Đăng Xuất</Link>
+                                            </NavigationMenuLink>
+                                        </li>
+                                    </ul>
+                                
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                    <span className="font-semibold">{user.userId}</span>
+                  </div>
+              ): (
+                <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
+                    <Link to='/auth' className="sm:text-xs md:text-sm lg:text-base">Đăng Nhập</Link>
+                </Button>
+              )}
           <Sheet>
             <SheetTrigger>
               <Menu className="flex lg:hidden" />
@@ -265,6 +269,31 @@ const Navbar = () => {
                   </div>
                 </SheetTitle>
                 {/* End Input Mobile & Tablet */}
+                {/* Infor User Loggin */}
+                      {isLoggedIn && (
+                        <div className="b">
+                            <div className="flex justify-center py-4">
+                                <Link to='#' className="flex items-center gap-2">
+                                    <div><CircleUser className="text-gray-500 hover:text-[#CC9999]"/></div>
+                                    <div>
+                                        <div className="flex items-center space-x-1">
+                                            <Medal className="text-orange-700 h-4 w-4"/>
+                                            <span className="font-medium  hover:text-[#CC9999]">{user.userId}</span>
+                                        </div>
+                                        <div className="flex items-center space-x-1">
+                                            <Award className="text-orange-700 h-4 w-4"/>
+                                            <span>0 Starts</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                            {/* <div className="flex items-center">
+                                <Award className="text-yellow-400 h-4 w-4"/>
+                                <span>0 Starts</span>
+                            </div> */}
+                        </div>
+                      )}
+                {/* End Infor User Loggin */}
 
                 {/* Menu Mobile & Tablet */}
                 <SheetDescription>
@@ -353,6 +382,22 @@ const Navbar = () => {
                 </SheetDescription>
                 {/* End Menu Mobile & Tablet*/}
               </SheetHeader>
+              {/* Logout */}
+                  {isLoggedIn && (
+                    <div className="mt-auto flex justify-center pb-4">
+                      <Link
+                      to="/auth"
+                      className="flex items-center gap-2 bg-[#CC9999] text-black hover:opacity-80 px-4 py-2 rounded"
+                      onClick={() => {
+                        logout()
+                      }}
+                      >
+                      <LogOut className="text-gray-500"/>
+                      <span className="text-sm font-medium">Đăng Xuất</span>
+                      </Link>
+                  </div>
+                  )}
+                  {/* End Logout */}
             </SheetContent>
           </Sheet>
         </div>
