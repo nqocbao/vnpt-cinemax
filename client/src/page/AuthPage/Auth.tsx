@@ -135,7 +135,7 @@ export default function Auth() {
 
   return (
     <MainLayout>
-      <div className="flex min-h-screen items-center justify-center mb-6 -mt-10 mx-5 md:mx-0">
+      <div className="flex min-h-screen items-center justify-center mb-6 md:-mt-10 mx-5 md:mx-0">
         <Tabs
           defaultValue="login"
           className="w-full max-w-[560px] min-h-[400px] mx-auto px-2"
@@ -233,7 +233,7 @@ export default function Auth() {
           >
             <form
               onSubmit={handleRegister}
-              className="grid grid-cols-1 gap-4 md:grid-cols-2"
+              className="block gap-4 md:grid md:grid-cols-2"
             >
               <div className="space-y-6">
                 <div>
