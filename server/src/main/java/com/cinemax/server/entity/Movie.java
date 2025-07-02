@@ -28,7 +28,7 @@ public class Movie {
     @Column(name = "genre", nullable = false)
     private String genre;
 
-    @Column(name = "movie_time", nullable = false)
+    @Column(name = "movie_time")
     private LocalDateTime movieTime;
 
     @Column(name = "director")
@@ -36,6 +36,9 @@ public class Movie {
 
     @Column(name = "cast", columnDefinition = "TEXT")
     private String cast;
+
+    @Column(name = "content", columnDefinition = "LONGTEXT")
+    private String content;
 
     @Column(name = "language")
     private String language;

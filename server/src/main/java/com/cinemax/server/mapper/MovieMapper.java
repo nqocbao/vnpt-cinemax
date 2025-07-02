@@ -14,11 +14,11 @@ public class MovieMapper {
                 movie.getMovieTime(),
                 movie.getDirector(),
                 movie.getCast(),
+                movie.getContent(),
                 movie.getLanguage(),
                 movie.getReleaseDate(),
                 movie.getPosterUrl(),
                 movie.getCreateAt());
-
     }
 
     public static Movie mapToMovie(MovieDto MovieDto) {
@@ -30,6 +30,7 @@ public class MovieMapper {
                 MovieDto.getMovieTime(),
                 MovieDto.getDirector(),
                 MovieDto.getCast(),
+                MovieDto.getContent(),
                 MovieDto.getLanguage(),
                 MovieDto.getReleaseDate(),
                 MovieDto.getPosterUrl(),
