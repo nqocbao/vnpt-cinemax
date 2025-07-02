@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { CheckCircle, XCircle, Clock } from "lucide-react";
+import { CheckCircle, XCircle, Clock, Loader2 } from "lucide-react";
 
 interface AuthDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "success" | "error";
+  type: "success" | "error" | "loading";
   action: "login" | "register";
   message: string;
   onRedirect?: () => void;
@@ -51,12 +51,18 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     if (type === "success") {
       return "Success!";
     }
+    if (type === "loading"){
+      return "Đang tải..."
+    }
     return "Có lỗi xảy ra!";
   };
 
   const getIcon = () => {
     if (type === "success") {
       return <CheckCircle className="w-12 h-12 text-green-500" />;
+    }
+    if (type === "loading") {
+      return <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />;
     }
     return <XCircle className="w-12 h-12 text-red-500" />;
   };
@@ -76,9 +82,13 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
         </DialogHeader>
 
         <div className="space-y-4">
-          <p className={`text-center text-sm ${getMessageColor()}`}>
-            {message}
-          </p>
+          {type === "loading" ? (
+            <p className="text-center text-blue-700 text-sm">Đang tải...</p>
+          ): (
+            <p className={`text-center text-sm ${getMessageColor()}`}>
+              {message}
+            </p>
+          )}
 
           {type === "success" && (
             <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
