@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "theaters")
-public class Theater {
+public class Theaters {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -24,9 +25,12 @@ public class Theater {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "movies_id")
-    private Movie movie;
+    // @ManyToOne
+    // @JoinColumn(name = "movies_id")
+    // private List<Movie> movies_id;
+    @ManyToMany
+    @JoinTable(name = "theater_movies", joinColumns = @JoinColumn(name = "theater_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    private List<Movie> movies;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
