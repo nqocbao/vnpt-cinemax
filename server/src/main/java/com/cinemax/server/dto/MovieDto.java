@@ -20,6 +20,7 @@ public class MovieDto {
     private LocalDateTime movieTime;
     private String director;
     private String cast;
+    private String content;
     private String language;
     private LocalDate releaseDate;
     private String posterUrl;
