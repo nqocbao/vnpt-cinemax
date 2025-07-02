@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import Home from "./page/HomePage/Home.tsx";
 import Detail from "./page/DetailPage/Detail.tsx";
+import NowMovies from "./page/Movies/NowMovies.tsx";
+import ComingSoonMovies from "./page/Movies/ComingSoonMovies.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import Auth from "./page/AuthPage/Auth.tsx";
 import Booking from "./page/BookingPage/Booking.tsx";
@@ -17,6 +19,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/auth" element={<Auth />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/now-movies" element={<NowMovies />} />
+          <Route path="/coming-movies" element={<ComingSoonMovies />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
