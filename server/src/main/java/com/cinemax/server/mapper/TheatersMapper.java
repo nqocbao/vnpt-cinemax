@@ -10,8 +10,8 @@ import com.cinemax.server.entity.Theaters;
 public class TheatersMapper {
 
     public static TheatersDto mapToTheaterDto(Theaters theaters) {
-        List<Integer> movies_id = theaters.getMovies_id() != null
-                ? theaters.getMovies_id().stream().map(Movie::getId).collect(Collectors.toList())
+        List<Integer> movies_id = theaters.getMovies() != null
+                ? theaters.getMovies().stream().map(Movie::getId).collect(Collectors.toList())
                 : List.of();
 
         return new TheatersDto(

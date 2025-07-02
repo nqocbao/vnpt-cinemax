@@ -25,9 +25,9 @@ public class Theaters {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "movies_id")
-    private List<Movie> movies_id;
+    @ManyToMany
+    @JoinTable(name = "theater_movies", joinColumns = @JoinColumn(name = "theater_id"), inverseJoinColumns = @JoinColumn(name = "movies_id"))
+    private List<Movie> movies;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
