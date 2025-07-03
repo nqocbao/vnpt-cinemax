@@ -1,25 +1,17 @@
+import { useMovieDetail } from "@/components/hooks/useQuery";
 import {
-    Dialog,
-    DialogContent,
-    DialogTrigger
-} from "@/components/ui/dialog"; 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+  Dialog,
+  DialogContent,
+  DialogTrigger
+} from "@/components/ui/dialog";
 import { PlayCircle } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 const Trailer = () => {
   const { id } = useParams()
+  const { data: movie} = useMovieDetail(id);
+  
   const youtubeVideoId = '6tiAgkCFM-0?si=9fvu5vnSHk9RMjT9" title="YouTube video player" frameborder="0" allow="accelerometer;';
-  const {
-    data: movie
-  } = useQuery({
-    queryKey: ["MOVIE_DETAIL", id],
-    queryFn: async () => {
-      const res = await axios.get(`/api/movie/${id}`);
-      return res.data;
-    },
-  });
 
   return (
     <div className='w-full my-4 md:h-[70vh] bg-black flex flex-col justify-center items-center'>

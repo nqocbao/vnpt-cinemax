@@ -1,29 +1,18 @@
-import { Button } from "@/components/ui/button";
-import { Loader2, Star, Video } from "lucide-react";
-import MovieTabs from "./MovieTabs";
-import MainLayout from "@/layouts/MainLayout";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import AuthDialog from "@/components/custom/AuthDialog";
-import { useState } from "react";
+import { useMovies } from "@/components/hooks/useQuery";
 import type { Movies } from "@/components/interface/movies";
+import { Button } from "@/components/ui/button";
+import MainLayout from "@/layouts/MainLayout";
+import { Star, Video } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MovieTabs from "./MovieTabs";
 
 const ComingSoonMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
   const navigate = useNavigate();
-  const {
-    data: movies,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["MOVIES"],
-    queryFn: async () => {
-      const res = await axios.get("/api/movie");
-      return res.data;
-    },
-  });
+  const { data: movies, isLoading, isError, error } = useMovies();
+  
 
   if (isLoading || isError)
     return (
@@ -68,7 +57,7 @@ const ComingSoonMovies = () => {
                         Trailer
                       </Button>
                     </div>
-                    <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer">
+                    <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer" onClick={() => navigate(`/detail/${movie.id}`)}>
                       {movie.title}
                     </p>
                   </div>

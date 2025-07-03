@@ -22,6 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useAuth } from "@/context/AuthContext";
 import {
   Award,
   CircleUser,
@@ -33,21 +34,13 @@ import {
   User2,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useTheaters } from "../hooks/useQuery";
 import type { Theater } from "../interface/theaters";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   const navigate = useNavigate();
-  const { data: theaters } = useQuery({
-    queryKey: ["THEATERS"],
-    queryFn: async () => {
-      const res = await axios.get("/api/theaters");
-      return res.data;
-    },
-  });
+  const { data: theaters } = useTheaters()
   return (
     <div>
       {/* Navbar */}
@@ -302,10 +295,6 @@ const Navbar = () => {
                         </div>
                       </Link>
                     </div>
-                    {/* <div className="flex items-center">
-                                <Award className="text-yellow-400 h-4 w-4"/>
-                                <span>0 Starts</span>
-                            </div> */}
                   </div>
                 )}
                 {/* End Infor User Loggin */}
@@ -319,10 +308,10 @@ const Navbar = () => {
                           Phim
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2">
-                          <Link to="#" className="block hover:text-[#CC9999]">
+                          <Link to="/now-movies" className="block hover:text-[#CC9999]">
                             Phim Đang Chiếu
                           </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
+                          <Link to="/coming-movies" className="block hover:text-[#CC9999]">
                             Phim Sắp Chiếu
                           </Link>
                         </AccordionContent>
@@ -381,15 +370,11 @@ const Navbar = () => {
                           Rạp/Giá Vé
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2 max-h-48 overflow-y-auto">
+                          {theaters?.map((theater: Theater) => (
                           <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Rice City
+                            {theater.name}
                           </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Phạm Ngọc Thạch
-                          </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Vincom Bà Triệu
-                          </Link>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>

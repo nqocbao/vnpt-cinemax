@@ -1,30 +1,17 @@
+import AuthDialog from "@/components/custom/AuthDialog";
+import { useMovies } from "@/components/hooks/useQuery";
+import type { Movies } from "@/components/interface/movies";
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/MainLayout";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Star, Video } from "lucide-react";
-import MovieTabs from "./MovieTabs";
-import AuthDialog from "@/components/custom/AuthDialog";
 import { useState } from "react";
-import type { Movies } from "@/components/interface/movies";
 import { useNavigate } from "react-router-dom";
+import MovieTabs from "./MovieTabs";
 
 const NowMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
-    const navigate = useNavigate()
-
-  const {
-    data: movies,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["MOVIES"],
-    queryFn: async () => {
-      const res = await axios.get("/api/movie");
-      return res.data;
-    },
-  });
+  const navigate = useNavigate();
+  const { data: movies, isLoading, isError, error } = useMovies();
 
   if (isLoading || isError)
     return (
@@ -62,12 +49,15 @@ const NowMovies = () => {
                         <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                         Mua vé
                       </Button>
-                      <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent" onClick={() => navigate(`/detail/${movie.id}`)}>
+                      <Button
+                        className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
+                        onClick={() => navigate(`/detail/${movie.id}`)}
+                      >
                         <Video />
                         Trailer
                       </Button>
                     </div>
-                    <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer">
+                    <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer" onClick={() => navigate(`/detail/${movie.id}`)}>
                       {movie.title}
                     </p>
                   </div>

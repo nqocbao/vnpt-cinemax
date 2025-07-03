@@ -1,4 +1,5 @@
 import AuthDialog from "@/components/custom/AuthDialog";
+import { useMovieDetail, useMovies, useTheaters } from "@/components/hooks/useQuery";
 import type { Movies } from "@/components/interface/movies";
 import type { Theater } from "@/components/interface/theaters";
 import { Button } from "@/components/ui/button";
@@ -9,8 +10,6 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -19,34 +18,9 @@ const MovieInfo = () => {
   const { id } = useParams();
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [dialogOpen, setDialogOpen] = useState(true);
-
-  const {
-    data: movie,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["MOVIE_DETAIL", id],
-    queryFn: async () => {
-      const res = await axios.get(`/api/movie/${id}`);
-      return res.data;
-    },
-  });
-
-  const { data: movies } = useQuery({
-    queryKey: ["MOVIES"],
-    queryFn: async () => {
-      const res = await axios.get("/api/movie");
-      return res.data;
-    },
-  });
-  const { data: theaters } = useQuery({
-    queryKey: ["THEATERS"],
-    queryFn: async () => {
-      const res = await axios.get("/api/theaters");
-      return res.data;
-    },
-  });
+  const { data: movie, isLoading, isError, error } = useMovieDetail(id);
+  const { data: movies } = useMovies();
+  const { data: theaters } = useTheaters()
 
   if (isLoading || isError)
     return (
