@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const ComingSoonMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     data: movies,
     isLoading,
@@ -60,7 +60,10 @@ const navigate = useNavigate()
                         <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                         Mua vé
                       </Button>
-                      <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent" onClick={() => navigate(`/detail/${movie.id}`)}>
+                      <Button
+                        className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
+                        onClick={() => navigate(`/detail/${movie.id}`)}
+                      >
                         <Video />
                         Trailer
                       </Button>

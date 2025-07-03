@@ -34,11 +34,20 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import type { Theater } from "../interface/theaters";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   const navigate = useNavigate();
-
+  const { data: theaters } = useQuery({
+    queryKey: ["THEATERS"],
+    queryFn: async () => {
+      const res = await axios.get("/api/theaters");
+      return res.data;
+    },
+  });
   return (
     <div>
       {/* Navbar */}
@@ -184,32 +193,18 @@ const Navbar = () => {
                 <NavigationMenuTrigger>Rạp/Giá Vé</NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-white">
                   <ul className="grid w-[200px] gap-4 max-h-48 overflow-y-auto">
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Rice City
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Phạm Ngọc Thạch
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Vimcom Bà Triệu
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
+                    {theaters?.map((theater: Theater) => (
+                      <li key={theater.id}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="#"
+                            className="hover:bg-[#CC9999] text-black hover:text-white"
+                          >
+                            {theater.name}
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>

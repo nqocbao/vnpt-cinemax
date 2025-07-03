@@ -1,5 +1,6 @@
 import AuthDialog from "@/components/custom/AuthDialog";
 import type { Movies } from "@/components/interface/movies";
+import type { Theater } from "@/components/interface/theaters";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -36,6 +37,13 @@ const MovieInfo = () => {
     queryKey: ["MOVIES"],
     queryFn: async () => {
       const res = await axios.get("/api/movie");
+      return res.data;
+    },
+  });
+  const { data: theaters } = useQuery({
+    queryKey: ["THEATERS"],
+    queryFn: async () => {
+      const res = await axios.get("/api/theaters");
       return res.data;
     },
   });
@@ -262,264 +270,118 @@ const MovieInfo = () => {
                   </Carousel>
                   <div className="border-b-[3px] border-b-[#8B008B]"></div>
                   <TabsContent value="monday" className="space-y-8">
-                    <div>
-                      <h1 className="text-base font-semibold mb-4">
-                        Cinemax Rice City
-                      </h1>
-                      <div className="space-y-2">
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">2D Phụ Đề:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                16:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                22:45
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                23:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">3D:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                10:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                13:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h1 className="text-base font-semibold mb-4">
-                        Cinemax Phạm Ngọc Thạch
-                      </h1>
-                      <div className="space-y-2">
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">2D Phụ Đề:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                              >
-                                16:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                              >
-                                22:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">3D:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                              >
-                                10:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                              >
-                                13:45
-                              </a>
-                            </li>
-                          </ul>
+                    {theaters?.map((theater: Theater) => (
+                      <div key={theater.id}>
+                        <h1 className="text-base font-semibold mb-4">
+                          {theater.name}
+                        </h1>
+                        <div className="space-y-2">
+                          <div className="flex md:flex-row flex-col gap-2 md:items-center">
+                            <span className="text-gray-500">2D Phụ Đề:</span>
+                            <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  16:30
+                                </a>
+                              </li>
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  22:45
+                                </a>
+                              </li>
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  23:45
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="flex md:flex-row flex-col gap-2 md:items-center">
+                            <span className="text-gray-500">3D:</span>
+                            <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  10:30
+                                </a>
+                              </li>
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  13:45
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </TabsContent>
                   <TabsContent value="tuesday" className="space-y-8">
-                    <div>
-                      <h1 className="text-base font-semibold mb-4">
-                        Cinemax Rice City
-                      </h1>
-                      <div className="space-y-2">
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">2D Phụ Đề:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                10:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                11:45
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                20:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">3D:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                13:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h1 className="text-base font-semibold mb-4">
-                        Cinemax Phạm Ngọc Thạch
-                      </h1>
-                      <div className="space-y-2">
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">2D Phụ Đề:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                10:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                11:45
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                20:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">3D:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                13:45
-                              </a>
-                            </li>
-                          </ul>
+                    {theaters?.map((theater: any) => (
+                      <div>
+                        <h1 className="text-base font-semibold mb-4">
+                          {theater.name}
+                        </h1>
+                        <div className="space-y-2">
+                          <div className="flex md:flex-row flex-col gap-2 md:items-center">
+                            <span className="text-gray-500">2D Phụ Đề:</span>
+                            <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  10:30
+                                </a>
+                              </li>
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  11:45
+                                </a>
+                              </li>
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  20:45
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="flex md:flex-row flex-col gap-2 md:items-center">
+                            <span className="text-gray-500">3D:</span>
+                            <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
+                              <li className="inline-block">
+                                <a
+                                  href="#"
+                                  className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
+                                >
+                                  13:45
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div>
-                      <h1 className="text-base font-semibold mb-4">
-                        Cinemax Bà Triệu
-                      </h1>
-                      <div className="space-y-2">
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">2D Phụ Đề:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                10:30
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                11:45
-                              </a>
-                            </li>
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                20:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="flex md:flex-row flex-col gap-2 md:items-center">
-                          <span className="text-gray-500">3D:</span>
-                          <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
-                            <li className="inline-block">
-                              <a
-                                href="#"
-                                className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
-                              >
-                                13:45
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </TabsContent>
                 </Tabs>
               </div>
