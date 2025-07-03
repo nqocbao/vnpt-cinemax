@@ -80,7 +80,7 @@ const MovieList = () => {
                           <img
                             src={movie.posterUrl}
                             alt=""
-                            className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[420px] object-cover"
+                            className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[220px] md:h-[280px] lg:h-[420px] object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                             <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
@@ -118,20 +118,20 @@ const MovieList = () => {
                           <img
                             src={movie.posterUrl}
                             alt=""
-                            className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[420px] object-cover"
+                            className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[220px] md:h-[280px] lg:h-[420px] object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                             <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                               Mua vé
                             </Button>
-                            <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent">
+                            <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent" onClick={() => navigate(`/detail/${movie.id}`)}>
                               <Video />
                               Trailer
                             </Button>
                           </div>
                           <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer">
-                            T{movie.title}
+                            {movie.title}
                           </p>
                         </div>
                       )

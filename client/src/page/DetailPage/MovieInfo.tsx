@@ -2,22 +2,17 @@ import AuthDialog from "@/components/custom/AuthDialog";
 import type { Movies } from "@/components/interface/movies";
 import { Button } from "@/components/ui/button";
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import {
-    Calendar,
-    ChevronLeft,
-    ChevronRight,
-    Clock
-} from "lucide-react";
+import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const MovieInfo = () => {
   const { id } = useParams();
@@ -25,7 +20,7 @@ const MovieInfo = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
 
   const {
-    data: movies,
+    data: movie,
     isLoading,
     isError,
     error,
@@ -33,6 +28,14 @@ const MovieInfo = () => {
     queryKey: ["MOVIE_DETAIL", id],
     queryFn: async () => {
       const res = await axios.get(`/api/movie/${id}`);
+      return res.data;
+    },
+  });
+
+  const { data: movies } = useQuery({
+    queryKey: ["MOVIES"],
+    queryFn: async () => {
+      const res = await axios.get("/api/movie");
       return res.data;
     },
   });
@@ -58,7 +61,7 @@ const MovieInfo = () => {
     <div className="max-w-screen-xl mx-auto py-2 px-2 md:px-4 xl:px-8">
       <div className="flex justify-between gap-8">
         {/* Thông Tin */}
-        {movies?.map((movie: Movies) => (
+        {movie && (
           <div className="w-full lg:w-2/3 space-y-12">
             {/* Thông Tin Phim */}
             <div className="flex flex-col md:flex-row gap-4 md:gap-8">
@@ -87,12 +90,12 @@ const MovieInfo = () => {
                   </div>
                   <div className="flex items-center space-x-1 text-sm">
                     <Calendar className="text-yellow-500" />
-                    <span className="text-gray-700">27/06/2025</span>
+                    <span className="text-gray-700">{movie.releaseDate}</span>
                   </div>
                 </div>
                 <div className="text-sm flex gap-1">
                   <span className="text-gray-500">Quốc gia: </span>
-                  <span className="text-gray-700">Việt Nam</span>
+                  <span className="text-gray-700">{movie.language}</span>
                 </div>
                 <div className="text-sm flex gap-1">
                   <span className="text-gray-500">Nhà sản xuất: </span>
@@ -138,17 +141,18 @@ const MovieInfo = () => {
                 <div className="text-sm flex gap-1">
                   <span className="text-gray-500">Diễn viên:</span>
                   <ul className="ml-2 flex flex-wrap gap-1 flex-1">
-                    {movie.cast?.split(",").map((actor: string, index: number) => (
-                    <li className="inline-block" key={index}>
-                      <a
-                        href="#"
-                        className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                      >
-                        {actor.trim()}
-                      </a>
-                    </li>
-                    ))}
-                    
+                    {movie.cast
+                      ?.split(",")
+                      .map((actor: string, index: number) => (
+                        <li className="inline-block" key={index}>
+                          <a
+                            href="#"
+                            className="text-gray-700 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
+                          >
+                            {actor.trim()}
+                          </a>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -164,16 +168,7 @@ const MovieInfo = () => {
                 </h1>
               </div>
               <div className="">
-                <p className="text-gray-700">
-                  Bộ đôi Tiến Luật và Ngô Kiến Huy, với nghề nghiệp "độc lạ" hốt
-                  xác và lái xe cứu thương, hứa hẹn mang đến những tràng cười
-                  không ngớt cho khán giả qua hành trình tìm xác có một không
-                  hai trên màn ảnh Việt. Nhờ sự trợ giúp của thế lực tâm linh,
-                  họ không chỉ đối mặt với những tình huống "dở khóc dở cười" mà
-                  còn khám phá ra những bí mật rợn người ẩn sau những thi thể.
-                  Liệu họ có hoàn thành nhiệm vụ "khó nhằn" này hay sẽ gặp phải
-                  những "biến cố" nào?
-                </p>
+                {movie && <p className="text-gray-700">{movie.content}</p>}
               </div>
             </div>
             {/* End */}
@@ -531,7 +526,7 @@ const MovieInfo = () => {
             </div>
             {/* End */}
           </div>
-        ))}
+        )}
         {/* End */}
 
         {/* Phim Đang Chiếu*/}
@@ -542,45 +537,29 @@ const MovieInfo = () => {
               PHIM ĐANG CHIẾU
             </h1>
           </div>
-          <div className="space-y-2">
-            <a href="">
-              <img
-                src="https://cdn.galaxycine.vn/media/2025/6/24/ma-khong-dau-1_1750721724248.jpg"
-                alt=""
-                className="w-full max-h-[230px] rounded-lg hover:opacity-80"
-              />
-            </a>
-            <p className="font-semibold">
-              <a href="">Ma Không Đầu</a>
-            </p>
-          </div>
-          <div className="space-y-2">
-            <a href="">
-              <img
-                src="https://cdn.galaxycine.vn/media/2025/6/18/elio-750_1750220019303.jpg"
-                alt=""
-                className="w-full max-h-[230px] rounded-lg hover:opacity-80"
-              />
-            </a>
-            <p className="font-semibold">
-              <a href="">Elio Cậu Bé Đến Từ Trái Đất</a>
-            </p>
-          </div>
-          <div className="space-y-2">
-            <a href="">
-              <img
-                src="https://cdn.galaxycine.vn/media/2025/6/20/28-year-later-500_1750407074215.jpg"
-                alt=""
-                className="w-full max-h-[230px] rounded-lg hover:opacity-80"
-              />
-            </a>
-            <p className="font-semibold">
-              <a href="">28 Năm Sau Tận Thế</a>
-            </p>
-          </div>
+          {movies
+            ?.filter((item: Movies) => Number(item.id) % 2 === 1)
+            .map(
+              (item: Movies, index: number) =>
+                index < 3 && (
+                  <div className="space-y-2">
+                    <Link to={`/detail/${item.id}`}>
+                      <img
+                        src={item.posterUrl}
+                        alt=""
+                        className="w-full max-h-[230px] rounded-lg hover:opacity-80"
+                      />
+                    </Link>
+                    <p className="font-semibold">
+                      <Link to={`/detail/${item.id}`}>{item.title}</Link>
+                    </p>
+                  </div>
+                )
+            )}
+
           <div className="flex flex-col items-center">
             <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer">
-              Xem Thêm
+              <Link to="/now-movies">Xem Thêm</Link>
             </Button>
           </div>
         </div>

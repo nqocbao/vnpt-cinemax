@@ -6,11 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import AuthDialog from "@/components/custom/AuthDialog";
 import { useState } from "react";
-import type { Movies } from "@/components/interface/Movies";
+import type { Movies } from "@/components/interface/movies";
+import { useNavigate } from "react-router-dom";
 
 const ComingSoonMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
-
+const navigate = useNavigate()
   const {
     data: movies,
     isLoading,
@@ -44,7 +45,7 @@ const ComingSoonMovies = () => {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
               {movies
                 ?.filter((movie: Movies) => Number(movie.id) % 2 === 0)
-                .map((movie: any) => (
+                .map((movie: Movies) => (
                   <div className="space-y-2 group relative" key={movie.id}>
                     {/* <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
                     {movie.age || null}
@@ -52,14 +53,14 @@ const ComingSoonMovies = () => {
                     <img
                       src={movie.posterUrl}
                       alt=""
-                      className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[420px] object-cover"
+                      className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[220px] md:h-[280px] lg:h-[420px] object-cover"
                     />
                     <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                       <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
                         <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                         Mua vé
                       </Button>
-                      <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent">
+                      <Button className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent" onClick={() => navigate(`/detail/${movie.id}`)}>
                         <Video />
                         Trailer
                       </Button>
