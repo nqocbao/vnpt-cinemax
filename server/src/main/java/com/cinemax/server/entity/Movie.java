@@ -49,6 +49,9 @@ public class Movie {
     @Column(name = "poster_url")
     private String posterUrl;
 
+    @Column(name = "trailer_url")
+    private String trailerUrl;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }
