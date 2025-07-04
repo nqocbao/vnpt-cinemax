@@ -22,6 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useAuth } from "@/context/AuthContext";
 import {
   Award,
   CircleUser,
@@ -33,12 +34,13 @@ import {
   User2,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useTheaters } from "../hooks/useQuery";
+import type { Theater } from "../interface/theaters";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   const navigate = useNavigate();
-
+  const { data: theaters } = useTheaters()
   return (
     <div>
       {/* Navbar */}
@@ -184,32 +186,18 @@ const Navbar = () => {
                 <NavigationMenuTrigger>Rạp/Giá Vé</NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-white">
                   <ul className="grid w-[200px] gap-4 max-h-48 overflow-y-auto">
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Rice City
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Phạm Ngọc Thạch
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="#"
-                          className="hover:bg-[#CC9999] text-black hover:text-white"
-                        >
-                          Cinemax Vimcom Bà Triệu
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
+                    {theaters?.map((theater: Theater) => (
+                      <li key={theater.id}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="#"
+                            className="hover:bg-[#CC9999] text-black hover:text-white"
+                          >
+                            {theater.name}
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -307,10 +295,6 @@ const Navbar = () => {
                         </div>
                       </Link>
                     </div>
-                    {/* <div className="flex items-center">
-                                <Award className="text-yellow-400 h-4 w-4"/>
-                                <span>0 Starts</span>
-                            </div> */}
                   </div>
                 )}
                 {/* End Infor User Loggin */}
@@ -324,10 +308,10 @@ const Navbar = () => {
                           Phim
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2">
-                          <Link to="#" className="block hover:text-[#CC9999]">
+                          <Link to="/now-movies" className="block hover:text-[#CC9999]">
                             Phim Đang Chiếu
                           </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
+                          <Link to="/coming-movies" className="block hover:text-[#CC9999]">
                             Phim Sắp Chiếu
                           </Link>
                         </AccordionContent>
@@ -386,15 +370,11 @@ const Navbar = () => {
                           Rạp/Giá Vé
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2 max-h-48 overflow-y-auto">
+                          {theaters?.map((theater: Theater) => (
                           <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Rice City
+                            {theater.name}
                           </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Phạm Ngọc Thạch
-                          </Link>
-                          <Link to="#" className="block hover:text-[#CC9999]">
-                            Cinemax Vincom Bà Triệu
-                          </Link>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>

@@ -1,21 +1,26 @@
+import { useMovieDetail } from "@/components/hooks/useQuery";
 import {
-    Dialog,
-    DialogContent,
-    DialogTrigger
-} from "@/components/ui/dialog"; 
+  Dialog,
+  DialogContent,
+  DialogTrigger
+} from "@/components/ui/dialog";
 import { PlayCircle } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 const Trailer = () => {
- const thumbnailUrl = 'https://cdn.galaxycine.vn/media/2025/6/6/bi-kip-luyen-rong-2048_1749195168873.jpg';
+  const { id } = useParams()
+  const { data: movie} = useMovieDetail(id);
+  
   const youtubeVideoId = '6tiAgkCFM-0?si=9fvu5vnSHk9RMjT9" title="YouTube video player" frameborder="0" allow="accelerometer;';
 
   return (
     <div className='w-full my-4 md:h-[70vh] bg-black flex flex-col justify-center items-center'>
       <Dialog>
         <DialogTrigger asChild>
-          <div className='relative w-full lg:max-w-4xl h-full'>
+          {movie && (
+            <div className='relative w-full lg:max-w-4xl h-full'>
             <img
-              src={thumbnailUrl}
+              src={movie.posterUrl}
               alt=""
               className="w-full h-full"
             />
@@ -23,6 +28,7 @@ const Trailer = () => {
                 <PlayCircle className="text-white w-16 h-16 hover:opacity-60 cursor-pointer"/>
             </div>
           </div>
+          )}
         </DialogTrigger>
 
         <DialogContent className="w-full max-w-full sm:max-w-lg md:max-w-6xl lg:max-w-8xl overflow-hidden bg-transparent border-none px-4">

@@ -16,7 +16,7 @@ const MovieTabs = () => {
                   `font-semibold px-2 py-2 rounded-none text-sm md:text-base !shadow-none cursor-pointer 
                    ${
                      isActive
-                       ? "text-[#8B008B] border-b-2 border-b-[#8B008B]"
+                       ? "text-[#8B008B]"
                        : "text-gray-500 hover:text-[#8B008B]"
                    }`
                 }
@@ -32,7 +32,7 @@ const MovieTabs = () => {
                   `font-semibold px-2 py-2 rounded-none text-sm md:text-base !shadow-none cursor-pointer 
                    ${
                      isActive
-                       ? "text-[#8B008B] border-b-2 border-b-[#8B008B]"
+                       ? "text-[#8B008B]"
                        : "text-gray-500 hover:text-[#8B008B]"
                    }`
                 }

@@ -38,7 +38,7 @@ const Profile = () => {
   return (
     <MainLayout>
       <div className="bg-gray-100">
-        <div className="max-w-screen-xl mx-auto py-2 px-2 md:px-4 lg:px-8 lg:grid lg:grid-cols-12 gap-8 space-y-6">
+        <div className="max-w-screen-xl mx-auto py-6 px-4 md:px-8 lg:grid lg:grid-cols-12 gap-8 space-y-6">
           <div className="bg-white col-span-4 lg:shadow-2xl rounded px-3 md:px-8 py-10 space-y-6">
             <div className="flex items-center justify-center gap-6 my-6">
               <div className="p-6 bg-gray-200 rounded-[50%]">

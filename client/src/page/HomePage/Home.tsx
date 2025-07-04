@@ -1,11 +1,10 @@
-import React from "react";
-import Slider from "./Slider";
-import MovieList from "./MovieList";
+import MainLayout from "@/layouts/MainLayout";
+import About from "./About";
+import Advertise from "./Advertise";
 import Blog from "./Blog";
 import EventList from "./EventList";
-import Advertise from "./Advertise";
-import About from "./About";
-import MainLayout from "@/layouts/MainLayout";
+import MovieList from "./MovieList";
+import Slider from "./Slider";
 
 const Home = () => {
   return (
