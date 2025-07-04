@@ -11,6 +11,13 @@ import { AuthProvider } from "./context/AuthContext.tsx";
 import Auth from "./page/AuthPage/Auth.tsx";
 import Booking from "./page/BookingPage/Booking.tsx";
 import Profile from "./page/User/Profile.tsx";
+import AdminDashboard from "./page/Admin/AdminDashboard.tsx";
+import UserList from "./page/Admin/User/UserList.tsx";
+import MovieList from "./page/Admin/Movies/MovieList.tsx";
+import UserAdd from "./page/Admin/User/UserAdd.tsx";
+import UserEdit from "./page/Admin/User/UserEdit.tsx";
+import MovieAdd from "./page/Admin/Movies/MovieAdd.tsx";
+import MovieEdit from "./page/Admin/Movies/MovieEdit.tsx";
 
 const queryClient = new QueryClient()
 createRoot(document.getElementById("root")!).render(
@@ -26,6 +33,19 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/booking" element={<Booking />} />
           <Route path="/now-movies" element={<NowMovies />} />
           <Route path="/coming-movies" element={<ComingSoonMovies />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="user">
+              <Route index element={<UserList />} />
+              <Route path="add" element={<UserAdd />} />
+              <Route path="edit/:id" element={<UserEdit />} />
+            </Route>
+            <Route path="movie">
+              <Route index element={<MovieList />} />
+              <Route path="add" element={<MovieAdd />} />
+              <Route path="edit/:id" element={<MovieEdit />} />
+            </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
       </QueryClientProvider>
