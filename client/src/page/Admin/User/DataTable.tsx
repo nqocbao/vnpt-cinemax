@@ -78,7 +78,7 @@ export const DataTable = <TData, TValue>({
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm focus-visible:ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

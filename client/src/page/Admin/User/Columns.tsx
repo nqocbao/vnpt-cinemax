@@ -18,7 +18,6 @@ export type User = {
   email: string;
   phone: number;
   name: string;
-  password: string;
   gender: string;
 };
 
@@ -44,10 +43,6 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: "Name",
-  },
-  {
-    accessorKey: "password",
-    header: "Password",
   },
   {
     accessorKey: "gender",
