@@ -62,6 +62,11 @@ export const DataTable = <TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    initialState: {
+    pagination: {
+      pageSize: 8,
+    },
+  },
     state: {
       sorting,
       columnFilters,

@@ -5,7 +5,7 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
   return (
     <div>
       <div
-        className={`flex flex-col bg-white overflow-hidden transition-all duration-300
+        className={`flex flex-col bg-white overflow-hidden transition-all duration-300 shadow-md
     ${sidebarOpen ? "w-46" : "w-16"}
   `}
       >

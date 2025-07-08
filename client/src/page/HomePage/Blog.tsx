@@ -1,7 +1,7 @@
-import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Eye, Heart, ThumbsUp } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Eye, ThumbsUp } from "lucide-react";
+import { Link } from "react-router-dom";
 const Blog = () => {
   return (
     <div>
@@ -32,14 +32,18 @@ const Blog = () => {
                 className="md:grid md:grid-cols-2 md:gap-6 w-full"
               >
                 <div className="space-y-4 md:space-y-6 mb-4 md:mb-0">
-                  <img
-                    src="/blog1.jpg"
-                    alt=""
-                    className="w-full transition duration-300 ease-in-out hover:scale-105 rounded-md cursor-pointer"
-                  />
+                  <Link to="/blog-movie">
+                    <img
+                      src="/blog1.jpg"
+                      alt=""
+                      className="w-full transition duration-300 ease-in-out hover:scale-105 rounded-md cursor-pointer"
+                    />
+                  </Link>
                   <p className="text-xl font-semibold text-gray-700 hover:text-[#8B008B] cursor-pointer  line-clamp-3">
-                    [Review] How To Train Your Dragon: Live Action Hoàn Hảo Của
-                    Bí Kíp Luyện Rồng?
+                    <Link to="/blog-movie">
+                      [Review] How To Train Your Dragon: Live Action Hoàn Hảo
+                      Của Bí Kíp Luyện Rồng?
+                    </Link>
                   </p>
                   <div className="space-x-2 flex">
                     <Button className="bg-blue-600 text-white text-xs gap-1 hover:bg-blue-800 cursor-pointer md:px-4 md:py-2">
@@ -61,8 +65,11 @@ const Blog = () => {
                     />
                     <div className="w-2/3 space-y-2 space-x-2">
                       <p className="text-sm text-gray-600 lg:text-black md:text-base lg:text-xl md:font-semibold hover:text-[#8B008B] cursor-pointer line-clamp-2">
-                        [Review] How To Train Your Dragon: Live Action Hoàn Hảo
-                        Của Bí Kíp Luyện Rồng?
+                        <Link to="/blog-movie">
+                          {" "}
+                          [Review] How To Train Your Dragon: Live Action Hoàn
+                          Hảo Của Bí Kíp Luyện Rồng?
+                        </Link>
                       </p>
                       <Button className="bg-blue-600 text-white text-xs gap-1 hover:bg-blue-800 cursor-pointer">
                         <ThumbsUp className="w-4 h-4" />
@@ -82,8 +89,10 @@ const Blog = () => {
                     />
                     <div className="w-2/3 space-y-2 space-x-2">
                       <p className="text-sm text-gray-600 lg:text-black md:text-base lg:text-xl md:font-semibold hover:text-[#8B008B] cursor-pointer line-clamp-2">
-                        [Review] How To Train Your Dragon: Live Action Hoàn Hảo
-                        Của Bí Kíp Luyện Rồng?
+                        <Link to="/blog-movie">
+                          [Review] How To Train Your Dragon: Live Action Hoàn
+                          Hảo Của Bí Kíp Luyện Rồng?
+                        </Link>
                       </p>
                       <Button className="bg-blue-600 text-white text-xs gap-1 hover:bg-blue-800 cursor-pointer">
                         <ThumbsUp className="w-4 h-4" />
@@ -103,8 +112,10 @@ const Blog = () => {
                     />
                     <div className="w-2/3 space-y-2 space-x-2">
                       <p className="text-sm text-gray-600 lg:text-black md:text-base lg:text-xl md:font-semibold hover:text-[#8B008B] cursor-pointer line-clamp-2">
-                        [Review] How To Train Your Dragon: Live Action Hoàn Hảo
-                        Của Bí Kíp Luyện Rồng?
+                        <Link to="/blog-movie">
+                          [Review] How To Train Your Dragon: Live Action Hoàn
+                          Hảo Của Bí Kíp Luyện Rồng?
+                        </Link>
                       </p>
                       <Button className="bg-blue-600 text-white text-xs gap-1 hover:bg-blue-800 cursor-pointer">
                         <ThumbsUp className="w-4 h-4" />
