@@ -30,3 +30,23 @@ export function useTheaters(){
     },
   });
 }
+
+export function useUsers(){
+    return useQuery({
+    queryKey: ["USERS"],
+    queryFn: async () => {
+      const res = await axios.get("/api/admin/users");
+      return res.data;
+    },
+  });
+}
+
+export function useUserDetail(id?: string | number){
+    return useQuery({
+    queryKey: ["USERS_DETAIL", id],
+    queryFn: async () => {
+      const res = await axios.get(`/api/admin/users/${id}`);
+      return res.data;
+    },
+  });
+}

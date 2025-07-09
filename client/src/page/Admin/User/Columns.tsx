@@ -13,6 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+import { useDeleteUser } from "@/components/hooks/useMutation";
 export type User = {
   id: number | string;
   email: string;
@@ -48,12 +50,16 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "gender",
     header: "Gender",
   },
+  {
+    accessorKey: "role",
+    header: "Role",
+  },
 
   {
     id: "actions",
     cell: ({ row }) => {
       const user = row.original;
-
+      const { mutate: deleteUser } = useDeleteUser()
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -66,12 +72,13 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              asChild
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              Update
+              <Link to={`edit/${user.id}`}>Update</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white">
+            <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white" onClick={() => deleteUser(user.id)}>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
