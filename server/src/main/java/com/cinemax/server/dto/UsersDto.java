@@ -2,6 +2,7 @@ package com.cinemax.server.dto;
 
 import com.cinemax.server.entity.Users.Gender;
 import com.cinemax.server.entity.Users.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,9 @@ public class UsersDto {
     private String name;
     private String email;
     private String phone;
+    @JsonIgnore
     private String password;
     private Gender gender;
     private Role role;
+    private CustomerDto customer;
 }

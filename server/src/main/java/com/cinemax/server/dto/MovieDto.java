@@ -25,5 +25,6 @@ public class MovieDto {
     private LocalDate releaseDate;
     private String posterUrl;
     private String trailerUrl;
+    private String ageLimit;
     private LocalDateTime createAt;
 }

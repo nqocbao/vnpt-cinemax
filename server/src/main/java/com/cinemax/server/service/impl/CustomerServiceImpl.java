@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto updateCustomer(Integer id, CustomerDto customerDto) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
-        // Cập nhật các trường từ DTO
+
         customer.setCity(customerDto.getCity());
         customer.setAddress(customerDto.getAddress());
         customer.setRegion(customerDto.getRegion());
@@ -35,11 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
-        // Lấy user từ DB
+
         Users user = usersRepository.findById(customerDto.getUser_id())
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + customerDto.getUser_id()));
         Customer customer = new Customer();
-        customer.setUser_id(user);
+        customer.setUser(user);
         customer.setCity(customerDto.getCity());
         customer.setAddress(customerDto.getAddress());
         customer.setRegion(customerDto.getRegion());
@@ -47,6 +47,13 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setLastName(customerDto.getLastName());
         Customer savedCustomer = customerRepository.save(customer);
         return CustomerMapper.mapToCustomerDto(savedCustomer);
+    }
+
+    @Override
+    public CustomerDto getCustomerByUserId(Integer id) {
+        Customer customer = customerRepository.findByUser_id(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+        return CustomerMapper.mapToCustomerDto(customer);
     }
 
 }

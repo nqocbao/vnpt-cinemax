@@ -19,6 +19,7 @@ public class MovieMapper {
                 movie.getReleaseDate(),
                 movie.getPosterUrl(),
                 movie.getTrailerUrl(),
+                movie.getAgeLimit(),
                 movie.getCreateAt());
     }
 
@@ -36,6 +37,7 @@ public class MovieMapper {
                 MovieDto.getReleaseDate(),
                 MovieDto.getPosterUrl(),
                 MovieDto.getTrailerUrl(),
+                MovieDto.getAgeLimit(),
                 MovieDto.getCreateAt());
     }
 

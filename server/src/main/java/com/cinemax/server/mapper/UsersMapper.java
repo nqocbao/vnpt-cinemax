@@ -6,14 +6,15 @@ import com.cinemax.server.entity.Users;
 public class UsersMapper {
 
     public static UsersDto mapToUsersDto(Users users) {
-        return new UsersDto(
-                users.getId(),
-                users.getName(),
-                users.getEmail(),
-                users.getPhone(),
-                users.getPassword(),
-                users.getGender(),
-                users.getRole());
+        UsersDto usersDto = new UsersDto();
+        usersDto.setId(users.getId());
+        usersDto.setName(users.getName());
+        usersDto.setEmail(users.getEmail());
+        usersDto.setPhone(users.getPhone());
+        usersDto.setPassword(users.getPassword());
+        usersDto.setGender(users.getGender());
+        usersDto.setRole(users.getRole());
+        return usersDto;
     }
 
     public static Users mapToUsers(UsersDto usersDto) {

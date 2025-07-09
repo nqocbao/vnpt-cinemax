@@ -21,7 +21,7 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user_id;
+    private Users user;
 
     @OneToMany
     @JoinColumn(name = "tickets_id")

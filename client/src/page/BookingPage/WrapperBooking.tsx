@@ -844,7 +844,9 @@ export default function WrapperBooking() {
           <Button
             variant="ghost"
             className={`${
-              selectedTab === "step5" ? "hidden" : "flex-1"
+              selectedTab === "step5" || selectedTab === "overtime"
+                ? "hidden"
+                : "flex-1"
             } text-[#F1B4BB] text-lg cursor-pointer`}
             onClick={() => {
               if (selectedTab === "step2") {
@@ -870,7 +872,9 @@ export default function WrapperBooking() {
           </Button>
           <Button
             className={`${
-              selectedTab === "step5" ? "hidden" : "flex-1"
+              selectedTab === "step5" || selectedTab === "overtime"
+                ? "hidden"
+                : "flex-1"
             } bg-[#F1B4BB] hover:bg-[#f49aa5] text-white text-lg cursor-pointer`}
             disabled={!(selectedCity && selectedMovie && selectedShowtime)}
             onClick={() => {
@@ -904,7 +908,9 @@ export default function WrapperBooking() {
           </Button>
           <Button
             className={`${
-              selectedTab !== "step5" ? "hidden" : ""
+              selectedTab !== "step5" && selectedTab !== "overtime"
+                ? "hidden"
+                : ""
             } w-full bg-[#8B008B] text-white cursor-pointer focus:bg-[#ea60ea]`}
             onClick={() => navigate("/")}
           >

@@ -6,4 +6,6 @@ public interface CustomerService {
     CustomerDto createCustomer(CustomerDto customerDto);
 
     CustomerDto updateCustomer(Integer id, CustomerDto customerDto);
+
+    CustomerDto getCustomerByUserId(Integer id);
 }
