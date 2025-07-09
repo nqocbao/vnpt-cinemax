@@ -12,7 +12,6 @@ const ComingSoonMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
   const navigate = useNavigate();
   const { data: movies, isLoading, isError, error } = useMovies();
-  
 
   if (isLoading || isError)
     return (
@@ -36,9 +35,9 @@ const ComingSoonMovies = () => {
                 ?.filter((movie: Movies) => Number(movie.id) % 2 === 0)
                 .map((movie: Movies) => (
                   <div className="space-y-2 group relative" key={movie.id}>
-                    {/* <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                    {movie.age || null}
-                  </div> */}
+                    <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
+                      {movie.ageLimit}
+                    </div>
                     <img
                       src={movie.posterUrl}
                       alt=""
@@ -57,7 +56,10 @@ const ComingSoonMovies = () => {
                         Trailer
                       </Button>
                     </div>
-                    <p className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer" onClick={() => navigate(`/detail/${movie.id}`)}>
+                    <p
+                      className="font-bold truncate text-sm md:text-base md:block text-gray-600 hover:text-blue-600 cursor-pointer"
+                      onClick={() => navigate(`/detail/${movie.id}`)}
+                    >
                       {movie.title}
                     </p>
                   </div>

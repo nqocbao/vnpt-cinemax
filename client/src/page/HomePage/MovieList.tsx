@@ -68,11 +68,11 @@ const MovieList = () => {
                 {filteredMovies
                   ?.filter((movie: Movies) => Number(movie.id) % 2 === 1)
                   .map(
-                    (movie: any, index: number) =>
+                    (movie: Movies, index: number) =>
                       index < 8 && (
                         <div className="space-y-2 group relative">
                           <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
+                            {movie.ageLimit}
                           </div>
                           <img
                             src={movie.posterUrl}
@@ -107,13 +107,13 @@ const MovieList = () => {
                 className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
               >
                 {filteredMovies
-                  ?.filter((movie: any) => Number(movie.id) % 2 === 0)
+                  ?.filter((movie: Movies) => Number(movie.id) % 2 === 0)
                   .map(
-                    (movie: any, index: number) =>
+                    (movie: Movies, index: number) =>
                       index < 8 && (
                         <div className="space-y-2 group relative">
                           <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
+                            {movie.ageLimit}
                           </div>
                           <img
                             src={movie.posterUrl}

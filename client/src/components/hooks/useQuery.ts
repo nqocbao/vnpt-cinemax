@@ -31,6 +31,16 @@ export function useTheaters(){
   });
 }
 
+export function usePosts(){
+    return useQuery({
+    queryKey: ["POSTS"],
+    queryFn: async () => {
+      const res = await axios.get("/api/posts");
+      return res.data;
+    },
+  });
+}
+
 export function useUsers(){
     return useQuery({
     queryKey: ["USERS"],

@@ -9,5 +9,7 @@ export interface Movies {
   language: string;
   releaseDate: string;
   posterUrl: string;
+  trailerUrl: string;
+  ageLimit: string;
   createAt: string;
 }

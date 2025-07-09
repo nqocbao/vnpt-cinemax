@@ -1,14 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, ThumbsUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 const Blog = () => {
+  const [tab, setTab] = useState("comment");
+  const navigate = useNavigate();
   return (
     <div>
       <div className="max-w-screen-xl mx-auto my-8 md:my-14">
         <div className="my-8 md:my-14">
           <div className="lg:ml-3 px-4">
-            <Tabs defaultValue="comment" className="w-full space-y-6">
+            <Tabs
+              defaultValue="comment"
+              value={tab}
+              onValueChange={setTab}
+              className="w-full space-y-6"
+            >
               <TabsList className="md:gap-x-8 gap-x-6 flex flex-wrap justify-start">
                 <h1 className="text-2xl font-semibold border-l-[4px] border-l-[#8B008B] pl-3 hidden md:flex">
                   GÓC ĐIỆN ẢNH
@@ -227,8 +235,13 @@ const Blog = () => {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer">
-            <Link to='/review-movie'>Xem Thêm</Link>
+          <Button
+            className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer"
+            onClick={() =>
+              navigate(tab === "comment" ? "/review-movie" : "/blog-movie")
+            }
+          >
+            Xem Thêm
           </Button>
         </div>
       </div>
