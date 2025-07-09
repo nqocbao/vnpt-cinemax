@@ -45,7 +45,6 @@ public class UsersController {
         var result = usersService.login(usersDto);
         UsersDto userDto = (UsersDto) result.get("user");
         return ResponseEntity.ok(of(
-                "status", 200,
                 "message", "Đăng nhập thành công",
                 "token", result.get("token"),
                 "userId", userDto.getId()));

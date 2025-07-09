@@ -80,6 +80,12 @@ const COMBOS = [
   },
 ];
 
+const DATES = [
+  { label: "Chủ Nhật", value: "2025-07-06" },
+  { label: "Hôm Nay", value: "2025-07-07" },
+  { label: "Thứ Ba", value: "2025-07-08" },
+];
+
 export default function WrapperBooking() {
   const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -112,12 +118,6 @@ export default function WrapperBooking() {
 
   const { data: movies } = useMovies();
   const { data: theaters = [] } = useTheaters();
-
-  const DATES = [
-    { label: "Chủ Nhật", value: "2025-07-06" },
-    { label: "Hôm Nay", value: "2025-07-07" },
-    { label: "Thứ Ba", value: "2025-07-08" },
-  ];
 
   // Lấy danh sách thành phố duy nhất từ theaters
   const cityList = Array.from(
@@ -536,7 +536,7 @@ export default function WrapperBooking() {
             <div className="flex flex-col items-center">
               {ROWS.map((row) => (
                 <div key={row} className="flex items-center mb-1">
-                  <span className="w-6 text-gray-500">{row}</span>
+                  <span className="w-6 text-gray-500 mr-1">{row}</span>
                   {COLS.map((col) => {
                     const isSold = soldSeats.some(
                       (s) => s.row === row && s.col === col
@@ -580,7 +580,7 @@ export default function WrapperBooking() {
                       </button>
                     );
                   })}
-                  <span className="w-6 text-gray-500">{row}</span>
+                  <span className="w-6 ml-4 text-gray-500">{row}</span>
                 </div>
               ))}
             </div>
@@ -797,7 +797,7 @@ export default function WrapperBooking() {
               </span>
             )}
           </div>
-          {selectedTab !== "step1" && (
+          {selectedTab !== "step1" && selectedSeats.length > 0 && (
             <div className="mt-6 flex flex-col">
               <hr className="my-4" />
               <div>

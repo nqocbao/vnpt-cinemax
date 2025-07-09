@@ -99,6 +99,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteUser(Integer id) {
+        customerRepository.findByUser_id(id)
+                .ifPresent(customer -> customerRepository.deleteById(customer.getId()));
         usersRepository.deleteById(id);
     }
 
