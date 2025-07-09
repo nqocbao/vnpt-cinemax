@@ -9,9 +9,9 @@ public class PostMapper {
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
+                post.getPosts_url(),
                 post.getCreatedAt(),
-                post.getUpdatedAt()
-        );
+                post.getUpdatedAt());
     }
 
     public static Post mapToPost(PostDto dto) {
@@ -19,8 +19,9 @@ public class PostMapper {
         post.setId(dto.getId());
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
+        post.setPosts_url(dto.getPostsUrl());
         post.setCreatedAt(dto.getCreatedAt());
         post.setUpdatedAt(dto.getUpdatedAt());
         return post;
     }
-} 
+}
