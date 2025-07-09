@@ -3,11 +3,14 @@ import type { Movies } from "@/components/interface/movies";
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/MainLayout";
 import { Eye, ThumbsUp } from "lucide-react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const BlogPage = () => {
+const ReviewPage = () => {
   const { data: movies } = useMovies();
+
   return (
+    <div>
       <MainLayout>
         <div className="border-t-4 border-t-gray-200 border-b-4 border-b-gray-200">
           <div className="max-w-screen-xl mx-auto py-2 px-4 md:px-8 my-6">
@@ -16,7 +19,7 @@ const BlogPage = () => {
                 <div>
                   <span className="border-l-4 border-solid border-l-[#8B008B] mr-2"></span>
                   <h1 className="text-xl inline-block font-semibold">
-                    GÓC ĐIỆN ẢNH
+                    BÌNH LUẬN PHIM
                   </h1>
                 </div>
                     <div className="border-2 border-[#8B008B] my-4"></div>
@@ -140,7 +143,8 @@ const BlogPage = () => {
             </div>
         </div>
       </MainLayout>
+    </div>
   );
 };
 
-export default BlogPage;
+export default ReviewPage;

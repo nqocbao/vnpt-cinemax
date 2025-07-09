@@ -228,7 +228,7 @@ const Blog = () => {
         </div>
         <div className="flex flex-col items-center">
           <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer">
-            Xem Thêm
+            <Link to='/review-movie'>Xem Thêm</Link>
           </Button>
         </div>
       </div>

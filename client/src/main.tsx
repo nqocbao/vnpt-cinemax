@@ -19,6 +19,7 @@ import UserEdit from "./page/Admin/User/UserEdit.tsx";
 import MovieAdd from "./page/Admin/Movies/MovieAdd.tsx";
 import MovieEdit from "./page/Admin/Movies/MovieEdit.tsx";
 import BlogPage from "./page/BlogPage/BlogPage.tsx";
+import ReviewPage from "./page/BlogPage/ReviewPage.tsx";
 
 const queryClient = new QueryClient()
 createRoot(document.getElementById("root")!).render(
@@ -35,6 +36,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/now-movies" element={<NowMovies />} />
           <Route path="/coming-movies" element={<ComingSoonMovies />} />
           <Route path="/blog-movie" element={<BlogPage />} />
+          <Route path="/review-movie" element={<ReviewPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin" element={<AdminDashboard />}>
             <Route path="user">
