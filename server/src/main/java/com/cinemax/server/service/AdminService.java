@@ -15,7 +15,9 @@ public interface AdminService {
 
     MovieDto createMovie(MovieDto movieDto);
     MovieDto updateMovie(Integer id, MovieDto movieDto);
+    void deleteMovie(Integer id);
 
     PostDto createPost(PostDto postDto);
     PostDto updatePost(Integer id, PostDto postDto);
+    void deletePost(Integer id);
 } 

@@ -69,6 +69,12 @@ public class AdminController {
         return ResponseEntity.ok(of("message", "Cập nhật thông tin phim thành công"));
     }
 
+    @DeleteMapping("/movies/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable Integer id) {
+        adminService.deleteMovie(id);
+        return ResponseEntity.ok("Xóa phim thành công");
+    }
+
     // --- POSTS ---
     @PostMapping("/posts")
     public ResponseEntity<?> createPost(@RequestBody PostDto postDto) {
@@ -80,5 +86,11 @@ public class AdminController {
     public ResponseEntity<?> updatePost(@PathVariable Integer id, @RequestBody PostDto postDto) {
         adminService.updatePost(id, postDto);
         return ResponseEntity.ok(of("message", "Cập nhật bài viết thành công"));
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity<?> deletePost(@PathVariable Integer id) {
+        adminService.deletePost(id);
+        return ResponseEntity.ok().body("Xóa bài viết thành công");
     }
 }
