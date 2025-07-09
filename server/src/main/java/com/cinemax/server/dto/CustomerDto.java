@@ -21,4 +21,5 @@ public class CustomerDto {
     private String region;
     private String firstName;
     private String lastName;
+    private UsersDto user;
 }

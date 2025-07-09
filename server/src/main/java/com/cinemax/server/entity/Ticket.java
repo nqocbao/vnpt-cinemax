@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import com.cinemax.server.entity.Users;
 
 @Getter
 @Setter
@@ -29,6 +30,10 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
 
     @Column(name = "price")
     private Integer price;

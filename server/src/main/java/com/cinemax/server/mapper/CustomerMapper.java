@@ -17,13 +17,15 @@ public class CustomerMapper {
 
         return new CustomerDto(
                 customer.getId(),
-                customer.getUser_id() != null ? customer.getUser_id().getId() : 0,
+                customer.getUser() != null ? customer.getUser().getId() : 0,
                 tickets_id,
                 customer.getCity(),
                 customer.getAddress(),
                 customer.getRegion(),
                 customer.getFirstName(),
-                customer.getLastName());
+                customer.getLastName(),
+                customer.getUser() != null ? com.cinemax.server.mapper.UsersMapper.mapToUsersDto(customer.getUser())
+                        : null);
     }
 
     public static Customer mapToCustomer(CustomerDto customerDto) {

@@ -49,6 +49,12 @@ public class Movie {
     @Column(name = "poster_url")
     private String posterUrl;
 
+    @Column(name = "trailer_url")
+    private String trailerUrl;
+
+    @Column(name = "age_limit")
+    private String ageLimit;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }

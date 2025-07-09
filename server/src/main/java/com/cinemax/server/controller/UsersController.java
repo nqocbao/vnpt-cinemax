@@ -29,7 +29,6 @@ public class UsersController {
         var result = usersService.createUsers(usersDto);
         UsersDto userDto = (UsersDto) result.get("user");
         return ResponseEntity.ok(of(
-                "status", 200,
                 "message", "Tạo tài khoản thành công",
                 "token", result.get("token"),
                 "userId", userDto.getId()));
