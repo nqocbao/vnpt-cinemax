@@ -145,4 +145,14 @@ public class AdminServiceImpl implements AdminService {
         Post saved = postRepository.save(post);
         return PostMapper.mapToPostDto(saved);
     }
+
+    @Override
+    public void deleteMovie(Integer id) {
+        movieRepository.deleteById(id);
+    }
+
+    @Override
+    public void deletePost(Integer id) {
+        postRepository.deleteById(id);
+    }
 }

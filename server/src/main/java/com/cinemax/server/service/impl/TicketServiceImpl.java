@@ -9,7 +9,6 @@ import com.cinemax.server.mapper.TicketMapper;
 import com.cinemax.server.repository.TicketRepository;
 import com.cinemax.server.service.TicketService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
