@@ -45,7 +45,10 @@ public class Post {
     private LocalDateTime endDate;
 
     @Column(name = "is_published")
-    private Boolean isPublished = false;
+    private Boolean isPublished;
+
+    @Column(name = "posts_url")
+    private String posts_url;
 
     public enum PostType {
         introduction,
