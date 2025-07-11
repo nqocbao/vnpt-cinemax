@@ -1,5 +1,5 @@
-import AuthDialog from "@/components/custom/AuthDialog";
-import { useUserDetail } from "@/components/hooks/useQuery";
+import { useUpdateUser } from "@/components/hooks/useMutation";
+import { useUserAdminDetail } from "@/components/hooks/useQuery";
 import type { User } from "@/components/interface/user";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,22 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const UserEdit = () => {
   const { id } = useParams();
-  const userId = Number(id)
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogType, setDialogType] = useState<
-    "loading" | "error" | "success" | null
-  >(null);
-  const [dialogMessage, setDialogMessage] = useState("");
-  const navigate = useNavigate();
-  const { data: user } = useUserDetail(id);
-
+  const userId = Number(id);
+  const { data: user } = useUserAdminDetail(id);
+  const { mutate } = useUpdateUser();
   const {
     register,
     handleSubmit,
@@ -47,34 +39,8 @@ const UserEdit = () => {
     }
   }, [user, reset]);
 
-  const mutation = useMutation({
-    mutationFn: async (user: User) => {
-      setDialogType("loading");
-      setDialogOpen(true);
-      const res = await axios.put(`/api/admin/users/${user.id}`, user);
-      return res.data;
-    },
-    onSuccess: () => {
-      setDialogType("success");
-      setDialogMessage("Cập nhật thành công!");
-      setTimeout(() => {
-        setDialogOpen(false);
-        navigate("/admin/user");
-      }, 4000);
-    },
-    onError: (error) => {
-      setDialogType("error");
-      setDialogMessage(
-         error.message || "Đã xảy ra lỗi"
-      );
-      setTimeout(() => {
-        setDialogOpen(false);
-      }, 4000);
-    },
-  });
-
   const onSubmit = (user: User) => {
-    mutation.mutate({ ...user, id: userId });
+    mutate({ ...user, id: userId });
   };
 
   return (
@@ -91,9 +57,11 @@ const UserEdit = () => {
             className="focus-visible:ring-0"
             type="email"
             id="email"
-            {...register("email", { required: 'Email is required' })}
+            {...register("email", { required: "Email is required" })}
           />
-          {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-600 text-sm">{errors.email.message}</p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="running-time">Name</Label>
@@ -101,9 +69,11 @@ const UserEdit = () => {
             className="focus-visible:ring-0"
             type="text"
             id="name"
-            {...register("name", { required: 'Name is required' })}
+            {...register("name", { required: "Name is required" })}
           />
-           {errors.name && <p className="text-red-600 text-sm">{errors.name.message}</p>}
+          {errors.name && (
+            <p className="text-red-600 text-sm">{errors.name.message}</p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="genre">Phone</Label>
@@ -111,7 +81,11 @@ const UserEdit = () => {
             className="focus-visible:ring-0"
             type="number"
             id="phone"
+            {...register("phone", { required: "Phone is required" })}
           />
+          {errors.phone && (
+            <p className="text-red-600 text-sm">{errors.phone.message}</p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="gender">Gender</Label>
@@ -148,15 +122,6 @@ const UserEdit = () => {
           </Button>
         </div>
       </form>
-      {dialogType && (
-        <AuthDialog
-          isOpen={dialogOpen}
-          onClose={() => setDialogOpen(false)}
-          type={dialogType}
-          action="login"
-          message={dialogMessage}
-        />
-      )}
     </div>
   );
 };

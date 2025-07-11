@@ -1,3 +1,4 @@
+import { useUser } from "@/components/hooks/useQuery";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react";
@@ -10,6 +11,9 @@ const Navbar = ({
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const id = localStorage.getItem("userId") || undefined;
+  const { data: users } = useUser(id);
+
   return (
     <div>
       <div className="flex items-center justify-between px-6 py-4 bg-white shadow">
@@ -34,7 +38,9 @@ const Navbar = ({
               alt="User Avatar"
               className="w-10 h-10 rounded-full"
             />
-            <span className="font-medium text-gray-700">Admin</span>
+            {users && (
+              <span className="font-medium text-gray-700">{users.name}</span>
+            )}
           </div>
         </div>
       </div>

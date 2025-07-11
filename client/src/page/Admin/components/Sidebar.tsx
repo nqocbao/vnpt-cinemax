@@ -1,15 +1,17 @@
+import { useAuth } from "@/context/AuthContext";
 import { Film, Home, LogOut, Ticket, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
+    const { isLoggedIn, user, logout } = useAuth();
+  
   return (
-    <div>
+    <div className="h-screen">
       <div
-        className={`flex flex-col bg-white overflow-hidden transition-all duration-300 shadow-md
+        className={`flex flex-col bg-white h-full overflow-hidden transition-all duration-300 shadow-md
     ${sidebarOpen ? "w-46" : "w-16"}
   `}
       >
-        <div className="flex flex-col h-screen bg-white overflow-hidden">
           <div className="flex items-center justify-center h-18 shadow-md">
             <img
               src="/logo.png"
@@ -98,12 +100,16 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
                 </Link>
               </li>
             </ul>
-            <div className="pb-4 flex justify-center">
+            {isLoggedIn && (
+              <div className="pb-4 flex justify-center">
               <Link
                 to="/auth"
                 className={`flex items-center gap-2 bg-[#CC9999] text-white hover:opacity-80 px-4 py-2 rounded transition-all duration-200 ${
                   sidebarOpen ? "" : "justify-center px-2"
                 }`}
+                onClick={() => {
+                      logout();
+                }}
               >
                 <LogOut className="w-4 h-4" />
                 <span
@@ -112,13 +118,14 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
                       ? "opacity-100 ml-2"
                       : "opacity-0 w-0 ml-0 overflow-hidden"
                   }`}
+                  
                 >
                   Đăng Xuất
                 </span>
               </Link>
             </div>
+            )}
           </div>
-        </div>
       </div>
     </div>
   );

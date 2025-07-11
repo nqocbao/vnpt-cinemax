@@ -33,16 +33,17 @@ import {
   Star,
   User2,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { useTheaters } from "../hooks/useQuery";
-import type { Theater } from "../interface/theaters";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTheaters, useUser } from "../hooks/useQuery";
+import type { Theater } from "../interface/theaters";
 
 const Navbar = () => {
+  const id = localStorage.getItem("userId") || undefined;
   const { isLoggedIn, user, logout } = useAuth();
   const navigate = useNavigate();
   const { data: theaters } = useTheaters();
-
+  const { data: users } = useUser(id);
   const [filterTitle, setFilterTitle] = useState("");
 
   const handleFilter = () => {
@@ -52,6 +53,7 @@ const Navbar = () => {
       navigate("/");
     }
   };
+
   return (
     <div>
       {/* Navbar */}
@@ -258,7 +260,7 @@ const Navbar = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-              <span className="font-semibold">{user.userId}</span>
+              {users && <span className="font-semibold">{users.name}</span>}
             </div>
           ) : (
             <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
@@ -303,9 +305,11 @@ const Navbar = () => {
                         <div>
                           <div className="flex items-center space-x-1">
                             <Medal className="text-orange-700 h-4 w-4" />
-                            <span className="font-medium  hover:text-[#CC9999]">
-                              {user.userId}
-                            </span>
+                            {users && (
+                              <span className="font-medium  hover:text-[#CC9999]">
+                                {users.name}
+                              </span>
+                            )}
                           </div>
                           <div className="flex items-center space-x-1">
                             <Award className="text-orange-700 h-4 w-4" />
