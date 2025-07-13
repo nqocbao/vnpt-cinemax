@@ -1,0 +1,34 @@
+export interface Ticket {
+  id?: number;
+  movieId: number;
+  theaterId: number;
+  seatId: number;
+  userId: number;
+  price: number;
+  status: "pending" | "paid" | "cancelled" | "used";
+  bookingTime?: string;
+}
+
+export interface BookingRequest {
+  movieId: number;
+  theaterId: number;
+  showTimeId: number;
+  seats: Array<{
+    row: string;
+    col: string;
+  }>;
+  combos?: Array<{
+    id: number;
+    quantity: number;
+  }>;
+  totalPrice: number;
+  paymentMethod: string;
+  promoCode?: string;
+}
+
+export interface BookingResponse {
+  success: boolean;
+  message: string;
+  ticketIds?: number[];
+  bookingCode?: string;
+}

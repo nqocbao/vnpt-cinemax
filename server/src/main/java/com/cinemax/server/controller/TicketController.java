@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
@@ -18,8 +20,15 @@ public class TicketController {
         return ResponseEntity.ok(booked);
     }
 
+    @PostMapping("/booking")
+    public ResponseEntity<Map<String, Object>> bookTickets(@RequestBody Map<String, Object> bookingRequest) {
+        Map<String, Object> response = ticketService.bookTickets(bookingRequest);
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/status/{ticketId}")
-    public ResponseEntity<TicketDto> updateTicketStatus(@PathVariable Integer ticketId, @RequestParam Integer userId, @RequestParam String status) {
+    public ResponseEntity<TicketDto> updateTicketStatus(@PathVariable Integer ticketId, @RequestParam Integer userId,
+            @RequestParam String status) {
         TicketDto updated = ticketService.updateTicketStatusByUserId(ticketId, userId, status);
         return ResponseEntity.ok(updated);
     }
@@ -29,4 +38,13 @@ public class TicketController {
         var tickets = ticketService.getTicketsByUserId(userId);
         return ResponseEntity.ok(tickets);
     }
-} 
+
+    @GetMapping("/booked-seats")
+    public ResponseEntity<java.util.List<Map<String, String>>> getBookedSeats(
+            @RequestParam Integer movieId,
+            @RequestParam Integer theaterId,
+            @RequestParam Integer showTimeId) {
+        var seats = ticketService.getBookedSeats(movieId, theaterId, showTimeId);
+        return ResponseEntity.ok(seats);
+    }
+}

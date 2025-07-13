@@ -17,7 +17,9 @@ import com.cinemax.server.repository.CustomerRepository;
 import com.cinemax.server.repository.MovieRepository;
 import com.cinemax.server.repository.PostRepository;
 import com.cinemax.server.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -28,16 +30,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
-    @Autowired
     private UsersRepository usersRepository;
-    @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
     private MovieRepository movieRepository;
-    @Autowired
     private PostRepository postRepository;
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UsersDto createUser(UsersDto userDto) {

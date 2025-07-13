@@ -15,4 +15,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findByIdAndStatus(Integer id, Ticket.Status status);
     List<Ticket> findByIdAndStatusAndMovie_IdAndTheater_IdAndSeat_IdAndBookingTime(Integer id, Ticket.Status status, Integer movieId, Integer theaterId, Integer seatId, LocalDateTime bookingTime);
     List<Ticket> findByUser_Id(Integer userId);
+    Optional<Ticket> findFirstBySeat_IdAndTheater_IdAndMovie_IdAndStatusIsNot(Integer seatId, Integer theaterId, Integer movieId, Ticket.Status status);
+    List<Ticket> findByMovie_IdAndTheater_IdAndShowTimes_IdAndStatusIn(
+        Integer movieId,
+        Integer theaterId,
+        Integer showTimeId,
+        List<Ticket.Status> statuses
+    );
 } 

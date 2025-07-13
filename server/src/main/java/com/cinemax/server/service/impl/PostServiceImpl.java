@@ -10,9 +10,12 @@ import com.cinemax.server.mapper.PostMapper;
 import com.cinemax.server.repository.PostRepository;
 import com.cinemax.server.service.PostService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class PostServiceImpl implements PostService {
-    @Autowired
+
     private PostRepository postRepository;
 
     @Override
@@ -26,4 +29,4 @@ public class PostServiceImpl implements PostService {
     public java.util.List<PostDto> getAllPosts() {
         return postRepository.findAll().stream().map(PostMapper::mapToPostDto).toList();
     }
-} 
+}

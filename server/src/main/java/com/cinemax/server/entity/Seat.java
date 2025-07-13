@@ -17,9 +17,13 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "theater_id", nullable = false)
     private Theaters theater;
+
+    @OneToOne
+    @JoinColumn(name = "show_times_id", nullable = false)
+    private ShowTimes showTimes;
 
     @Column(name = "seat_row", nullable = false)
     private String seatRow;
@@ -33,6 +37,6 @@ public class Seat {
 
     public enum SeatType {
         standard,
-        couple
+        vip
     }
 }
