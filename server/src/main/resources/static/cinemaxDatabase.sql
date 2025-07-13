@@ -60,7 +60,7 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`id`),
   KEY `customers_ibfk_1` (`user_id`),
   CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(2,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(3,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(4,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(5,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(6,NULL,'nghean','doluong','vietnam','Bao','Depzai'),(11,5,'','','','b',''),(12,8,'hanoi','tay ho','vietnam','lolo',NULL),(13,9,'','','','lolo',''),(14,10,'','','','lolo',''),(15,11,'','','','lolo',''),(16,12,'','','','lolo',''),(17,13,'','','','lolo',''),(18,14,'','','','lolo',''),(19,15,'','','','lolo',''),(20,16,'','','','asdr',''),(21,17,'','','','qwe',''),(22,18,'','','','sq',''),(23,19,'','','','sqs',''),(24,20,'','','','sq',''),(25,21,'','','','wdw',''),(26,22,'','','','dd','');
+INSERT INTO `customers` VALUES (12,8,'hanoi','tay ho','vietnam','lolo',NULL),(13,9,'','','','lolo',''),(14,10,'','','','lolo',''),(15,11,'','','','lolo',''),(16,12,'','','','lolo',''),(17,13,'','','','lolo',''),(18,14,'','','','lolo',''),(19,15,'','','','lolo',''),(20,16,'','','','asdr',''),(21,17,'','','','qwe',''),(22,18,'','','','sq',''),(23,19,'','','','sqs',''),(24,20,'','','','sq',''),(25,21,'','','','wdw',''),(26,22,'','','','dd',''),(29,25,'','','','bao','dep chai');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,13 +154,16 @@ DROP TABLE IF EXISTS `seats`;
 CREATE TABLE `seats` (
   `id` int NOT NULL AUTO_INCREMENT,
   `theater_id` int NOT NULL,
+  `show_times_id` int NOT NULL,
   `seat_row` varchar(255) NOT NULL,
   `seat_number` varchar(255) NOT NULL,
   `seat_type` enum('standard','vip') DEFAULT 'standard',
   PRIMARY KEY (`id`),
   KEY `theater_id` (`theater_id`),
-  CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`theater_id`) REFERENCES `theaters` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `show_times_id` (`show_times_id`) /*!80000 INVISIBLE */,
+  CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`theater_id`) REFERENCES `theaters` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`show_times_id`) REFERENCES `show_times` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +172,7 @@ CREATE TABLE `seats` (
 
 LOCK TABLES `seats` WRITE;
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
-INSERT INTO `seats` VALUES (1,1,'A','1','standard'),(2,1,'A','2','standard'),(3,1,'B','1','vip'),(4,2,'A','1','standard'),(5,2,'B','1','vip'),(6,3,'A','1','standard');
+INSERT INTO `seats` VALUES (1,1,1,'A','1','standard'),(2,1,1,'A','2','standard'),(3,1,1,'B','1','vip'),(4,2,2,'A','1','standard'),(5,2,2,'B','1','vip'),(6,3,3,'A','1','standard'),(7,1,1,'F','12','vip'),(8,1,1,'E','12','vip'),(9,1,1,'D','12','vip'),(10,1,1,'C','12','vip'),(11,2,1,'F','12','vip'),(12,2,1,'E','12','vip'),(13,1,1,'G','12','vip'),(14,2,1,'F','11','vip'),(15,2,1,'F','10','standard');
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,16 +187,17 @@ CREATE TABLE `show_times` (
   `id` int NOT NULL AUTO_INCREMENT,
   `movie_id` int NOT NULL,
   `theater_id` int NOT NULL,
-  `show_date` date NOT NULL,
+  `show_date` date DEFAULT NULL,
   `start_time` time NOT NULL,
   `number_seat` int NOT NULL COMMENT 'Số ghế khả dụng',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `movie_id` (`movie_id`),
   KEY `theater_id` (`theater_id`),
   CONSTRAINT `show_times_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE,
   CONSTRAINT `show_times_ibfk_2` FOREIGN KEY (`theater_id`) REFERENCES `theaters` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +206,7 @@ CREATE TABLE `show_times` (
 
 LOCK TABLES `show_times` WRITE;
 /*!40000 ALTER TABLE `show_times` DISABLE KEYS */;
-INSERT INTO `show_times` VALUES (1,1,1,'2025-07-09','10:00:00',100,'2025-07-08 22:00:00'),(2,2,2,'2025-07-09','12:30:00',80,'2025-07-08 22:01:00'),(3,4,3,'2025-07-09','18:00:00',120,'2025-07-08 22:02:00'),(4,5,1,'2025-07-10','20:30:00',90,'2025-07-08 22:03:00');
+INSERT INTO `show_times` VALUES (1,1,1,'2025-07-09','10:00:00',100,'2025-07-08 22:00:00',NULL),(2,2,2,'2025-07-09','12:30:00',80,'2025-07-08 22:01:00',NULL),(3,4,3,'2025-07-09','18:00:00',120,'2025-07-08 22:02:00',NULL),(4,5,1,'2025-07-10','20:30:00',90,'2025-07-08 22:03:00',NULL),(5,1,1,'2025-07-06','13:15:00',100,'2025-07-14 00:47:45','2025-07-14 00:47:45.052776'),(6,1,1,'2025-07-06','14:45:00',100,'2025-07-14 00:47:45','2025-07-14 00:47:45.080059'),(7,1,1,'2025-07-06','20:15:00',100,'2025-07-14 00:47:45','2025-07-14 00:47:45.083969'),(8,1,1,'2025-07-06','21:30:00',100,'2025-07-14 00:47:45','2025-07-14 00:47:45.086999');
 /*!40000 ALTER TABLE `show_times` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,6 +277,7 @@ CREATE TABLE `tickets` (
   `price` int DEFAULT NULL,
   `status` enum('pending','paid','cancelled','used') DEFAULT 'pending',
   `booking_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `booking_code` varchar(255) DEFAULT NULL,
   `show_time_id` int NOT NULL,
   `user_id` int DEFAULT NULL,
   `movies_id` int DEFAULT NULL,
@@ -291,7 +296,7 @@ CREATE TABLE `tickets` (
   CONSTRAINT `FKmlhm2pr7b0lqjc6nj1ia7urvm` FOREIGN KEY (`movies_id`) REFERENCES `movies` (`id`),
   CONSTRAINT `FKs490nrabkujkhstqti6m49s4a` FOREIGN KEY (`tickets_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +305,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (1,1,100000,'paid','2025-07-08 22:10:00',1,1,NULL,NULL,NULL),(2,2,100000,'pending','2025-07-08 22:15:00',1,1,NULL,NULL,NULL),(3,3,150000,'paid','2025-07-08 22:20:00',2,2,NULL,NULL,NULL),(4,4,120000,'cancelled','2025-07-08 22:25:00',3,5,NULL,NULL,NULL),(5,5,200000,'used','2025-07-08 22:30:00',4,1,NULL,NULL,NULL),(6,6,100000,'paid','2025-07-08 22:35:00',1,8,NULL,NULL,NULL);
+INSERT INTO `tickets` VALUES (1,1,100000,'paid','2025-07-08 22:10:00',NULL,1,1,1,1,NULL),(2,2,100000,'pending','2025-07-08 22:15:00',NULL,1,1,1,1,NULL),(3,3,150000,'paid','2025-07-08 22:20:00',NULL,2,2,NULL,NULL,NULL),(5,5,200000,'used','2025-07-08 22:30:00',NULL,4,1,NULL,NULL,NULL),(6,6,100000,'paid','2025-07-08 22:35:00',NULL,1,8,NULL,NULL,NULL),(7,8,120000,'pending','2025-07-13 11:16:45',NULL,1,1,1,1,NULL),(8,9,120000,'pending','2025-07-13 11:16:45',NULL,1,1,1,1,NULL),(9,10,120000,'paid','2025-07-13 11:59:53','123',1,1,1,1,NULL),(10,7,75000,'paid','2025-07-13 17:04:42','980117FA',1,1,2,1,NULL),(11,8,75000,'paid','2025-07-13 17:04:42','980117FA',1,1,2,1,NULL),(12,11,75000,'paid','2025-07-13 17:12:44','350FED9F',1,1,1,2,NULL),(13,12,75000,'paid','2025-07-13 17:12:44','350FED9F',1,1,1,2,NULL),(14,7,75000,'paid','2025-07-13 17:13:11','A947E73B',1,1,1,1,NULL),(15,13,75000,'paid','2025-07-13 17:13:11','A947E73B',1,1,1,1,NULL),(16,14,75000,'paid','2025-07-14 01:04:31','F6316650',1,1,3,2,NULL),(17,15,50000,'paid','2025-07-14 01:04:31','F6316650',1,1,3,2,NULL),(18,11,75000,'paid','2025-07-14 01:04:31','F6316650',1,1,3,2,NULL);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +326,7 @@ CREATE TABLE `users` (
   `gender` enum('female','male') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +335,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'a@gmail.com','0123455221','baodz','admin','baodz','male'),(2,'b@gmail.com','02020','b','admin','b','male'),(5,'ba@gmail.com','02020','b','customer','b','male'),(8,'l@gmail.com',NULL,'l','customer','lolo','male'),(9,'lo@gmail.com','2903','l','customer','lolo','male'),(10,'l0o@gmail.com','2903','l','customer','lolo','male'),(11,'1226@gmail.com','2903','b','customer','lolo','male'),(12,'1228@gmail.com','2903','b','customer','lolo','male'),(13,'1231@gmail.com','2903','b','customer','lolo','male'),(14,'1234@gmail.com','2903','b','customer','lolo','male'),(15,'124@gmail.com','2903','b','customer','lolo','male'),(16,'953@gmail.com','1242424','b','customer','asdr','male'),(17,'qwe@gmail.com','3322','b','customer','qwe','female'),(18,'qs@gmail.com','123','b','customer','sq','female'),(19,'qss@gmail.com','123','b','customer','sqs','female'),(20,'ee@gmail.com','23','b','customer','sq','female'),(21,'sdsddd@gmail.com','sfsf','b','customer','wdw','female'),(22,'nao280604@gmail.com','sqdq','b','customer','dd','female');
+INSERT INTO `users` VALUES (1,'a@gmail.com','0123455221','baodz','admin','baodz','male'),(2,'b@gmail.com','02020','b','admin','b','male'),(8,'l@gmail.com',NULL,'l','customer','lolo','male'),(9,'lo@gmail.com','2903','l','customer','lolo','male'),(10,'l0o@gmail.com','2903','l','customer','lolo','male'),(11,'1226@gmail.com','2903','b','customer','lolo','male'),(12,'1228@gmail.com','2903','b','customer','lolo','male'),(13,'1231@gmail.com','2903','b','customer','lolo','male'),(14,'1234@gmail.com','2903','b','customer','lolo','male'),(15,'124@gmail.com','2903','b','customer','lolo','male'),(16,'953@gmail.com','1242424','b','customer','asdr','male'),(17,'qwe@gmail.com','3322','b','customer','qwe','female'),(18,'qs@gmail.com','123','b','customer','sq','female'),(19,'qss@gmail.com','123','b','customer','sqs','female'),(20,'ee@gmail.com','23','b','customer','sq','female'),(21,'sdsddd@gmail.com','sfsf','b','customer','wdw','female'),(22,'nao280604@gmail.com','sqdq','b','customer','dd','female'),(25,'hahe','0398023','bao','customer','bao dep chai','male');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +348,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-09  9:42:11
+-- Dump completed on 2025-07-14  1:11:39

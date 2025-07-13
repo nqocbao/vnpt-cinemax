@@ -6,6 +6,7 @@ import com.cinemax.server.entity.Movie;
 import com.cinemax.server.entity.Theaters;
 import com.cinemax.server.entity.Seat;
 import com.cinemax.server.entity.Users;
+import com.cinemax.server.mapper.SeatMapper;
 
 public class TicketMapper {
     public static Ticket mapToTicket(TicketDto dto) {
@@ -31,6 +32,7 @@ public class TicketMapper {
             user.setId(dto.getUserId());
             ticket.setUser(user);
         }
+        ticket.setBookingCode(dto.getBookingCode());
         ticket.setPrice(dto.getPrice());
         ticket.setBookingTime(dto.getBookingTime());
         if (dto.getStatus() != null) {
@@ -44,11 +46,13 @@ public class TicketMapper {
         dto.setId(ticket.getId());
         dto.setPrice(ticket.getPrice());
         dto.setBookingTime(ticket.getBookingTime());
+        dto.setBookingCode(ticket.getBookingCode());
         dto.setStatus(ticket.getStatus() != null ? ticket.getStatus().name() : null);
         dto.setMovieId(ticket.getMovie() != null ? ticket.getMovie().getId() : null);
         dto.setTheaterId(ticket.getTheater() != null ? ticket.getTheater().getId() : null);
         dto.setSeatId(ticket.getSeat() != null ? ticket.getSeat().getId() : null);
+        dto.setSeat(SeatMapper.mapToSeatDto(ticket.getSeat()));
         dto.setUserId(ticket.getUser() != null ? ticket.getUser().getId() : null);
         return dto;
     }
-} 
+}

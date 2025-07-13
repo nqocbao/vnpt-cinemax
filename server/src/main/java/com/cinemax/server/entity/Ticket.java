@@ -23,17 +23,24 @@ public class Ticket {
     @JoinColumn(name = "movies_id")
     private Movie movie;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "theater_id")
     private Theaters theater;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
+
+    @OneToOne
+    @JoinColumn(name = "show_time_id")
+    private ShowTimes showTimes;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
+
+    @JoinColumn(name = "booking_code")
+    private String bookingCode;
 
     @Column(name = "price")
     private Integer price;

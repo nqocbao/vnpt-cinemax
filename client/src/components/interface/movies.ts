@@ -8,6 +8,7 @@ export interface Movies {
   cast: string;
   language: string;
   releaseDate: string;
+  ageLimit: string;
   posterUrl: string;
   createAt: string;
 }
