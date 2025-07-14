@@ -47,6 +47,7 @@ public class UsersController {
         return ResponseEntity.ok(of(
                 "message", "Đăng nhập thành công",
                 "token", result.get("token"),
-                "userId", userDto.getId()));
+                "userId", userDto.getId(),
+                "role", userDto.getRole()));
     }
 }
