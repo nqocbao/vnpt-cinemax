@@ -4,18 +4,22 @@ import com.cinemax.server.dto.UsersDto;
 import com.cinemax.server.dto.CustomerDto;
 import com.cinemax.server.dto.MovieDto;
 import com.cinemax.server.dto.PostDto;
+import com.cinemax.server.dto.TicketDto;
 import com.cinemax.server.mapper.UsersMapper;
 import com.cinemax.server.mapper.CustomerMapper;
 import com.cinemax.server.mapper.MovieMapper;
 import com.cinemax.server.mapper.PostMapper;
+import com.cinemax.server.mapper.TicketMapper;
 import com.cinemax.server.entity.Users;
 import com.cinemax.server.entity.Customer;
 import com.cinemax.server.entity.Movie;
 import com.cinemax.server.entity.Post;
+import com.cinemax.server.entity.Ticket;
 import com.cinemax.server.repository.UsersRepository;
 import com.cinemax.server.repository.CustomerRepository;
 import com.cinemax.server.repository.MovieRepository;
 import com.cinemax.server.repository.PostRepository;
+import com.cinemax.server.repository.TicketRepository;
 import com.cinemax.server.service.AdminService;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
     private CustomerRepository customerRepository;
     private MovieRepository movieRepository;
     private PostRepository postRepository;
+    private TicketRepository ticketRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -155,5 +160,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deletePost(Integer id) {
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public List<TicketDto> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream().map(TicketMapper::mapToTicketDto).toList();
     }
 }
