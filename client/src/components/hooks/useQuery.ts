@@ -89,3 +89,14 @@ export function useMovieAdminDetail(id?: string | number) {
     },
   });
 }
+
+
+export function useTicket(id?: string | number) {
+  return useQuery({
+    queryKey: ["TICKET", id],
+    queryFn: async () => {
+      const res = await axios.get(`/api/tickets/user/${id}`);
+      return res.data;
+    },
+  });
+}

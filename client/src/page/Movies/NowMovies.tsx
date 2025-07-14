@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/MainLayout";
 import { Star, Video } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MovieTabs from "./MovieTabs";
 
 const NowMovies = () => {
@@ -47,7 +47,7 @@ const NowMovies = () => {
                     <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                       <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
                         <Star className="w-4 h-4 mr-1 hidden sm:flex" />
-                        Mua vé
+                        <Link to="/booking">Mua vé</Link>
                       </Button>
                       <Button
                         className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"

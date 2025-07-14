@@ -18,6 +18,7 @@
 --
 -- Table structure for table `admins`
 --
+USE cinemax;
 
 DROP TABLE IF EXISTS `admins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

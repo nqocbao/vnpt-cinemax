@@ -12,6 +12,5 @@ export interface Movies {
   ageLimit: string;
   posterUrl: string;
   trailerUrl: string;
-  ageLimit: string;
   createAt: string;
 }

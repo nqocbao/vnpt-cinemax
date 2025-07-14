@@ -2,7 +2,13 @@ import {
   useUpdateCustomer,
   useUpdateUser,
 } from "@/components/hooks/useMutation";
-import { useCustomer, useUser } from "@/components/hooks/useQuery";
+import {
+  useCustomer,
+  useMovies,
+  useTicket,
+  useUser,
+} from "@/components/hooks/useQuery";
+import type { GroupedTicket, Ticket } from "@/components/interface/tickets";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -41,13 +47,16 @@ import {
   User,
   User2,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 const Profile = () => {
   const id = localStorage.getItem("userId");
   const userId = Number(id);
+  const [filtered, setFiltered] = useState("");
   const { data: user } = useUser(userId);
   const { data: customer } = useCustomer(userId);
+  const { data: tickets } = useTicket(userId);
+  const { data: movies } = useMovies();
   const { mutate: userUpdate } = useUpdateUser("profile");
   const { mutate: customerUpdate } = useUpdateCustomer();
   const {
@@ -74,7 +83,32 @@ const Profile = () => {
     userUpdate({ ...data, id: user.id });
     customerUpdate({ ...data, id: customer.id });
   };
+  const groupedTickets = tickets?.reduce((acc, ticket) => {
+    const { bookingCode } = ticket;
+    const movie = movies?.find((m) => m.id === ticket.movieId);
+    if (!acc[bookingCode]) {
+      acc[bookingCode] = {
+        bookingCode,
+        movieTitle: movie?.title,
+        status: ticket.status,
+        seats: [`${ticket.seat.seatRow}${ticket.seat.seatNumber}`],
+        totalPrice: ticket.price,
+      };
+    } else {
+      acc[bookingCode].seats.push(
+        `${ticket.seat.seatRow}${ticket.seat.seatNumber}`
+      );
+      acc[bookingCode].totalPrice += ticket.price;
+    }
+    return acc;
+  }, {});
+  const ticketList: GroupedTicket[] = groupedTickets
+    ? Object.values(groupedTickets)
+    : [];
 
+  const filteredTickets: GroupedTicket[] = ticketList.filter((ticket) =>
+    ticket.bookingCode.toLowerCase().includes(filtered.toLowerCase())
+  );
   return (
     <MainLayout>
       <div className="bg-gray-100">
@@ -374,31 +408,46 @@ const Profile = () => {
                 </form>
               </TabsContent>
               <TabsContent value="transaction">
+                <Input
+                  type="text"
+                  value={filtered}
+                  onChange={(e) => setFiltered(e.target.value)}
+                  placeholder="Tìm kiếm hóa đơn...."
+                  className="focus-visible:ring-0"
+                />
                 <Table>
                   <TableCaption>Danh Sách Giao Dịch</TableCaption>
                   <TableHeader className="hidden md:table-header-group">
                     <TableRow>
                       <TableHead className="w-[100px]">Hóa Đơn</TableHead>
-                      <TableHead>Trạng Thái</TableHead>
-                      <TableHead>Phương Thức</TableHead>
+                      <TableHead>Tên Phim</TableHead>
+                      <TableHead>Số Ghế</TableHead>
                       <TableHead className="text-right">Tổng</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow className="block md:table-row">
-                      <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Hóa_Đơn:_'] md:before:content-none">
-                        INV001
-                      </TableCell>
-                      <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
-                        Đã Thanh Toán
-                      </TableCell>
-                      <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Phương_Thức:_'] md:before:content-none">
-                        Momo
-                      </TableCell>
-                      <TableCell className="text-gray-600 md:font-medium text-right block md:table-cell before:content-['Tổng:_'] md:before:content-none">
-                        $250.00
-                      </TableCell>
-                    </TableRow>
+                    {filteredTickets.map((ticket: any) => (
+                      <TableRow
+                        className="block md:table-row"
+                        key={ticket.bookingCode}
+                      >
+                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Hóa_Đơn:_'] md:before:content-none">
+                          {ticket.bookingCode}
+                        </TableCell>
+                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
+                          {ticket.movieTitle}
+                        </TableCell>
+                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
+                          {ticket.seats.join(",")}
+                        </TableCell>
+                        <TableCell className="text-gray-600 md:font-medium text-right block md:table-cell before:content-['Tổng:_'] md:before:content-none">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(ticket.totalPrice)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </TabsContent>

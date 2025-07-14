@@ -7,6 +7,15 @@ export interface Ticket {
   price: number;
   status: "pending" | "paid" | "cancelled" | "used";
   bookingTime?: string;
+  bookingCode: string;
+  totalPrice: number
+}
+export interface GroupedTicket {
+  bookingCode: string;
+  movieTitle: string;
+  status: Ticket["status"];
+  seats: string[];
+  totalPrice: number;
 }
 
 export interface BookingRequest {
