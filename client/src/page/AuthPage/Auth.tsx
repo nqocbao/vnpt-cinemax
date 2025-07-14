@@ -49,8 +49,9 @@ export default function Auth() {
       const data = await res.json();
       if (res.ok || data.status === 200) {
         // Lưu token và userId vào localStorage và context
-        if (data.token && data.userId) {
+        if (data.token && data.userId && data.role) {
           login(data.userId.toString(), data.token);
+          localStorage.setItem("role", data.role);
         }
         setDialogType("success");
         setDialogAction("login");
@@ -133,7 +134,12 @@ export default function Auth() {
   };
 
   const handleRedirect = () => {
-    navigate("/");
+    const role = localStorage.getItem("role")
+    if(role === "admin"){
+      navigate("/admin")
+    }else{
+      navigate("/");
+    }
   };
 
   return (
