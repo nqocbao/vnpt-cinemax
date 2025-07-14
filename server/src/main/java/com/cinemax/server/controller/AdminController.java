@@ -3,7 +3,10 @@ package com.cinemax.server.controller;
 import com.cinemax.server.dto.UsersDto;
 import com.cinemax.server.dto.MovieDto;
 import com.cinemax.server.dto.PostDto;
+import com.cinemax.server.dto.TicketDto;
 import com.cinemax.server.service.AdminService;
+import com.cinemax.server.service.TicketService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import static java.util.Map.of;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -93,4 +98,12 @@ public class AdminController {
         adminService.deletePost(id);
         return ResponseEntity.ok().body("Xóa bài viết thành công");
     }
+
+    // --- TICKETS ---
+    @GetMapping("/tickets")
+    public ResponseEntity<List<TicketDto>> getAllTickets() {
+        var tickets = adminService.getAllTickets();
+        return ResponseEntity.ok(tickets);
+    }
+
 }
