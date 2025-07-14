@@ -13,6 +13,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @RestController
@@ -38,4 +41,32 @@ public class ShowTimesController {
         return ResponseEntity.ok(showTimesDto);
     }
 
+    @GetMapping("/movie/{movieId}/theater/{theaterId}")
+    public ResponseEntity<List<ShowTimesDto>> getShowTimesByMovieAndTheater(
+            @PathVariable("movieId") Integer movieId,
+            @PathVariable("theaterId") Integer theaterId,
+            @RequestParam("date") String date) {
+        try {
+            LocalDate localDate = LocalDate.parse(date);
+            List<ShowTimesDto> showTimesDto = showTimesService.getShowTimesByMovieAndTheaterAndDate(movieId, theaterId, localDate);
+            return ResponseEntity.ok(showTimesDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    
+    @PostMapping("/create-or-get")
+    public ResponseEntity<ShowTimesDto> createOrGetShowTime(
+            @RequestParam Integer movieId,
+            @RequestParam Integer theaterId,
+            @RequestParam String date,
+            @RequestParam String startTime) {
+        try {
+            LocalDate localDate = LocalDate.parse(date);
+            ShowTimesDto showTime = showTimesService.createOrGetShowTime(movieId, theaterId, localDate, startTime);
+            return ResponseEntity.ok(showTime);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

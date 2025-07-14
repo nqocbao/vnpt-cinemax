@@ -224,7 +224,6 @@ export default function WrapperBooking() {
     } else if (selectedTab === "step3") {
       setSelectedTab("step4");
     } else if (selectedTab === "step4") {
-      // Xử lý đặt vé
       if (!selectedMovie || !selectedTheaterId || !selectedShowtimeId) {
         setBookingError("Thiếu thông tin cần thiết để đặt vé");
         return;
@@ -234,6 +233,7 @@ export default function WrapperBooking() {
         movieId: selectedMovie.id,
         theaterId: selectedTheaterId,
         showTimeId: selectedShowtimeId,
+        userId: parseInt(localStorage.getItem("userId") || "1"),
         seats: selectedSeats,
         combos: Object.entries(comboCounts)
           .filter(([, count]) => count > 0)
@@ -337,6 +337,7 @@ export default function WrapperBooking() {
     }
   }, [selectedTab, seatTimer]);
 
+  // Cập nhật selectedTheaterId khi chọn rạp
   useEffect(() => {
     if (selectedTheater && theaters.length > 0) {
       const theater = theaters.find((t: Theater) => t.name === selectedTheater);
@@ -346,6 +347,7 @@ export default function WrapperBooking() {
     }
   }, [selectedTheater, theaters]);
 
+  // Cập nhật selectedShowtimeId khi chọn suất chiếu
   useEffect(() => {
     if (selectedShowtime && selectedMovie && selectedTheaterId) {
       setSelectedShowtimeId(1);

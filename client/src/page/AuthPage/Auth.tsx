@@ -47,7 +47,7 @@ export default function Auth() {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      if (res.ok && data.status === 200) {
+      if (res.ok || data.status === 200) {
         // Lưu token và userId vào localStorage và context
         if (data.token && data.userId) {
           login(data.userId.toString(), data.token);

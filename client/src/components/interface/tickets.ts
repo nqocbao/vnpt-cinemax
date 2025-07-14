@@ -13,6 +13,7 @@ export interface BookingRequest {
   movieId: number;
   theaterId: number;
   showTimeId: number;
+  userId: number;
   seats: Array<{
     row: string;
     col: string;

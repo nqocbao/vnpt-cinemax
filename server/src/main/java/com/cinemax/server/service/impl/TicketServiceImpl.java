@@ -114,6 +114,7 @@ public class TicketServiceImpl implements TicketService {
             Integer movieId = (Integer) bookingRequest.get("movieId");
             Integer theaterId = (Integer) bookingRequest.get("theaterId");
             Integer showTimeId = (Integer) bookingRequest.get("showTimeId");
+            Integer userId = (Integer) bookingRequest.get("userId");
 
             Movie movie = movieRepository.findById(movieId)
                     .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy phim"));
@@ -124,7 +125,7 @@ public class TicketServiceImpl implements TicketService {
             ShowTimes showTimes = showTimesRepository.findById(showTimeId)
                     .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy khung giờ chiếu"));
 
-            Users user = usersRepository.findById(1) // Placeholder - should get from JWT token
+            Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
 
             List<Integer> ticketIds = new ArrayList<>();
@@ -224,16 +225,15 @@ public class TicketServiceImpl implements TicketService {
     public List<Map<String, String>> getBookedSeats(Integer movieId, Integer theaterId, Integer showTimeId) {
         List<Ticket.Status> statuses = List.of(Ticket.Status.pending, Ticket.Status.paid);
         List<Ticket> tickets = ticketRepository.findByMovie_IdAndTheater_IdAndShowTimes_IdAndStatusIn(
-            movieId, theaterId, showTimeId, statuses
-        );
+                movieId, theaterId, showTimeId, statuses);
         return tickets.stream()
-            .map(ticket -> {
-                Map<String, String> seat = new HashMap<>();
-                seat.put("row", ticket.getSeat().getSeatRow());
-                seat.put("col", ticket.getSeat().getSeatNumber());
-                return seat;
-            })
-            .toList();
+                .map(ticket -> {
+                    Map<String, String> seat = new HashMap<>();
+                    seat.put("row", ticket.getSeat().getSeatRow());
+                    seat.put("col", ticket.getSeat().getSeatNumber());
+                    return seat;
+                })
+                .toList();
     }
 
     private Integer calculateSeatPrice(Seat seat, Integer totalPrice, Integer seatCount) {
