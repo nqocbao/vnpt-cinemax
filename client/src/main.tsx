@@ -20,6 +20,7 @@ import MovieAdd from "./page/Admin/Movies/MovieAdd.tsx";
 import MovieEdit from "./page/Admin/Movies/MovieEdit.tsx";
 import BlogPage from "./page/BlogPage/BlogPage.tsx";
 import ReviewPage from "./page/BlogPage/ReviewPage.tsx";
+import TicketList from "./page/Admin/Ticket/TicketList.tsx";
 
 const queryClient = new QueryClient()
 createRoot(document.getElementById("root")!).render(
@@ -48,6 +49,9 @@ createRoot(document.getElementById("root")!).render(
               <Route index element={<MovieList />} />
               <Route path="add" element={<MovieAdd />} />
               <Route path="edit/:id" element={<MovieEdit />} />
+            </Route>
+            <Route path="ticket">
+              <Route index element={<TicketList />} />
             </Route>
           </Route>
         </Routes>

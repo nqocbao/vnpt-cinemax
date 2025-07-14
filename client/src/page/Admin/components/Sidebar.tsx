@@ -82,7 +82,7 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/admin/ticket"
                   className="flex flex-row items-center h-12 px-2 hover:translate-x-2 transition-all text-gray-500 hover:text-gray-800"
                 >
                   <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
