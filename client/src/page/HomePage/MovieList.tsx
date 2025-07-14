@@ -5,13 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star, Video } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const MovieList = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
-  const [tab, setTab] = useState('nowPlaying')
+  const [tab, setTab] = useState("nowPlaying");
   const navigate = useNavigate();
   const { data: movies, isLoading, isError, error } = useMovies();
+  const location = useLocation();
 
+  const params = new URLSearchParams(location.search);
+  const filterTitle = params.get("title")?.toLowerCase();
+
+  const filteredMovies = filterTitle
+    ? movies.filter((movie: Movies) =>
+        movie.title.toLowerCase().includes(filterTitle)
+      )
+    : movies;
   if (isLoading || isError)
     return (
       <AuthDialog
@@ -28,7 +37,12 @@ const MovieList = () => {
       <div className="max-w-screen-xl mx-auto my-8 md:my-14">
         <div className="my-8 md:my-14">
           <div className="lg:ml-3 px-4">
-            <Tabs defaultValue="nowPlaying" value={tab} onValueChange={setTab} className="w-full space-y-6">
+            <Tabs
+              defaultValue="nowPlaying"
+              value={tab}
+              onValueChange={setTab}
+              className="w-full space-y-6"
+            >
               <TabsList className="md:gap-x-8 gap-x-6 flex flex-wrap justify-start">
                 <h1 className="text-2xl font-semibold border-l-[4px] border-l-[#8B008B] pl-3 hidden md:flex">
                   PHIM
@@ -45,21 +59,20 @@ const MovieList = () => {
                 >
                   Sắp Chiếu
                 </TabsTrigger>
-              
               </TabsList>
               {/* Phim Đang Chiếu */}
               <TabsContent
                 value="nowPlaying"
                 className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
               >
-                {movies
+                {filteredMovies
                   ?.filter((movie: Movies) => Number(movie.id) % 2 === 1)
                   .map(
-                    (movie: any, index: number) =>
+                    (movie: Movies, index: number) =>
                       index < 8 && (
                         <div className="space-y-2 group relative">
                           <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
+                            {movie.ageLimit}
                           </div>
                           <img
                             src={movie.posterUrl}
@@ -93,14 +106,14 @@ const MovieList = () => {
                 value="comingSoon"
                 className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
               >
-                {movies
-                  ?.filter((movie: any) => Number(movie.id) % 2 === 0)
+                {filteredMovies
+                  ?.filter((movie: Movies) => Number(movie.id) % 2 === 0)
                   .map(
-                    (movie: any, index: number) =>
+                    (movie: Movies, index: number) =>
                       index < 8 && (
                         <div className="space-y-2 group relative">
                           <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
-                            C18
+                            {movie.ageLimit}
                           </div>
                           <img
                             src={movie.posterUrl}
@@ -133,7 +146,12 @@ const MovieList = () => {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer" onClick={() => navigate(tab === "nowPlaying" ? "/now-movies" : "/coming-movies")}>
+          <Button
+            className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white rounded-none cursor-pointer"
+            onClick={() =>
+              navigate(tab === "nowPlaying" ? "/now-movies" : "/coming-movies")
+            }
+          >
             Xem Thêm
           </Button>
         </div>

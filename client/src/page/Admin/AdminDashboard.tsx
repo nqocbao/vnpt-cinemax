@@ -7,7 +7,6 @@ const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div>
       <div className="min-h-screen flex flex-row bg-gray-100">
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} />
@@ -22,7 +21,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

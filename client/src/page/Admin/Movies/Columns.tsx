@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Movies } from "@/components/interface/movies";
+import { useDeleteMovie } from "@/components/hooks/useMutation";
+import { Link } from "react-router-dom";
 
 export const columns: ColumnDef<Movies>[] = [
   {
@@ -55,7 +57,7 @@ export const columns: ColumnDef<Movies>[] = [
     id: "actions",
     cell: ({ row }) => {
       const user = row.original;
-
+      const { mutate: deleteMovie } = useDeleteMovie();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -68,12 +70,16 @@ export const columns: ColumnDef<Movies>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              asChild
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              Update
+              <Link to={`edit/${user.id}`}>Update</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white">
+            <DropdownMenuItem
+              className="hover:bg-[#CC9999] hover:text-white"
+              onClick={() => deleteMovie(user.id)}
+            >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

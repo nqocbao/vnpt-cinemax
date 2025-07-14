@@ -61,6 +61,11 @@ export const DataTable = <TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+     initialState: {
+    pagination: {
+      pageSize: 8,
+    },
+  },
     state: {
       sorting,
       columnFilters,
@@ -78,7 +83,7 @@ export const DataTable = <TData, TValue>({
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm focus-visible:ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

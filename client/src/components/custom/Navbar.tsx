@@ -33,14 +33,27 @@ import {
   Star,
   User2,
 } from "lucide-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheaters } from "../hooks/useQuery";
+import { useTheaters, useUser } from "../hooks/useQuery";
 import type { Theater } from "../interface/theaters";
 
 const Navbar = () => {
+  const id = localStorage.getItem("userId") || undefined;
   const { isLoggedIn, user, logout } = useAuth();
   const navigate = useNavigate();
-  const { data: theaters } = useTheaters()
+  const { data: theaters } = useTheaters();
+  const { data: users } = useUser(id);
+  const [filterTitle, setFilterTitle] = useState("");
+
+  const handleFilter = () => {
+    if (filterTitle.trim()) {
+      navigate(`/?title=${encodeURIComponent(filterTitle.trim())}`);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       {/* Navbar */}
@@ -247,7 +260,7 @@ const Navbar = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-              <span className="font-semibold">{user.userId}</span>
+              {users && <span className="font-semibold">{users.name}</span>}
             </div>
           ) : (
             <Button className="border border-[#8B008B] text-[#8B008B] hover:bg-[#8B008B] hover:text-white h-6 md:h-8 lg:h-9">
@@ -267,9 +280,17 @@ const Navbar = () => {
                   <div className="relative flex items-center">
                     <Input
                       type="text"
+                      value={filterTitle}
+                      onChange={(e) => setFilterTitle(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleFilter();
+                      }}
                       className="pl-10 h-6 text-xs md:h-8 w-32 sm:w-40 md:w-48 focus-visible:shadow-none focus-visible:ring-0 border-[#8B008B]"
                     />
-                    <Search className="absolute left-3 h-4 md:h-5 w-4 md:w-5 text-[#8B008B] cursor-pointer" />
+                    <Search
+                      className="absolute left-3 h-4 md:h-5 w-4 md:w-5 text-[#8B008B] cursor-pointer"
+                      onClick={handleFilter}
+                    />
                   </div>
                 </SheetTitle>
                 {/* End Input Mobile & Tablet */}
@@ -284,9 +305,11 @@ const Navbar = () => {
                         <div>
                           <div className="flex items-center space-x-1">
                             <Medal className="text-orange-700 h-4 w-4" />
-                            <span className="font-medium  hover:text-[#CC9999]">
-                              {user.userId}
-                            </span>
+                            {users && (
+                              <span className="font-medium  hover:text-[#CC9999]">
+                                {users.name}
+                              </span>
+                            )}
                           </div>
                           <div className="flex items-center space-x-1">
                             <Award className="text-orange-700 h-4 w-4" />
@@ -308,10 +331,16 @@ const Navbar = () => {
                           Phim
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2">
-                          <Link to="/now-movies" className="block hover:text-[#CC9999]">
+                          <Link
+                            to="/now-movies"
+                            className="block hover:text-[#CC9999]"
+                          >
                             Phim Đang Chiếu
                           </Link>
-                          <Link to="/coming-movies" className="block hover:text-[#CC9999]">
+                          <Link
+                            to="/coming-movies"
+                            className="block hover:text-[#CC9999]"
+                          >
                             Phim Sắp Chiếu
                           </Link>
                         </AccordionContent>
@@ -371,9 +400,9 @@ const Navbar = () => {
                         </AccordionTrigger>
                         <AccordionContent className="pl-4 space-y-2 max-h-48 overflow-y-auto">
                           {theaters?.map((theater: Theater) => (
-                          <Link to="#" className="block hover:text-[#CC9999]">
-                            {theater.name}
-                          </Link>
+                            <Link to="#" className="block hover:text-[#CC9999]">
+                              {theater.name}
+                            </Link>
                           ))}
                         </AccordionContent>
                       </AccordionItem>

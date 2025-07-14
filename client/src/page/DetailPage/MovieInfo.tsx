@@ -92,17 +92,10 @@ const MovieInfo = () => {
                         href="#"
                         className="text-gray-800 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
                       >
-                        Kinh Dị
+                        {movie.genre}
                       </a>
                     </li>
-                    <li className="inline-block">
-                      <a
-                        href="#"
-                        className="text-gray-800 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
-                      >
-                        Hài
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
 
@@ -110,12 +103,12 @@ const MovieInfo = () => {
                   <span className="text-gray-500">Đạo diễn: </span>
                   <ul className="ml-2 flex flex-wrap gap-1 flex-1">
                     <li className="inline-block">
-                      <a
-                        href="#"
+                      <Link
+                        to="#"
                         className="text-gray-800 inline-flex border border-gray-300 hover:border-[#8B008B] rounded-lg px-4 py-2"
                       >
                         {movie.director}
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>

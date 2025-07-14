@@ -1,6 +1,6 @@
 import { useMovies } from "@/components/hooks/useQuery";
 import { DataTable } from "./DataTable";
-import { columns } from "./columns";
+import { columns } from "./Columns";
 
 const MovieList = () => {
   const { data: movies } = useMovies();
