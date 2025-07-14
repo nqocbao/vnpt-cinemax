@@ -85,6 +85,7 @@ public class UsersServiceImpl implements UsersService {
         Map<String, Object> result = new HashMap<>();
         result.put("user", UsersMapper.mapToUsersDto(user));
         result.put("token", token);
+        result.put("role", user.getRole());
         return result;
     }
 
