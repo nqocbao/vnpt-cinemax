@@ -18,7 +18,7 @@ const UserEdit = () => {
   const { id } = useParams();
   const userId = Number(id);
   const { data: user } = useUserAdminDetail(id);
-  const { mutate } = useUpdateUser();
+  const { mutate } = useUpdateUser("admin");
   const {
     register,
     handleSubmit,

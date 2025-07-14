@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../custom/ShowAlert";
 import type { User } from "@/page/Admin/User/Columns";
 
+// Delete User Admin
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
@@ -44,6 +45,7 @@ export const useDeleteUser = () => {
   });
 };
 
+// Delete Movie Admin
 export const useDeleteMovie = () => {
   const queryClient = useQueryClient();
 
@@ -81,6 +83,7 @@ export const useDeleteMovie = () => {
   });
 };
 
+// Add Movie Admin
 export const useAddMovie = () => {
   const navigate = useNavigate();
   return useMutation({
@@ -100,6 +103,7 @@ export const useAddMovie = () => {
   });
 };
 
+// Update Movie Admin
 export const useUpdateMovie = () => {
   const navigate = useNavigate();
   return useMutation({
@@ -119,8 +123,10 @@ export const useUpdateMovie = () => {
   });
 };
 
-export const useUpdateUser = () => {
-  const navigate = useNavigate()
+// Update User
+export const useUpdateUser = (context: "admin" | "profile") => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: async (user: User) => {
       const res = await axios.put(`/api/admin/users/${user.id}`, user);
@@ -128,13 +134,40 @@ export const useUpdateUser = () => {
     },
     onSuccess: () => {
       showSuccessAlert("Cập nhật người dùng thành công!");
-
-        navigate("/admin/user");
+      if (context === "admin") navigate("/admin/user");
+      else if (context === "profile") navigate("/profile");
+      queryClient.invalidateQueries({
+        queryKey: ['USER']
+      })
     },
     onError: (error) => {
-       if (error.message) {
+      if (error.message) {
         showErrorAlert(`Đã xảy ra lỗi: ${error.message}`);
       }
     },
   });
-}
+};
+
+// Update Customer
+export const useUpdateCustomer = () => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: async (cus: any) => {
+      const res = await axios.put(`/api/customer/update/${cus.id}`, cus);
+      return res.data;
+    },
+    onSuccess: () => {
+      showSuccessAlert("Cập nhật người dùng thành công!");
+      navigate("/profile");
+      queryClient.invalidateQueries({
+        queryKey: ['CUSTOMER']
+      })
+    },
+    onError: (error) => {
+      if (error.message) {
+        showErrorAlert(`Đã xảy ra lỗi: ${error.message}`);
+      }
+    },
+  });
+};

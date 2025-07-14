@@ -1,3 +1,8 @@
+import {
+  useUpdateCustomer,
+  useUpdateUser,
+} from "@/components/hooks/useMutation";
+import { useCustomer, useUser } from "@/components/hooks/useQuery";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -27,14 +32,49 @@ import {
   Award,
   Camera,
   ChevronRight,
+  Locate,
   Lock,
   Mail,
   Medal,
   Phone,
   Recycle,
   User,
+  User2,
 } from "lucide-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 const Profile = () => {
+  const id = localStorage.getItem("userId");
+  const userId = Number(id);
+  const { data: user } = useUser(userId);
+  const { data: customer } = useCustomer(userId);
+  const { mutate: userUpdate } = useUpdateUser("profile");
+  const { mutate: customerUpdate } = useUpdateCustomer();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  useEffect(() => {
+    if (user && customer) {
+      reset({
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        password: user.password,
+        gender: user.gender,
+        role: user.role,
+        city: customer.city,
+      });
+    }
+  }, [user, customer, reset]);
+  const onSubmit = (data: any) => {
+    userUpdate({ ...data, id: user.id });
+    customerUpdate({ ...data, id: customer.id });
+  };
+
   return (
     <MainLayout>
       <div className="bg-gray-100">
@@ -47,7 +87,7 @@ const Profile = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-orange-700" />
-                  <span className="font-semibold">Trương Quân</span>
+                  {user && <span className="font-semibold">{user.name}</span>}
                 </div>
                 <div className="flex items-center gap-2">
                   <Medal className="w-4 h-4 text-orange-700" />
@@ -155,19 +195,22 @@ const Profile = () => {
               </TabsList>
 
               <TabsContent value="profile">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="grid grid-cols-1 gap-4 md:grid-cols-2"
+                >
                   <div className="space-y-6">
                     <div>
                       <Label htmlFor="name" className="my-2">
                         <span className="text-red-600">*</span> Họ tên
                       </Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                        <User2 className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                         <Input
-                          disabled
                           type="text"
                           placeholder="Trương Quân"
                           className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                          {...register("name", { required: true })}
                         />
                       </div>
                     </div>
@@ -178,45 +221,11 @@ const Profile = () => {
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                         <Input
-                          disabled
                           type="email"
                           placeholder="quantmph30701@fpt.edu.vn"
                           className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                          {...register("email", { required: true })}
                         />
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button className="absolute text-[#8B008B] right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-xs cursor-pointer">
-                              Thay đổi
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="bg-white">
-                            <DialogHeader>
-                              <DialogTitle>
-                                <h1 className="">Thay Đổi Email</h1>
-                              </DialogTitle>
-                              <DialogDescription className="space-y-4">
-                                <p>
-                                  Vui lòng cung cấp email mới, chúng tôi sẽ gửi
-                                  mã xác thực cho bạn!
-                                </p>
-
-                                <div className="relative">
-                                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                                  <Input
-                                    type="email"
-                                    placeholder="quantmph30701@fpt.edu.vn"
-                                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                                  />
-                                </div>
-                              </DialogDescription>
-                            </DialogHeader>
-                            <DialogFooter>
-                              <Button className="w-full bg-[#8B008B] text-white cursor-pointer hover:opacity-80">
-                                TIẾP TỤC
-                              </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
                       </div>
                     </div>
 
@@ -227,10 +236,10 @@ const Profile = () => {
                       <div className="relative">
                         <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                         <Input
-                          disabled
                           type="phone"
                           placeholder="098112253"
                           className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                          {...register("phone", { required: true })}
                         />
                       </div>
                     </div>
@@ -244,10 +253,10 @@ const Profile = () => {
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                         <Input
-                          disabled
                           type="password"
                           placeholder="************"
                           className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                          {...register("password", { required: true })}
                         />
                         <Dialog>
                           <DialogTrigger asChild>
@@ -261,71 +270,91 @@ const Profile = () => {
                                 <h1 className="">Đổi Mật Khẩu</h1>
                               </DialogTitle>
                               <DialogDescription className="space-y-4">
-                                <Label
-                                  htmlFor="password"
-                                  className="my-2 text-gray-500"
-                                >
-                                  <span className="text-red-600">*</span> Mật
-                                  khẩu hiện tại
-                                </Label>
-                                <div className="relative">
-                                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                                  <Input
-                                    disabled
-                                    type="password"
-                                    placeholder="************"
-                                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                                  />
-                                </div>
-                                <Label
-                                  htmlFor="password"
-                                  className="my-2 text-gray-500"
-                                >
-                                  <span className="text-red-600">*</span> Mật
-                                  khẩu mới
-                                </Label>
-                                <div className="relative">
-                                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                                  <Input
-                                    disabled
-                                    type="password"
-                                    placeholder="************"
-                                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                                  />
-                                </div>
-                                <Label
-                                  htmlFor="password"
-                                  className="my-2 text-gray-500"
-                                >
-                                  <span className="text-red-600">*</span> Xác
-                                  nhận mật khẩu mới
-                                </Label>
-                                <div className="relative">
-                                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
-                                  <Input
-                                    disabled
-                                    type="password"
-                                    placeholder="************"
-                                    className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
-                                  />
-                                </div>
+                                <form>
+                                  <div>
+                                    <Label
+                                      htmlFor="password"
+                                      className="my-2 text-gray-500"
+                                    >
+                                      <span className="text-red-600">*</span>{" "}
+                                      Mật khẩu hiện tại
+                                    </Label>
+                                    <div className="relative">
+                                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                                      <Input
+                                        type="password"
+                                        placeholder="************"
+                                        className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <Label
+                                      htmlFor="password"
+                                      className="my-2 text-gray-500"
+                                    >
+                                      <span className="text-red-600">*</span>{" "}
+                                      Mật khẩu mới
+                                    </Label>
+                                    <div className="relative">
+                                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                                      <Input
+                                        type="password"
+                                        placeholder="************"
+                                        className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <Label
+                                      htmlFor="password"
+                                      className="my-2 text-gray-500"
+                                    >
+                                      <span className="text-red-600">*</span>{" "}
+                                      Xác nhận mật khẩu mới
+                                    </Label>
+                                    <div className="relative">
+                                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                                      <Input
+                                        type="password"
+                                        placeholder="************"
+                                        className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                                      />
+                                    </div>
+                                  </div>
+                                  <Button className="w-full bg-[#8B008B] text-white cursor-pointer hover:opacity-80 my-2">
+                                    CẬP NHẬT
+                                  </Button>
+                                </form>
                               </DialogDescription>
                             </DialogHeader>
-                            <DialogFooter>
-                              <Button className="w-full bg-[#8B008B] text-white cursor-pointer hover:opacity-80">
-                                CẬP NHẬT
-                              </Button>
-                            </DialogFooter>
                           </DialogContent>
                         </Dialog>
                       </div>
                     </div>
-
+                    <div>
+                      <Label htmlFor="name" className="my-2">
+                        <span className="text-red-600">*</span>Tỉnh/Thành phố
+                      </Label>
+                      <div className="relative">
+                        <Locate className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                        <Input
+                          type="text"
+                          placeholder="Hà Nội"
+                          className="pl-10 focus-visible:shadow-none focus-visible:ring-0"
+                          {...register("city", { required: true })}
+                        />
+                      </div>
+                    </div>
                     <div className="space-y-2 mb-8">
                       <Label htmlFor="password" className="my-2">
                         <span className="text-red-600">*</span> Giới tính
                       </Label>
-                      <RadioGroup defaultValue="boy" className="flex flex-row">
+                      <RadioGroup
+                        disabled
+                        defaultValue="boy"
+                        className="flex flex-row"
+                      >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="boy" id="boy" />
                           <Label htmlFor="boy">Nam</Label>
@@ -342,7 +371,7 @@ const Profile = () => {
                       Cập Nhật
                     </Button>
                   </div>
-                </div>
+                </form>
               </TabsContent>
               <TabsContent value="transaction">
                 <Table>

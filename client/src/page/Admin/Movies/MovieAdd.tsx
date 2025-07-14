@@ -53,6 +53,7 @@ const MovieAdd = () => {
   } = useForm<Movies>({
     defaultValues: {
       title: "",
+      trailerUrl: "",
       runningTime: 0,
       genre: "",
       director: "",
@@ -88,6 +89,7 @@ const MovieAdd = () => {
               <p className="text-sm text-red-500">Vui lòng nhập tiêu đề</p>
             )}
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="running-time">Running time</Label>
             <Input
@@ -217,7 +219,18 @@ const MovieAdd = () => {
               </p>
             )}
           </div>
-
+          <div className="space-y-2">
+            <Label htmlFor="title">Trailer</Label>
+            <Input
+              className="focus-visible:ring-0"
+              type="text"
+              id="title"
+              {...register("trailerUrl", { required: true })}
+            />
+            {errors.title && (
+              <p className="text-sm text-red-500">Vui lòng nhập trailer</p>
+            )}
+          </div>
           <div className="space-y-2">
             <Label htmlFor="poster">Poster</Label>
             <Input
@@ -250,14 +263,14 @@ const MovieAdd = () => {
               <p className="text-sm text-red-500">Vui lòng nhập mô tả</p>
             )}
           </div>
-          <div className="space-x-4">
-            <Button className="bg-blue-600 text-white hover:opacity-80 cursor-pointer my-4">
-              <Link to='/admin/movie'>Quay Lại</Link>
-            </Button>
-            <Button className="bg-[#4CAF50] text-white hover:bg-[#45a049] cursor-pointer my-4">
-              Tạo
-            </Button>
-          </div>
+        </div>
+        <div className="space-x-4">
+          <Button className="bg-blue-600 text-white hover:opacity-80 cursor-pointer my-4">
+            <Link to="/admin/movie">Quay Lại</Link>
+          </Button>
+          <Button className="bg-[#4CAF50] text-white hover:bg-[#45a049] cursor-pointer my-4">
+            Tạo
+          </Button>
         </div>
       </form>
     </div>
