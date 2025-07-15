@@ -37,6 +37,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheaters, useUser } from "../hooks/useQuery";
 import type { Theater } from "../interface/theaters";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const id = localStorage.getItem("userId") || undefined;
@@ -242,14 +243,27 @@ const Navbar = () => {
                         <li>
                           <NavigationMenuLink
                             asChild
-                            onClick={() => {
-                              logout();
-                              navigate("/auth");
+                            onClick={(e) => {
+                              e.preventDefault();
+                              Swal.fire({
+                                title: "Bạn có chắc muốn đăng xuất?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Đăng xuất",
+                                cancelButtonText: "Hủy",
+                                confirmButtonColor: "#d33",
+                                cancelButtonColor: "#3085d6",
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  logout();
+                                  navigate("/auth");
+                                }
+                              });
                             }}
                           >
                             <Link
                               to="/auth"
-                              className="flex !flex-row items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"
+                              className="flex !flex-row w-full items-center gap-2 hover:bg-[#CC9999] text-black hover:text-white"
                             >
                               <LogOut /> Đăng Xuất
                             </Link>
@@ -417,8 +431,22 @@ const Navbar = () => {
                   <Link
                     to="/auth"
                     className="flex items-center gap-2 bg-[#CC9999] text-black hover:opacity-80 px-4 py-2 rounded"
-                    onClick={() => {
-                      logout();
+                    onClick={(e) => {
+                      e.preventDefault();
+                      Swal.fire({
+                        title: "Bạn có chắc muốn đăng xuất?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Đăng xuất",
+                        cancelButtonText: "Hủy",
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          logout();
+                          navigate("/auth");
+                        }
+                      });
                     }}
                   >
                     <LogOut className="text-gray-500" />

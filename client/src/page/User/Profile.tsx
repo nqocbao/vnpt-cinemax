@@ -434,10 +434,10 @@ const Profile = () => {
                         <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Hóa_Đơn:_'] md:before:content-none">
                           {ticket.bookingCode}
                         </TableCell>
-                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
+                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Tên_Phim:_'] md:before:content-none">
                           {ticket.movieTitle}
                         </TableCell>
-                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
+                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Số_Ghế:_'] md:before:content-none">
                           {ticket.seats.join(",")}
                         </TableCell>
                         <TableCell className="text-gray-600 md:font-medium text-right block md:table-cell before:content-['Tổng:_'] md:before:content-none">

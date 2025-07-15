@@ -1,45 +1,43 @@
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import React from 'react'
+import { useMovies, useTicketsAdmin, useUsers } from '@/components/hooks/useQuery'
+import type { GroupedTicket } from '@/components/interface/tickets'
+import { columns } from './Columns'
+import { DataTable } from './DataTable'
 
 const TicketList = () => {
+    const { data: tickets } = useTicketsAdmin()
+      const { data: movies } = useMovies();
+      const { data: users } = useUsers();
+    
+      const groupedTickets = tickets?.reduce((acc, ticket) => {
+        const { bookingCode } = ticket;
+        const movie = movies?.find((m) => m.id === ticket.movieId);
+        const user = users?.find((u) => u.id === ticket.userId);
+        if (!acc[bookingCode]) {
+          acc[bookingCode] = {
+            bookingCode,
+            userName: user?.name,
+            movieTitle: movie?.title,
+            status: ticket.status,
+            seats: [`${ticket.seat.seatRow}${ticket.seat.seatNumber}`],
+            totalPrice: ticket.price,
+          };
+        } else {
+          acc[bookingCode].seats.push(
+            `${ticket.seat.seatRow}${ticket.seat.seatNumber}`
+          );
+          acc[bookingCode].totalPrice += ticket.price;
+        }
+        return acc;
+      }, {});
+      const ticketList: GroupedTicket[] = groupedTickets
+        ? Object.values(groupedTickets)
+        : [];
   return (
     <div className='space-y-4'>
-        <div className="p-2 border border-gray-600">
-            <div className="p-2">
-                <h1>Người đặt: <strong>Minh Quân</strong></h1>
-            </div>
-            <div className="">
-                 <Table>
-                  {/* <TableCaption>Danh Sách Giao Dịch</TableCaption> */}
-                  <TableHeader className="hidden md:table-header-group">
-                    <TableRow>
-                      <TableHead className="w-[100px]">Hóa Đơn</TableHead>
-                      <TableHead>Tên Phim</TableHead>
-                      <TableHead>Số Ghế</TableHead>
-                      <TableHead className="text-right">Tổng</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                      <TableRow
-                        className="block md:table-row"
-                      >
-                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Hóa_Đơn:_'] md:before:content-none">
-                            F813819
-                        </TableCell>
-                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
-                            Superman
-                        </TableCell>
-                        <TableCell className="text-gray-600 md:font-medium block md:table-cell before:content-['Trạng_Thái:_'] md:before:content-none">
-                            E5,E6
-                        </TableCell>
-                        <TableCell className="text-gray-600 md:font-medium text-right block md:table-cell before:content-['Tổng:_'] md:before:content-none">
-                            256.000 vnđ
-                        </TableCell>
-                      </TableRow>
-                  </TableBody>
-                </Table>
-            </div>
-        </div>
+     <h1 className="text-center text-2xl font-medium">
+        <i>Danh Sách Giao Dịch</i>
+      </h1>
+     <DataTable columns={columns} data={ticketList}/>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import type { Movies } from "../interface/movies";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../custom/ShowAlert";
-import type { User } from "@/page/Admin/User/Columns";
+import type { User } from "../interface/user";
 
 // Delete User Admin
 export const useDeleteUser = () => {

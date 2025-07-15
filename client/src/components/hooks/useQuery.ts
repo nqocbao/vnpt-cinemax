@@ -100,3 +100,13 @@ export function useTicket(id?: string | number) {
     },
   });
 }
+
+export function useTicketsAdmin() {
+  return useQuery({
+    queryKey: ["TICKETS"],
+    queryFn: async () => {
+      const res = await axios.get('/api/admin/tickets');
+      return res.data;
+    },
+  });
+}

@@ -15,13 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { useDeleteUser } from "@/components/hooks/useMutation";
-export type User = {
-  id: number | string;
-  email: string;
-  phone: number;
-  name: string;
-  gender: string;
-};
+import type { User } from "@/components/interface/user";
+
 
 export const columns: ColumnDef<User>[] = [
   {

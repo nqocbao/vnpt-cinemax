@@ -13,6 +13,7 @@ export interface Ticket {
 export interface GroupedTicket {
   bookingCode: string;
   movieTitle: string;
+  userName: string;
   status: Ticket["status"];
   seats: string[];
   totalPrice: number;

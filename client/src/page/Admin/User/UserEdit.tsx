@@ -81,6 +81,7 @@ const UserEdit = () => {
             className="focus-visible:ring-0"
             type="number"
             id="phone"
+            pattern="[0-9]"
             {...register("phone", { required: "Phone is required" })}
           />
           {errors.phone && (

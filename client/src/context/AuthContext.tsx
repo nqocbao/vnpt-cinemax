@@ -3,12 +3,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface UserInfo {
   userId: string | null;
   token: string | null;
+  role: string | null;
 }
 
 interface AuthContextType {
   user: UserInfo;
   isLoggedIn: boolean;
-  login: (userId: string, token: string) => void;
+  login: (userId: string, token: string, role: string) => void;
   logout: () => void;
 }
 
@@ -20,20 +21,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<UserInfo>({
     userId: localStorage.getItem("userId"),
     token: localStorage.getItem("token"),
+    role: localStorage.getItem("role"),
   });
 
   const isLoggedIn = !!user.token && !!user.userId;
 
-  const login = (userId: string, token: string) => {
+  const login = (userId: string, token: string, role: string) => {
     localStorage.setItem("userId", userId);
     localStorage.setItem("token", token);
-    setUser({ userId, token });
+    localStorage.setItem("role", role);
+    setUser({ userId, token, role });
   };
 
   const logout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
-    setUser({ userId: null, token: null });
+    localStorage.removeItem("role");
+    setUser({ userId: null, token: null, role: null });
   };
 
   // Sync state with localStorage changes (multi-tab)
@@ -42,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser({
         userId: localStorage.getItem("userId"),
         token: localStorage.getItem("token"),
+        role: localStorage.getItem("role"),
       });
     };
     window.addEventListener("storage", sync);
