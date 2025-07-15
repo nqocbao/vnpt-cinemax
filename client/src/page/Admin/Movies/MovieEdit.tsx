@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/popover";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { movieSchema, type MovieForm } from "@/validation/movieSchema";
 
 function formatDate(date: Date | undefined) {
   if (!date) {
@@ -55,7 +57,9 @@ const MovieEdit = () => {
     reset,
     watch,
     setValue,
-  } = useForm<Movies>();
+  } = useForm<MovieForm>({
+    resolver: zodResolver(movieSchema)
+  });
 
   useEffect(() => {
     if (movie) {
@@ -64,7 +68,6 @@ const MovieEdit = () => {
         title: movie.title,
         trailerUrl: movie.trailerUrl,
         runningTime: movie.runningTime,
-        movieTime: movie.movieTime,
         genre: movie.genre,
         director: movie.director,
         cast: movie.cast,
@@ -103,7 +106,7 @@ const MovieEdit = () => {
               {...register("title", { required: true })}
             />
             {errors.title && (
-              <p className="text-sm text-red-500">Vui lòng nhập tiêu đề</p>
+              <p className="text-sm text-red-500">{errors.title.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -112,10 +115,10 @@ const MovieEdit = () => {
               className="focus-visible:ring-0"
               type="number"
               id="running-time"
-              {...register("runningTime", { required: true })}
+              {...register("runningTime", { valueAsNumber: true })}
             />
             {errors.runningTime && (
-              <p className="text-sm text-red-500">Vui lòng nhập thời lượng</p>
+              <p className="text-sm text-red-500">{errors.runningTime.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -127,7 +130,7 @@ const MovieEdit = () => {
               {...register("genre", { required: true })}
             />
             {errors.genre && (
-              <p className="text-sm text-red-500">Vui lòng nhập thể loại</p>
+              <p className="text-sm text-red-500">{errors.genre.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -139,7 +142,7 @@ const MovieEdit = () => {
               {...register("director", { required: true })}
             />
             {errors.director && (
-              <p className="text-sm text-red-500">Vui lòng nhập tên đạo diễn</p>
+              <p className="text-sm text-red-500">{errors.director.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -152,7 +155,7 @@ const MovieEdit = () => {
             />
             {errors.cast && (
               <p className="text-sm text-red-500">
-                Vui lòng nhập tên diễn viên
+                {errors.cast.message}
               </p>
             )}
           </div>
@@ -165,7 +168,7 @@ const MovieEdit = () => {
               {...register("language", { required: true })}
             />
             {errors.language && (
-              <p className="text-sm text-red-500">Vui lòng nhập quốc gia</p>
+              <p className="text-sm text-red-500">{errors.language.message}</p>
             )}
           </div>
 
@@ -232,7 +235,7 @@ const MovieEdit = () => {
             />
             {errors.releaseDate && (
               <p className="text-sm text-red-500">
-                Vui lòng chọn ngày phát hành
+                {errors.releaseDate.message}
               </p>
             )}
           </div>
@@ -244,8 +247,8 @@ const MovieEdit = () => {
               id="title"
               {...register("trailerUrl", { required: true })}
             />
-            {errors.title && (
-              <p className="text-sm text-red-500">Vui lòng nhập trailer</p>
+            {errors.trailerUrl && (
+              <p className="text-sm text-red-500">{errors.trailerUrl.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -257,7 +260,7 @@ const MovieEdit = () => {
               {...register("ageLimit", { required: true })}
             />
             {errors.ageLimit && (
-              <p className="text-sm text-red-500">Vui lòng nhập tuổi</p>
+              <p className="text-sm text-red-500">{errors.ageLimit.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -269,7 +272,7 @@ const MovieEdit = () => {
               {...register("posterUrl", { required: true })}
             />
             {errors.posterUrl && (
-              <p className="text-sm text-red-500">Vui lòng nhập ảnh</p>
+              <p className="text-sm text-red-500">{errors.posterUrl.message}</p>
             )}
             <img src={posterUrl} alt="" className="w-30 h-20" />
           </div>
@@ -282,7 +285,7 @@ const MovieEdit = () => {
               {...register("content", { required: true })}
             />
             {errors.content && (
-              <p className="text-sm text-red-500">Vui lòng nhập mô tả</p>
+              <p className="text-sm text-red-500">{errors.content.message}</p>
             )}
           </div>
         </div>

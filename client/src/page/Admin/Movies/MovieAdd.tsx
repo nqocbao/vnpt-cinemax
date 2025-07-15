@@ -16,7 +16,9 @@ import {
 } from "@/components/ui/popover";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
+import {z} from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { movieSchema, type MovieForm } from "@/validation/movieSchema";
 function formatDate(date: Date | undefined) {
   if (!date) {
     return "";
@@ -36,6 +38,9 @@ function isValidDate(date: Date | undefined) {
   return !isNaN(date.getTime());
 }
 
+
+
+
 const MovieAdd = () => {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState<Date | undefined>(
@@ -50,7 +55,7 @@ const MovieAdd = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<Movies>({
+  } = useForm<MovieForm>({
     defaultValues: {
       title: "",
       trailerUrl: "",
@@ -63,6 +68,7 @@ const MovieAdd = () => {
       releaseDate: "",
       posterUrl: "",
     },
+    resolver: zodResolver(movieSchema)
   });
 
   const onSubmit = (movie: Movies) => {
@@ -86,7 +92,7 @@ const MovieAdd = () => {
               {...register("title", { required: true })}
             />
             {errors.title && (
-              <p className="text-sm text-red-500">Vui lòng nhập tiêu đề</p>
+              <p className="text-sm text-red-500">{errors.title.message}</p>
             )}
           </div>
 
@@ -96,10 +102,10 @@ const MovieAdd = () => {
               className="focus-visible:ring-0"
               type="number"
               id="running-time"
-              {...register("runningTime", { required: true })}
+              {...register("runningTime", { valueAsNumber: true })}
             />
             {errors.runningTime && (
-              <p className="text-sm text-red-500">Vui lòng nhập thời lượng</p>
+              <p className="text-sm text-red-500">{errors.runningTime.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -111,7 +117,7 @@ const MovieAdd = () => {
               {...register("genre", { required: true })}
             />
             {errors.genre && (
-              <p className="text-sm text-red-500">Vui lòng nhập thể loại</p>
+              <p className="text-sm text-red-500">{errors.genre.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -123,7 +129,7 @@ const MovieAdd = () => {
               {...register("director", { required: true })}
             />
             {errors.director && (
-              <p className="text-sm text-red-500">Vui lòng nhập tên đạo diễn</p>
+              <p className="text-sm text-red-500">{errors.director.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -136,7 +142,7 @@ const MovieAdd = () => {
             />
             {errors.cast && (
               <p className="text-sm text-red-500">
-                Vui lòng nhập tên diễn viên
+                {errors.cast.message}
               </p>
             )}
           </div>
@@ -149,7 +155,7 @@ const MovieAdd = () => {
               {...register("language", { required: true })}
             />
             {errors.language && (
-              <p className="text-sm text-red-500">Vui lòng nhập quốc gia</p>
+              <p className="text-sm text-red-500">{errors.language.message}</p>
             )}
           </div>
           <div className="flex flex-col gap-3">
@@ -215,7 +221,7 @@ const MovieAdd = () => {
             />
             {errors.releaseDate && (
               <p className="text-sm text-red-500">
-                Vui lòng chọn ngày phát hành
+                {errors.releaseDate.message}
               </p>
             )}
           </div>
@@ -227,8 +233,8 @@ const MovieAdd = () => {
               id="title"
               {...register("trailerUrl", { required: true })}
             />
-            {errors.title && (
-              <p className="text-sm text-red-500">Vui lòng nhập trailer</p>
+            {errors.trailerUrl && (
+              <p className="text-sm text-red-500">{errors.trailerUrl.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -239,6 +245,9 @@ const MovieAdd = () => {
               id="poster"
               {...register("posterUrl", { required: true })}
             />
+              {errors.posterUrl && (
+              <p className="text-sm text-red-500">{errors.posterUrl.message}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="age">Age</Label>
@@ -249,7 +258,7 @@ const MovieAdd = () => {
               {...register("ageLimit", { required: true })}
             />
             {errors.ageLimit && (
-              <p className="text-sm text-red-500">Vui lòng nhập tuổi</p>
+              <p className="text-sm text-red-500">{errors.ageLimit.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -260,7 +269,7 @@ const MovieAdd = () => {
               {...register("content", { required: true })}
             />
             {errors.content && (
-              <p className="text-sm text-red-500">Vui lòng nhập mô tả</p>
+              <p className="text-sm text-red-500">{errors.content.message}</p>
             )}
           </div>
         </div>

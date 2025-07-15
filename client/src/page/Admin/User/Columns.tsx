@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 
 import {
@@ -15,13 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { useDeleteUser } from "@/components/hooks/useMutation";
-export type User = {
-  id: number | string;
-  email: string;
-  phone: number;
-  name: string;
-  gender: string;
-};
+import type { User } from "@/components/interface/user";
+
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -76,10 +71,10 @@ export const columns: ColumnDef<User>[] = [
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              <Link to={`edit/${user.id}`}>Update</Link>
+              <Link to={`edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white" onClick={() => deleteUser(user.id)}>
-              Delete
+              <Trash2 className="text-red-500"/> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

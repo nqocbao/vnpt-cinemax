@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import type { Movies } from "../interface/movies";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../custom/ShowAlert";
-import type { User } from "@/page/Admin/User/Columns";
+import type { User } from "../interface/user";
 
 // Delete User Admin
 export const useDeleteUser = () => {
@@ -50,7 +50,7 @@ export const useDeleteMovie = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string | number) => {
+    mutationFn: async (id?: string | number) => {
       const result = await Swal.fire({
         title: "Bạn có chắc chắn?",
         text: "Bạn sẽ không thể hoàn tác thao tác này!",

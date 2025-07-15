@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star, Video } from "lucide-react";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const MovieList = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [tab, setTab] = useState("nowPlaying");
@@ -98,7 +98,7 @@ const MovieList = () => {
                               onClick={() => handleBooking(movie.id.toString())}
                             >
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
-                              Mua vé
+                              <Link to="/booking">Mua vé</Link>
                             </Button>
                             <Button
                               className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
@@ -142,7 +142,7 @@ const MovieList = () => {
                               onClick={() => handleBooking(movie.id.toString())}
                             >
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
-                              Mua vé
+                              <Link to="/booking">Mua vé</Link>
                             </Button>
                             <Button
                               className="w-28 px-4 py-2 text-white rounded hover:bg-[#CC9999] border border-white cursor-pointer bg-transparent"
