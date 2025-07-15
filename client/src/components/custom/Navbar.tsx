@@ -22,6 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import AuthDialog from "@/components/custom/AuthDialog";
 import { useAuth } from "@/context/AuthContext";
 import {
   Award,
@@ -45,6 +46,7 @@ const Navbar = () => {
   const { data: theaters } = useTheaters();
   const { data: users } = useUser(id);
   const [filterTitle, setFilterTitle] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleFilter = () => {
     if (filterTitle.trim()) {
@@ -52,6 +54,16 @@ const Navbar = () => {
     } else {
       navigate("/");
     }
+  };
+
+  const handleBooking = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setDialogOpen(true);
+      return;
+    }
+    navigate("/booking");
   };
 
   return (
@@ -66,14 +78,12 @@ const Navbar = () => {
               alt="Logo"
               className="flex items-center h-8 sm:h-10 md:h-14 lg:h-20"
             />
-            <Button className="bg-[#8B008B] text-white hover:bg-[#6A006A] px-1 py-0.5 h-6 md:h-8 lg:h-9 lg:px-4 lg:py-2">
+            <Button
+              className="bg-[#8B008B] text-white hover:bg-[#6A006A] px-1 py-0.5 h-6 md:h-8 lg:h-9 lg:px-4 lg:py-2"
+              onClick={handleBooking}
+            >
               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
-              <Link
-                to="/booking"
-                className="sm:text-xs md:text-sm lg:text-base"
-              >
-                Mua Vé
-              </Link>
+              <span className="sm:text-xs md:text-sm lg:text-base">Mua Vé</span>
             </Button>
           </div>
         </Link>
@@ -433,6 +443,13 @@ const Navbar = () => {
         {/* End Login/Profile */}
       </nav>
       {/* End Navbar */}
+      <AuthDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type="error"
+        action="login"
+        message="Bạn cần đăng nhập để đặt vé!"
+      />
     </div>
   );
 };

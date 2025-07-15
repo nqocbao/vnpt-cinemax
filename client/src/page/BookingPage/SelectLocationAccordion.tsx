@@ -75,7 +75,7 @@ const SelectLocationAccordion: React.FC<SelectLocationAccordionProps> = ({
                   setSelectedCity("");
                 } else {
                   setSelectedCity(city);
-                  setSelectedMovie({ id: -1, title: "" } as Movies);
+                  // setSelectedMovie({ id: -1, title: "" } as Movies);
                   setSelectDisplayAccord("movie");
                 }
               }}
@@ -98,7 +98,7 @@ const SelectLocationAccordion: React.FC<SelectLocationAccordionProps> = ({
         <AccordionContent>
           <Carousel className="w-full relative">
             <CarouselContent>
-              {movies.slice(0, 8).map((movie: Movies) => (
+              {movies.map((movie: Movies) => (
                 <CarouselItem
                   key={movie.id}
                   className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/4 xl:basis-1/4"

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi, 
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -16,15 +16,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { useMovies, useTheaters } from "@/components/hooks/useQuery";
+import type { Movies } from "@/components/interface/movies";
+import type { Theater } from "@/components/interface/theaters";
+import AuthDialog from "@/components/custom/AuthDialog";
 
 const Slider = () => {
+  const navigate = useNavigate();
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
-const [selectedMovie, setSelectedMovie] = useState('');
-const [selectedCinema, setSelectedCinema] = useState('');
-const [selectedDate, setSelectedDate] = useState('');
-const [selectedTime, setSelectedTime] = useState('');
+  const [selectedMovie, setSelectedMovie] = useState("");
+  const [selectedCinema, setSelectedCinema] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { data: movies } = useMovies();
+  const { data: theaters } = useTheaters();
 
   const plugin = React.useRef(
     Autoplay({
@@ -33,7 +43,7 @@ const [selectedTime, setSelectedTime] = useState('');
     })
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) {
       return;
     }
@@ -45,6 +55,22 @@ const [selectedTime, setSelectedTime] = useState('');
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
+  const handleBooking = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setDialogOpen(true);
+      return;
+    }
+    navigate("/booking", {
+      state: {
+        selectedMovie: selectedMovie,
+        selectedCinema: selectedCinema,
+        selectedDate: selectedDate,
+        selectedTime: selectedTime,
+      },
+    });
+  };
 
   return (
     <div className="w-full relative space-y-4">
@@ -108,24 +134,14 @@ const [selectedTime, setSelectedTime] = useState('');
             <SelectValue placeholder="Phim" />
           </SelectTrigger>
           <SelectContent className="bg-white">
-            <SelectItem
-              className="hover:bg-[#CC9999] hover:text-white"
-              value="movie1"
-            >
-              Phim 1
-            </SelectItem>
-            <SelectItem
-              className="hover:bg-[#CC9999] hover:text-white"
-              value="movie2"
-            >
-              Phim 2
-            </SelectItem>
-            <SelectItem
-              className="hover:bg-[#CC9999] hover:text-white"
-              value="system"
-            >
-              System
-            </SelectItem>
+            {(movies ?? []).map((movie: Movies) => (
+              <SelectItem
+                className="hover:bg-[#CC9999] hover:text-white"
+                value={movie.id.toString()}
+              >
+                {movie.title}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select onValueChange={setSelectedCinema} disabled={!selectedMovie}>
@@ -133,18 +149,14 @@ const [selectedTime, setSelectedTime] = useState('');
             <SelectValue placeholder="Chọn rạp" />
           </SelectTrigger>
           <SelectContent className="bg-white">
-            <SelectItem
-              className="hover:bg-[#CC9999] hover:text-white"
-              value="cinema1"
-            >
-              Rạp 1
-            </SelectItem>
-            <SelectItem
-              className="hover:bg-[#CC9999] hover:text-white"
-              value="cinema2"
-            >
-              Rạp 2
-            </SelectItem>
+            {(theaters ?? []).map((theater: Theater) => (
+              <SelectItem
+                className="hover:bg-[#CC9999] hover:text-white"
+                value={theater.location}
+              >
+                {theater.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select onValueChange={setSelectedDate} disabled={!selectedCinema}>
@@ -154,15 +166,21 @@ const [selectedTime, setSelectedTime] = useState('');
           <SelectContent className="bg-white">
             <SelectItem
               className="hover:bg-[#CC9999] hover:text-white"
-              value="light"
+              value="2025-07-06"
             >
-              02/07/2025
+              2025-07-06
             </SelectItem>
             <SelectItem
               className="hover:bg-[#CC9999] hover:text-white"
-              value="dark"
+              value="2025-07-07"
             >
-              03/07/2025
+              2025-07-07
+            </SelectItem>
+            <SelectItem
+              className="hover:bg-[#CC9999] hover:text-white"
+              value="2025-07-08"
+            >
+              2025-07-08
             </SelectItem>
           </SelectContent>
         </Select>
@@ -173,28 +191,45 @@ const [selectedTime, setSelectedTime] = useState('');
           <SelectContent className="bg-white">
             <SelectItem
               className="hover:bg-[#CC9999] hover:text-white"
-              value="light"
+              value="13:15"
             >
-              10:00
+              13:15
             </SelectItem>
             <SelectItem
               className="hover:bg-[#CC9999] hover:text-white"
-              value="dark"
+              value="14:45"
             >
-              14:00
+              14:45
             </SelectItem>
             <SelectItem
               className="hover:bg-[#CC9999] hover:text-white"
-              value="system"
+              value="20:15"
             >
-              20:00
+              20:15
+            </SelectItem>
+            <SelectItem
+              className="hover:bg-[#CC9999] hover:text-white"
+              value="21:30"
+            >
+              21:30
             </SelectItem>
           </SelectContent>
         </Select>
-        <Button className="bg-[#8B008B] text-white hover:opacity-80 cursor-pointer rounded-none" disabled={!selectedTime}>
+        <Button
+          className="bg-[#8B008B] text-white hover:opacity-80 cursor-pointer rounded-none"
+          disabled={!selectedTime}
+          onClick={handleBooking}
+        >
           Mua Vé Nhanh
         </Button>
       </div>
+      <AuthDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type="error"
+        action="login"
+        message="Bạn cần đăng nhập để đặt vé!"
+      />
     </div>
   );
 };

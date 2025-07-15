@@ -106,17 +106,56 @@ const PAYMENT_METHODS = [
   },
 ];
 
-export default function WrapperBooking() {
+interface BookingData {
+  selectedMovie?: string;
+  selectedCinema?: string;
+  selectedDate?: string;
+  selectedTime?: string;
+}
+
+interface WrapperBookingProps {
+  bookingData: BookingData;
+}
+
+export default function WrapperBooking({ bookingData }: WrapperBookingProps) {
   const navigate = useNavigate();
-  const [selectedCity, setSelectedCity] = useState<string>("");
-  const [selectedMovie, setSelectedMovie] = useState<Movies | null>(null);
-  const [selectedShowtime, setSelectedShowtime] = useState<string>("");
+  const { data: movies } = useMovies();
+  const { data: theaters = [] } = useTheaters();
+  const { bookTickets, loading: bookingLoading } = useBooking();
+  const { getBookedSeatsByShowtime } = useSeats();
+  const [soldSeats, setSoldSeats] = useState<{ row: string; col: string }[]>(
+    []
+  );
+  const [selectedCity, setSelectedCity] = useState<string>(
+    bookingData?.selectedCinema || ""
+  );
+  const [selectedMovie, setSelectedMovie] = useState<Movies | null>(() => {
+    if (bookingData?.selectedMovie && movies) {
+      const movieId = Number(bookingData.selectedMovie);
+      const found = movies.find((m: Movies) => Number(m.id) === movieId);
+      return found || null;
+    }
+    return null;
+  });
+  const [selectedShowtime, setSelectedShowtime] = useState<string>(
+    bookingData?.selectedTime || ""
+  );
+  const [selectedDate, setSelectedDate] = useState<string>(
+    bookingData?.selectedDate || "2025-07-06"
+  );
+  const [selectedTheater, setSelectedTheater] = useState<string>(() => {
+    if (bookingData?.selectedCinema && theaters.length > 0) {
+      const found = theaters.find(
+        (t: Theater) => t.location === bookingData.selectedCinema
+      );
+      return found ? found.name : "";
+    }
+    return "";
+  });
   const [selectedShowtimeId, setSelectedShowtimeId] = useState<number | null>(
     null
   );
   const [selectDisplayAccord, setSelectDisplayAccord] = useState("theater");
-  const [selectedDate, setSelectedDate] = useState("2025-07-06");
-  const [selectedTheater, setSelectedTheater] = useState("");
   const [selectedTheaterId, setSelectedTheaterId] = useState<number | null>(
     null
   );
@@ -137,14 +176,7 @@ export default function WrapperBooking() {
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [bookingCode, setBookingCode] = useState<string | null>(null);
 
-  const { data: movies } = useMovies();
-  const { data: theaters = [] } = useTheaters();
-  const { bookTickets, loading: bookingLoading } = useBooking();
-  const { getBookedSeatsByShowtime } = useSeats();
-  const [soldSeats, setSoldSeats] = useState<{ row: string; col: string }[]>(
-    []
-  );
-
+  // console.log(bookingData);
   useEffect(() => {
     const fetchSoldSeats = async () => {
       if (selectedMovie && selectedTheaterId && selectedShowtimeId) {
@@ -358,7 +390,7 @@ export default function WrapperBooking() {
 
   return (
     <div className="flex flex-col md:flex-row gap-8 w-full mt-8 px-3 md:px-10 pb-10">
-      <div className="flex-1 bg-white w-full rounded-lg shadow-md p-8">
+      <div className="flex-1 min-w-0 bg-white w-full rounded-lg shadow-md p-8">
         <BookingStepsTabs
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
@@ -522,37 +554,39 @@ export default function WrapperBooking() {
         />
       </div>
       {/* Sidebar */}
-      <SidebarBookingSummary
-        selectedMovie={selectedMovie}
-        movies={movies || []}
-        selectedTheater={selectedTheater}
-        selectedShowtime={selectedShowtime}
-        selectedDate={selectedDate}
-        selectedSeats={selectedSeats}
-        comboCounts={comboCounts}
-        COMBOS={COMBOS}
-        selectedTab={selectedTab}
-        onPrevStep={() => {
-          if (selectedTab === "step2") {
-            setSelectedTab("step1");
-            setSelectedShowtime("");
-            setSelectedDate("2025-07-06");
-            setSelectedTheater("");
-            setSelectDisplayAccord("showtime");
-            setSelectedSeats([]);
-          } else if (selectedTab === "step3") {
-            setSelectedTab("step2");
-            setComboCounts({});
-          } else if (selectedTab === "step4") {
-            setSelectedTab("step3");
-          } else if (selectedTab === "step5") {
-            setSelectedTab("step4");
-          }
-        }}
-        onNextStep={handleNextStep}
-        disableNext={!(selectedCity && selectedMovie && selectedShowtime)}
-        seatTimer={seatTimer}
-      />
+      <div className="w-full md:w-[350px] max-w-full">
+        <SidebarBookingSummary
+          selectedMovie={selectedMovie}
+          movies={movies || []}
+          selectedTheater={selectedTheater}
+          selectedShowtime={selectedShowtime}
+          selectedDate={selectedDate}
+          selectedSeats={selectedSeats}
+          comboCounts={comboCounts}
+          COMBOS={COMBOS}
+          selectedTab={selectedTab}
+          onPrevStep={() => {
+            if (selectedTab === "step2") {
+              setSelectedTab("step1");
+              setSelectedShowtime("");
+              setSelectedDate("2025-07-06");
+              setSelectedTheater("");
+              setSelectDisplayAccord("showtime");
+              setSelectedSeats([]);
+            } else if (selectedTab === "step3") {
+              setSelectedTab("step2");
+              setComboCounts({});
+            } else if (selectedTab === "step4") {
+              setSelectedTab("step3");
+            } else if (selectedTab === "step5") {
+              setSelectedTab("step4");
+            }
+          }}
+          onNextStep={handleNextStep}
+          disableNext={!(selectedCity && selectedMovie && selectedShowtime)}
+          seatTimer={seatTimer}
+        />
+      </div>
     </div>
   );
 }

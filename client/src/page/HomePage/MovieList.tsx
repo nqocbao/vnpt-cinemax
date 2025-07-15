@@ -7,7 +7,7 @@ import { Star, Video } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 const MovieList = () => {
-  const [dialogOpen, setDialogOpen] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [tab, setTab] = useState("nowPlaying");
   const navigate = useNavigate();
   const { data: movies, isLoading, isError, error } = useMovies();
@@ -31,6 +31,19 @@ const MovieList = () => {
         message={isError ? error.message : ""}
       />
     );
+
+  const handleBooking = (movieId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setDialogOpen(true);
+      return;
+    }
+    navigate("/booking", {
+      state: {
+        selectedMovie: movieId,
+      },
+    });
+  };
 
   return (
     <div>
@@ -80,7 +93,10 @@ const MovieList = () => {
                             className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[220px] md:h-[280px] lg:h-[420px] object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
-                            <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
+                            <Button
+                              className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
+                              onClick={() => handleBooking(movie.id.toString())}
+                            >
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                               Mua vé
                             </Button>
@@ -121,7 +137,10 @@ const MovieList = () => {
                             className="rounded-2xl group-hover:blur-xs duration-300 w-full h-[220px] md:h-[280px] lg:h-[420px] object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
-                            <Button className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer">
+                            <Button
+                              className="w-28 mb-2 px-4 py-2 bg-[#8B008B] text-white rounded hover:bg-[#6A006A] cursor-pointer"
+                              onClick={() => handleBooking(movie.id.toString())}
+                            >
                               <Star className="w-4 h-4 mr-1 hidden sm:flex" />
                               Mua vé
                             </Button>
@@ -157,6 +176,13 @@ const MovieList = () => {
         </div>
       </div>
       <div className="border-b-[6px] border-b-[#f4f4f4]"></div>
+      <AuthDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type="error"
+        action="login"
+        message="Bạn cần đăng nhập để đặt vé!"
+      />
     </div>
   );
 };

@@ -1,5 +1,9 @@
 import AuthDialog from "@/components/custom/AuthDialog";
-import { useMovieDetail, useMovies, useTheaters } from "@/components/hooks/useQuery";
+import {
+  useMovieDetail,
+  useMovies,
+  useTheaters,
+} from "@/components/hooks/useQuery";
 import type { Movies } from "@/components/interface/movies";
 import type { Theater } from "@/components/interface/theaters";
 import { Button } from "@/components/ui/button";
@@ -12,15 +16,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const MovieInfo = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [dialogOpen, setDialogOpen] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { data: movie, isLoading, isError, error } = useMovieDetail(id);
   const { data: movies } = useMovies();
-  const { data: theaters } = useTheaters()
+  const { data: theaters } = useTheaters();
 
   if (isLoading || isError)
     return (
@@ -38,6 +43,15 @@ const MovieInfo = () => {
 
   const scrollRight = () => {
     api?.scrollNext();
+  };
+
+  const handleBooking = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setDialogOpen(true);
+      return;
+    }
+    navigate("/booking", { state: { selectedMovie: id } });
   };
   return (
     <div className="max-w-screen-xl mx-auto py-2 px-2 md:px-4 xl:px-8">
@@ -95,7 +109,6 @@ const MovieInfo = () => {
                         {movie.genre}
                       </a>
                     </li>
-                    
                   </ul>
                 </div>
 
@@ -247,28 +260,28 @@ const MovieInfo = () => {
                             <span className="text-gray-500">2D Phụ Đề:</span>
                             <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   16:30
-                                </a>
+                                </button>
                               </li>
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   22:45
-                                </a>
+                                </button>
                               </li>
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   23:45
-                                </a>
+                                </button>
                               </li>
                             </ul>
                           </div>
@@ -276,20 +289,20 @@ const MovieInfo = () => {
                             <span className="text-gray-500">3D:</span>
                             <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   10:30
-                                </a>
+                                </button>
                               </li>
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   13:45
-                                </a>
+                                </button>
                               </li>
                             </ul>
                           </div>
@@ -299,7 +312,7 @@ const MovieInfo = () => {
                   </TabsContent>
                   <TabsContent value="tuesday" className="space-y-8">
                     {theaters?.map((theater: any) => (
-                      <div>
+                      <div key={theater.id}>
                         <h1 className="text-base font-semibold mb-4">
                           {theater.name}
                         </h1>
@@ -308,28 +321,28 @@ const MovieInfo = () => {
                             <span className="text-gray-500">2D Phụ Đề:</span>
                             <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   10:30
-                                </a>
+                                </button>
                               </li>
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   11:45
-                                </a>
+                                </button>
                               </li>
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   20:45
-                                </a>
+                                </button>
                               </li>
                             </ul>
                           </div>
@@ -337,12 +350,12 @@ const MovieInfo = () => {
                             <span className="text-gray-500">3D:</span>
                             <ul className="md:ml-2 flex flex-wrap gap-1 flex-1">
                               <li className="inline-block">
-                                <a
-                                  href="#"
+                                <button
+                                  onClick={handleBooking}
                                   className="text-gray-700 inline-flex border border-gray-300 hover:bg-[#8B008B] hover:text-white rounded-lg px-4 py-2"
                                 >
                                   13:45
-                                </a>
+                                </button>
                               </li>
                             </ul>
                           </div>
@@ -394,6 +407,13 @@ const MovieInfo = () => {
         </div>
         {/* End */}
       </div>
+      <AuthDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        type="error"
+        action="login"
+        message="Bạn cần đăng nhập để đặt vé!"
+      />
     </div>
   );
 };
