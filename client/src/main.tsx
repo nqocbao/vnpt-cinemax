@@ -23,6 +23,7 @@ import NowMovies from "./page/Movies/NowMovies.tsx";
 import NotFound from "./page/NotFound.tsx";
 import Profile from "./page/User/Profile.tsx";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute.tsx";
+import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute.tsx";
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
@@ -31,15 +32,17 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/now-movies" element={<NowMovies />} />
-            <Route path="/coming-movies" element={<ComingSoonMovies />} />
-            <Route path="/blog-movie" element={<BlogPage />} />
-            <Route path="/review-movie" element={<ReviewPage />} />
+            <Route element={<ProtectedCustomerRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/booking" element={<Booking />} />
+              <Route path="/now-movies" element={<NowMovies />} />
+              <Route path="/coming-movies" element={<ComingSoonMovies />} />
+              <Route path="/blog-movie" element={<BlogPage />} />
+              <Route path="/review-movie" element={<ReviewPage />} />
+            </Route>
             <Route element={<ProtectedAdminRoute />}>
               <Route path="/admin" element={<AdminDashboard />}>
                 <Route index element={<MovieList />} />

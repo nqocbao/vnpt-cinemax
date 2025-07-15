@@ -1,10 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white px-6 py-12">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-6 py-12">
       <h1 className="text-[150px] font-extrabold text-gray-300 leading-none select-none">
         404
       </h1>
@@ -21,8 +19,7 @@ const NotFound = () => {
         GO TO HOMEPAGE
       </Link>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;

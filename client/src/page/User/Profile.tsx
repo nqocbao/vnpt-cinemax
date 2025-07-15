@@ -107,7 +107,7 @@ const Profile = () => {
     : [];
 
   const filteredTickets: GroupedTicket[] = ticketList.filter((ticket) =>
-    ticket.bookingCode.toLowerCase().includes(filtered.toLowerCase())
+    ticket.bookingCode?.toLowerCase().includes(filtered?.toLowerCase())
   );
   return (
     <MainLayout>

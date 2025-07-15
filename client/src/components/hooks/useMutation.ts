@@ -50,7 +50,7 @@ export const useDeleteMovie = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string | number) => {
+    mutationFn: async (id?: string | number) => {
       const result = await Swal.fire({
         title: "Bạn có chắc chắn?",
         text: "Bạn sẽ không thể hoàn tác thao tác này!",

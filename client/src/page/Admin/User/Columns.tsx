@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 
 import {
@@ -71,10 +71,10 @@ export const columns: ColumnDef<User>[] = [
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              <Link to={`edit/${user.id}`}>Update</Link>
+              <Link to={`edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white" onClick={() => deleteUser(user.id)}>
-              Delete
+              <Trash2 className="text-red-500"/> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
