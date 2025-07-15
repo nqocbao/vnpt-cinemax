@@ -2,6 +2,7 @@ import AuthDialog from "@/components/custom/AuthDialog";
 import { useMovies } from "@/components/hooks/useQuery";
 import type { Movies } from "@/components/interface/movies";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import MainLayout from "@/layouts/MainLayout";
 import { Star, Video } from "lucide-react";
 import { useState } from "react";
@@ -12,6 +13,7 @@ const NowMovies = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
   const navigate = useNavigate();
   const { data: movies, isLoading, isError, error } = useMovies();
+  const [search, setSearch] = useState("");
 
   if (isLoading || isError)
     return (
@@ -29,11 +31,26 @@ const NowMovies = () => {
       <div className="max-w-screen-xl mx-auto my-8 md:my-14">
         <div className="my-8 md:my-14 ">
           <div className="lg:ml-3 px-4 md:px-8 ">
-            <MovieTabs />
-            {/* Phim Đang Chiếu */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <div>
+                <MovieTabs />
+              </div>
+              <div className="w-full md:w-1/3">
+                <Input
+                  type="text"
+                  placeholder="Tìm kiếm phim..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
               {movies
                 ?.filter((movie: Movies) => Number(movie.id) % 2 === 1)
+                .filter((movie: Movies) =>
+                  movie.title.toLowerCase().includes(search.toLowerCase())
+                )
                 .map((movie: Movies) => (
                   <div className="space-y-2 group relative" key={movie.id}>
                     <div className="absolute top-2 left-2 bg-red-700 text-white p-1 md:p-2 rounded-md">
@@ -71,7 +88,7 @@ const NowMovies = () => {
 
           <div className="lg:ml-3 px-4 md:px-8 my-20">
             <div className="">
-              <h1 className="text-2xl  border-l-[4px] border-l-[#8B008B] pl-3 text-xl">
+              <h1 className="text-2xl  border-l-[4px] border-l-[#8B008B] pl-3 ">
                 PHIM ĐANG CHIẾU
               </h1>
             </div>

@@ -50,7 +50,7 @@ export default function Auth() {
       if (res.ok || data.status === 200) {
         // Lưu token và userId vào localStorage và context
         if (data.token && data.userId && data.role) {
-          login(data.userId.toString(), data.token);
+          login(data.userId.toString(), data.token, data.role);
           localStorage.setItem("role", data.role);
         }
         setDialogType("success");
@@ -105,7 +105,7 @@ export default function Auth() {
         // Lưu token và userId vào localStorage và context
         if (data.token && data.userId) {
           setTimeout(() => {
-            login(data.userId.toString(), data.token);
+            login(data.userId.toString(), data.token, "customer");
           }, 4000);
         }
         setRegisterName("");
@@ -134,10 +134,10 @@ export default function Auth() {
   };
 
   const handleRedirect = () => {
-    const role = localStorage.getItem("role")
-    if(role === "admin"){
-      navigate("/admin")
-    }else{
+    const role = localStorage.getItem("role");
+    if (role === "admin") {
+      navigate("/admin");
+    } else {
       navigate("/");
     }
   };
@@ -153,13 +153,13 @@ export default function Auth() {
           <TabsList className="grid grid-cols-2 w-full">
             <TabsTrigger
               value="login"
-              className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base"
+              className="data-[state=active]:bg-[#CC9999] data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base"
             >
               ĐĂNG NHẬP
             </TabsTrigger>
             <TabsTrigger
               value="register"
-              className="data-[state=active]:bg-blue-800 data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base"
+              className="data-[state=active]:bg-[#CC9999] data-[state=active]:text-white p-2 border border-b-[#ccc] rounded-none cursor-pointer text-sm md:text-base"
             >
               ĐĂNG KÝ
             </TabsTrigger>
@@ -207,7 +207,7 @@ export default function Auth() {
               </div>
               <div className="flex flex-col items-center space-y-3 mt-6">
                 <Button
-                  className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
+                  className="bg-[#CC9999] text-white hover:bg-[#c77c7c] hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
                   type="submit"
                   disabled={loading}
                 >
@@ -367,7 +367,7 @@ export default function Auth() {
               </div>
               <div className="flex flex-col items-center space-y-3 mt-6 col-span-2">
                 <Button
-                  className="bg-blue-700 text-white hover:bg-blue-800 hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
+                  className="bg-[#CC9999] text-white hover:bg-[#c77c7c] hover:shadow-lg hover:text-white cursor-pointer text-sm md:text-base"
                   type="submit"
                   disabled={registerLoading}
                 >
