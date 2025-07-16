@@ -86,7 +86,7 @@ export const DataTable = <TData, TValue>({
           }
           className="max-w-sm focus-visible:ring-0"
         />
-        <Button className="border border-[#000] hover:bg-gray-200"><Link to='add'>
+        <Button className="border border-[#000] hover:bg-gray-200"><Link to='/admin/movie/add'>
         Thêm mới
         </Link></Button>
         <DropdownMenu>
