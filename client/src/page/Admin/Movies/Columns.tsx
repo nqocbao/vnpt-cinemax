@@ -74,7 +74,7 @@ export const columns: ColumnDef<Movies>[] = [
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              <Link to={`edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
+              <Link to={`/admin/movie/edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="hover:bg-[#CC9999] hover:text-white"
