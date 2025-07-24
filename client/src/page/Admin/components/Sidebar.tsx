@@ -24,8 +24,8 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
             } transition-all duration-300`}
           />
         </div>
-        <div className="flex flex-1 flex-col justify-between px-2">
-          <ul className="flex flex-col py-4 gap-1">
+        <div className="flex flex-1 flex-col justify-between">
+          <ul className="flex flex-col py-4 gap-1 space-y-6">
             {/* <li>
               <Link
                 to="/admin"
@@ -60,7 +60,7 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
                       : "opacity-0 w-0 ml-0 overflow-hidden"
                   }`}
                 >
-                  User
+                  Quản lí tài khoản
                 </span>
               </Link>
             </li>
@@ -79,7 +79,7 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
                       : "opacity-0 w-0 ml-0 overflow-hidden"
                   }`}
                 >
-                  Movies
+                  Quản lí phim
                 </span>
               </Link>
             </li>
@@ -98,7 +98,7 @@ const Sidebar = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
                       : "opacity-0 w-0 ml-0 overflow-hidden"
                   }`}
                 >
-                  Ticket
+                  Quản lí vé
                 </span>
               </Link>
             </li>

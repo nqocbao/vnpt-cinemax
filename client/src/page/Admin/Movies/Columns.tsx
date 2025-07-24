@@ -26,7 +26,7 @@ export const columns: ColumnDef<Movies>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Tên Phim
           <ArrowUpDown className="ml-2 w-4 h-4" />
         </Button>
       );
@@ -34,23 +34,23 @@ export const columns: ColumnDef<Movies>[] = [
   },
   {
     accessorKey: "runningTime",
-    header: "Running Time",
+    header: "Thời Lượng",
   },
   {
     accessorKey: "releaseDate",
-    header: "Release Date",
+    header: "Ngày Phát Hành",
   },
   {
     accessorKey: "genre",
-    header: "Genre",
+    header: "Thể Loại",
   },
   {
     accessorKey: "director",
-    header: "Director",
+    header: "Đạo Diễn",
   },
   {
     accessorKey: "cast",
-    header: "Cast",
+    header: "Diễn Viên",
   },
 
   {
@@ -74,13 +74,13 @@ export const columns: ColumnDef<Movies>[] = [
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              <Link to={`/admin/movie/edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
+              <Link to={`/admin/movie/edit/${user.id}`}><Pencil className="text-yellow-500"/>Chỉnh Sửa</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => deleteMovie(user.id)}
             >
-              <Trash2 className="text-red-500"/> Delete
+              <Trash2 className="text-red-500"/> Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

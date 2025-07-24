@@ -79,7 +79,7 @@ export const DataTable = <TData, TValue>({
     <div className="w-full">
       <div className="flex items-center py-4 gap-2">
         <Input
-          placeholder="Filter title..."
+          placeholder="Tìm kiếm..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -87,12 +87,12 @@ export const DataTable = <TData, TValue>({
           className="max-w-sm focus-visible:ring-0"
         />
         <Button className="border border-[#000] hover:bg-gray-200"><Link to='/admin/movie/add'>
-        Thêm mới
+        Tạo phim
         </Link></Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
+              Cột <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-white relative z-50">
@@ -174,7 +174,7 @@ export const DataTable = <TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Trước
           </Button>
           <Button
             variant="outline"
@@ -182,7 +182,7 @@ export const DataTable = <TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Sau
           </Button>
         </div>
       </div>

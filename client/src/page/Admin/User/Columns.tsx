@@ -35,19 +35,19 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "phone",
-    header: "Phone",
+    header: "Số Điện Thoại",
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Tên",
   },
   {
     accessorKey: "gender",
-    header: "Gender",
+    header: "Giới Tính",
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: "Quyền",
   },
 
   {
@@ -71,10 +71,10 @@ export const columns: ColumnDef<User>[] = [
               className="hover:bg-[#CC9999] hover:text-white"
               onClick={() => navigator.clipboard.writeText(String(user.id))}
             >
-              <Link to={`/admin/user/edit/${user.id}`}><Pencil className="text-yellow-500"/>Edit</Link>
+              <Link to={`/admin/user/edit/${user.id}`}><Pencil className="text-yellow-500"/>Chỉnh Sửa</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-[#CC9999] hover:text-white" onClick={() => deleteUser(user.id)}>
-              <Trash2 className="text-red-500"/> Delete
+              <Trash2 className="text-red-500"/> Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

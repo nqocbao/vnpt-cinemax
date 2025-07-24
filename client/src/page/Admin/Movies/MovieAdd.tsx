@@ -84,7 +84,7 @@ const MovieAdd = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Tên phim</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -97,7 +97,7 @@ const MovieAdd = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="running-time">Running time</Label>
+            <Label htmlFor="running-time">Thời lượng</Label>
             <Input
               className="focus-visible:ring-0"
               type="number"
@@ -109,7 +109,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="genre">Genre</Label>
+            <Label htmlFor="genre">Thể loại</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -121,7 +121,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="director">Director</Label>
+            <Label htmlFor="director">Đạo diễn</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -133,7 +133,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="cast">Cast</Label>
+            <Label htmlFor="cast">Diễn viên</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -147,7 +147,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="language">Language</Label>
+            <Label htmlFor="language">Quốc gia</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -159,7 +159,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="flex flex-col gap-3">
-            <Label htmlFor="date">Release date</Label>
+            <Label htmlFor="date">Ngày phát hành</Label>
             <div className="relative flex gap-2">
               <Input
                 id="date"
@@ -190,7 +190,7 @@ const MovieAdd = () => {
                     className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
                   >
                     <CalendarIcon className="size-3.5" />
-                    <span className="sr-only">Select date</span>
+                    <span className="sr-only">Chọn ngày</span>
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
@@ -250,7 +250,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="age">Age</Label>
+            <Label htmlFor="age">Tuổi</Label>
             <Input
               className="focus-visible:ring-0"
               type="text"
@@ -262,7 +262,7 @@ const MovieAdd = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="content">Content</Label>
+            <Label htmlFor="content">Nội dung</Label>
             <Textarea
               id="content"
               className="h-30 focus-visible:ring-0"
